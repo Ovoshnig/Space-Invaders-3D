@@ -22,3 +22,4 @@ MonoBehaviour:
     <SnapshotTransitionDuration>k__BackingField: 0
   <PlayerSettings>k__BackingField:
     <WalkSpeed>k__BackingField: 5
+    <ShootCooldown>k__BackingField: 0.4

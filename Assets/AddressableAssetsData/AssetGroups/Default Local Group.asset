@@ -15,6 +15,11 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: cc28f5d8dce39af459f665b09b5a0b5b
   m_SerializeEntries:
+  - m_GUID: 88aa3a0762d3f12478590eb25c174d71
+    m_Address: Assets/Resources_moved/Audio/SFX/Player/shoot.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dfe260a8117fdc04eafa2a8233fe7c64
     m_Address: Audio/explosion
     m_ReadOnly: 0

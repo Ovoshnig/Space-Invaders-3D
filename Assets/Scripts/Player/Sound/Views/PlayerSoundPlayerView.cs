@@ -1,19 +1,18 @@
 ﻿using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.Audio;
 
 [RequireComponent(typeof(AudioSource))]
 public class PlayerSoundPlayerView : MonoBehaviour
 {
-    [SerializeField] private AssetReference _footstepReference;
-    [SerializeField] private AssetReference _landReference;
+    [SerializeField] private AssetReference _shootReference;
+    [SerializeField] private AssetReference _deathReference;
 
     private AudioSource _audioSource;
-    private AudioResource _footstepResource;
-    private AudioResource _landResource;
+    private AudioClip _shootResource;
+    private AudioClip _deathResource;
 
-    public AssetReference FootstepReference => _footstepReference;
-    public AssetReference LandReference => _landReference;
+    public AssetReference ShootReference => _shootReference;
+    public AssetReference DeathReference => _deathReference;
 
     private AudioSource AudioSource
     {
@@ -26,21 +25,13 @@ public class PlayerSoundPlayerView : MonoBehaviour
         }
     }
 
-    public void SetResources(AudioResource footstepResource, AudioResource landResource)
+    public void SetResources(AudioClip shootResource, AudioClip deathResource)
     {
-        _footstepResource = footstepResource;
-        _landResource = landResource;
+        _shootResource = shootResource;
+        _deathResource = deathResource;
     }
 
-    public void PlayStepSound()
-    {
-        AudioSource.resource = _footstepResource;
-        AudioSource.Play();
-    }
+    public void PlayShootSound() => AudioSource.PlayOneShot(_shootResource);
 
-    public void PlayLandSound()
-    {
-        AudioSource.resource = _landResource;
-        AudioSource.Play();
-    }
+    public void PlayDeathSound() => AudioSource.PlayOneShot(_deathResource);
 }

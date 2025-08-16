@@ -12,10 +12,10 @@
 
     public async override void Initialize()
     {
-        var (footstepResource, landResource) = await _playerSoundLoader.LoadSoundsAsync(
-            _playerSoundPlayerView.FootstepReference, 
-            _playerSoundPlayerView.LandReference);
-        _playerSoundPlayerView.SetResources(footstepResource, landResource);
+        var (shootResource, deathResource) = await _playerSoundLoader.LoadSoundsAsync(
+            _playerSoundPlayerView.ShootReference, 
+            _playerSoundPlayerView.DeathReference);
+        _playerSoundPlayerView.SetResources(shootResource, deathResource);
     }
 
     public override void Dispose()
