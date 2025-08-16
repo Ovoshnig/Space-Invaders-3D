@@ -8,6 +8,7 @@ public class GameplayLifetimeScope : LifetimeScope
     [SerializeField] private PlayerSoundPlayerView _playerSoundPlayerView;
     [SerializeField] private PlayerMoverView _playerMoverView;
     [SerializeField] private PlayerShooterView _playerShooterView;
+    [SerializeField] private BulletMoverView _bulletPrefab;
 
     protected override void Configure(IContainerBuilder builder)
     {
@@ -18,6 +19,8 @@ public class GameplayLifetimeScope : LifetimeScope
         ConfigurePlayerSound(builder);
         ConfigurePlayerMovement(builder);
         ConfigurePlayerShooting(builder);
+
+        ConfigureBulletMovement(builder);
     }
 
     private void ConfigurePlayerSound(IContainerBuilder builder)
@@ -61,6 +64,13 @@ public class GameplayLifetimeScope : LifetimeScope
             PlayerShooterView playerShooterView = container.Resolve<PlayerShooterView>();
             return new PlayerShooterMediator(playerShooter, playerShooterView);
         }, Lifetime.Singleton);
+    }
+
+    private void ConfigureBulletMovement(IContainerBuilder builder)
+    {
+        GameObject bulletRoot = new("Bullets");
+        builder.RegisterComponentInNewPrefab(_bulletPrefab, Lifetime.Transient)
+            .UnderTransform(bulletRoot.transform);
     }
 
     private void Start()

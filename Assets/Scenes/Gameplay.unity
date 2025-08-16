@@ -483,6 +483,7 @@ MonoBehaviour:
   _playerSoundPlayerView: {fileID: 6537306305954489289}
   _playerMoverView: {fileID: 686273736}
   _playerShooterView: {fileID: 6537306305954489288}
+  _bulletPrefab: {fileID: 4505751815344752465, guid: c3595c5ac4df8844097e05a778564933, type: 3}
 --- !u!1001 &1677319814324245352
 PrefabInstance:
   m_ObjectHideFlags: 0

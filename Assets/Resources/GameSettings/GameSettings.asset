@@ -23,3 +23,5 @@ MonoBehaviour:
   <PlayerSettings>k__BackingField:
     <WalkSpeed>k__BackingField: 5
     <ShootCooldown>k__BackingField: 0.4
+  <BulletSettings>k__BackingField:
+    <Speed>k__BackingField: 10

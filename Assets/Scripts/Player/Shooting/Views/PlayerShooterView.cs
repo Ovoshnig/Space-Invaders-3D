@@ -1,12 +1,16 @@
 using UnityEngine;
+using VContainer;
 
 public class PlayerShooterView : MonoBehaviour
 {
-    [SerializeField] private GameObject _bulletPrefab;
+    private IObjectResolver _container;
+
+    [Inject]
+    public void Construct(IObjectResolver container) => _container = container;
 
     public void Shoot()
     {
-        GameObject bullet = Instantiate(_bulletPrefab, transform);
-        bullet.transform.SetParent(null);
+        BulletMoverView bulletMoverView = _container.Resolve<BulletMoverView>();
+        bulletMoverView.transform.position = transform.position;
     }
 }
