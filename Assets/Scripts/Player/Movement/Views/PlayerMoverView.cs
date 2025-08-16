@@ -1,22 +1,33 @@
 using UnityEngine;
+using VContainer;
 
-[RequireComponent(typeof(CharacterController))]
 public class PlayerMoverView : MonoBehaviour
 {
-    private CharacterController _characterController;
-    
-    private CharacterController CharacterController
+    private FieldView _fieldView;
+    private MeshRenderer _meshRenderer;
+
+    [Inject]
+    public void Construct(FieldView fieldView) => _fieldView = fieldView;
+
+    private MeshRenderer MeshRenderer
     {
         get
         {
-            if (_characterController == null)
-                _characterController = GetComponent<CharacterController>();
+            if (_meshRenderer == null)
+                _meshRenderer = GetComponentInChildren<MeshRenderer>();
 
-            return _characterController;
+            return _meshRenderer;
         }
+        set => _meshRenderer = value;
     }
 
-    public void Move(Vector3 motion) => CharacterController.Move(motion);
+    public void Move(Vector3 motion)
+    {
+        var innerBounds = MeshRenderer.bounds;
+        var outerBounds = _fieldView.Bounds;
 
-    public void SetEulerAngles(Vector3 eulerAngles) => transform.eulerAngles = eulerAngles;
+        if (innerBounds.min.x + motion.x >= outerBounds.min.x && 
+            innerBounds.max.x + motion.x <= outerBounds.max.x)
+            transform.Translate(motion, Space.World);
+    }
 }

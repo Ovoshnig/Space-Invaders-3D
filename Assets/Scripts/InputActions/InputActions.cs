@@ -96,10 +96,19 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""name"": ""Walk"",
                     ""type"": ""Value"",
                     ""id"": ""5a638295-529c-4ed3-81e2-64796ff6972a"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""expectedControlType"": ""Axis"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Shoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""c2512b0a-d411-4995-a2b0-8df1048a0e5d"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 },
                 {
                     ""name"": ""Look"",
@@ -149,9 +158,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             ],
             ""bindings"": [
                 {
-                    ""name"": ""WASD"",
-                    ""id"": ""f42af700-8dc1-46ee-a22c-acbeec4a8b4b"",
-                    ""path"": ""2DVector"",
+                    ""name"": ""1D Axis"",
+                    ""id"": ""4b84db05-6832-4238-a5b3-52fa55db2a9b"",
+                    ""path"": ""1DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -160,45 +169,56 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""up"",
-                    ""id"": ""cce0eb0c-1ab4-49b4-88ef-156bc1d52cca"",
-                    ""path"": ""<Keyboard>/w"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Walk"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""95de4e5a-20da-4f95-aca0-f46cf5366996"",
-                    ""path"": ""<Keyboard>/s"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""Walk"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""d65be973-064e-44c2-b069-55c5cf4afced"",
+                    ""name"": ""negative"",
+                    ""id"": ""3e5e197c-5f88-4576-9220-f30420852f2b"",
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
+                    ""groups"": """",
                     ""action"": ""Walk"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""right"",
-                    ""id"": ""ba399402-a474-4a8a-9031-690d92d821cd"",
+                    ""name"": ""positive"",
+                    ""id"": ""eb93f9f5-374c-421f-8cb9-7b4474fe5cc2"",
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard and Mouse"",
+                    ""groups"": """",
+                    ""action"": ""Walk"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""efafcabb-3701-4361-8ab5-8531c6079c19"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Walk"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""aaed6c24-c217-4898-919f-6352e65d3d31"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Walk"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""745db0ec-9505-42b5-b21d-a8e65c284e80"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
                     ""action"": ""Walk"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -255,6 +275,17 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Zoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c45449b9-5a40-4dec-9fc7-28f93b6a534b"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -466,6 +497,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Walk = m_Player.FindAction("Walk", throwIfNotFound: true);
+        m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Run = m_Player.FindAction("Run", throwIfNotFound: true);
@@ -571,6 +603,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Walk;
+    private readonly InputAction m_Player_Shoot;
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Run;
@@ -591,6 +624,10 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Walk".
         /// </summary>
         public InputAction @Walk => m_Wrapper.m_Player_Walk;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Shoot".
+        /// </summary>
+        public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
         /// <summary>
         /// Provides access to the underlying input action "Player/Look".
         /// </summary>
@@ -640,6 +677,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Walk.started += instance.OnWalk;
             @Walk.performed += instance.OnWalk;
             @Walk.canceled += instance.OnWalk;
+            @Shoot.started += instance.OnShoot;
+            @Shoot.performed += instance.OnShoot;
+            @Shoot.canceled += instance.OnShoot;
             @Look.started += instance.OnLook;
             @Look.performed += instance.OnLook;
             @Look.canceled += instance.OnLook;
@@ -669,6 +709,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Walk.started -= instance.OnWalk;
             @Walk.performed -= instance.OnWalk;
             @Walk.canceled -= instance.OnWalk;
+            @Shoot.started -= instance.OnShoot;
+            @Shoot.performed -= instance.OnShoot;
+            @Shoot.canceled -= instance.OnShoot;
             @Look.started -= instance.OnLook;
             @Look.performed -= instance.OnLook;
             @Look.canceled -= instance.OnLook;
@@ -1174,6 +1217,13 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnWalk(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Shoot" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnShoot(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Look" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>

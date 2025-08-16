@@ -16,8 +16,5 @@ public class PlayerMoverMediator : Mediator
         _playerMover.FrameMotion
             .Subscribe(_playerMoverView.Move)
             .AddTo(CompositeDisposable);
-        _playerMover.EulerAngles
-            .Subscribe(_playerMoverView.SetEulerAngles)
-            .AddTo(CompositeDisposable);
     }
 }
