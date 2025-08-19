@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -9,6 +10,8 @@ public class GameplayLifetimeScope : LifetimeScope
     [SerializeField] private PlayerMoverView _playerMoverView;
     [SerializeField] private PlayerShooterView _playerShooterView;
     [SerializeField] private BulletMoverView _bulletPrefab;
+    [SerializeField] private GameObject[] _invaderPrefabs;
+    [SerializeField] private InvaderSpawnerView _invaderSpawnerView;
 
     protected override void Configure(IContainerBuilder builder)
     {
@@ -21,6 +24,8 @@ public class GameplayLifetimeScope : LifetimeScope
         ConfigurePlayerShooting(builder);
 
         ConfigureBulletMovement(builder);
+
+        ConfigureInvaderSpawn(builder);
     }
 
     private void ConfigurePlayerSound(IContainerBuilder builder)
@@ -71,6 +76,21 @@ public class GameplayLifetimeScope : LifetimeScope
         GameObject bulletRoot = new("Bullets");
         builder.RegisterComponentInNewPrefab(_bulletPrefab, Lifetime.Transient)
             .UnderTransform(bulletRoot.transform);
+    }
+
+    private void ConfigureInvaderSpawn(IContainerBuilder builder)
+    {
+        builder.Register<InvaderFactory>(Lifetime.Singleton)
+            .WithParameter(_invaderPrefabs);
+
+        builder.RegisterComponent(_invaderSpawnerView);
+        builder.Register<InvaderSpawner>(Lifetime.Singleton);
+        builder.RegisterEntryPoint(container =>
+        {
+            InvaderSpawner invaderSpawner = container.Resolve<InvaderSpawner>();
+            InvaderSpawnerView invaderSpawnerView = container.Resolve<InvaderSpawnerView>();
+            return new InvaderSpawnerMediator(invaderSpawner, invaderSpawnerView);
+        }, Lifetime.Singleton);
     }
 
     private void Start()

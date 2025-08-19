@@ -27,7 +27,7 @@ public class PlayerMover : ITickable, IDisposable
         if (_isPause)
             return;
 
-        _velocity = _playerSettings.WalkSpeed * _playerInputHandler.WalkInput.CurrentValue;
+        _velocity = _playerSettings.MovementSpeed * _playerInputHandler.WalkInput.CurrentValue;
         _frameMotion.Value = new Vector3(_velocity, 0f, 0f) * Time.deltaTime;
     }
 
