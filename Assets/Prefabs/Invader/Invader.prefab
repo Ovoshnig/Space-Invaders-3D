@@ -61,7 +61,13 @@ PrefabInstance:
       addedObject: {fileID: 4516188075832327841}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4dadb38243896e042be08c6736ff5339, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 5001067809165155234}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4dadb38243896e042be08c6736ff5339, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 2944177209474769119}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4dadb38243896e042be08c6736ff5339, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -5638718010842010329}
   m_SourcePrefab: {fileID: 100100000, guid: 4dadb38243896e042be08c6736ff5339, type: 3}
 --- !u!1 &5372858572020088948 stripped
 GameObject:
@@ -89,6 +95,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.2, y: 0.2, z: 1.6}
   m_Center: {x: 0, y: 0.1, z: 0.1}
+--- !u!54 &5001067809165155234
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5372858572020088948}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!114 &2944177209474769119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,3 +134,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13d3b82226ac36b41ac8651506f80c65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Invader::InvaderMoverView
+--- !u!114 &-5638718010842010329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5372858572020088948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7e6ae842b4829e47b7dfe501031cdd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Invader::InvaderDeathView
