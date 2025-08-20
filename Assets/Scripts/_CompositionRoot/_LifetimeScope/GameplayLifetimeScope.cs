@@ -26,6 +26,7 @@ public class GameplayLifetimeScope : LifetimeScope
         ConfigureBulletMovement(builder);
 
         ConfigureInvaderSpawn(builder);
+        ConfigureInvaderMovement(builder);
     }
 
     private void ConfigurePlayerSound(IContainerBuilder builder)
@@ -80,6 +81,7 @@ public class GameplayLifetimeScope : LifetimeScope
 
     private void ConfigureInvaderSpawn(IContainerBuilder builder)
     {
+        builder.Register<InvaderRegistry>(Lifetime.Singleton);
         builder.Register<InvaderFactory>(Lifetime.Singleton)
             .WithParameter(_invaderPrefabs);
 
@@ -91,6 +93,12 @@ public class GameplayLifetimeScope : LifetimeScope
             InvaderSpawnerView invaderSpawnerView = container.Resolve<InvaderSpawnerView>();
             return new InvaderSpawnerMediator(invaderSpawner, invaderSpawnerView);
         }, Lifetime.Singleton);
+    }
+
+    private void ConfigureInvaderMovement(IContainerBuilder builder)
+    {
+        builder.Register<InvaderMover>(Lifetime.Singleton);
+        builder.RegisterEntryPoint<InvaderMoverMediator>(Lifetime.Singleton);
     }
 
     private void Start()

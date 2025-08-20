@@ -22,17 +22,19 @@ MonoBehaviour:
     <SnapshotTransitionDuration>k__BackingField: 0
   <PlayerSettings>k__BackingField:
     <MovementSpeed>k__BackingField: 3.5
-    <ShootCooldown>k__BackingField: 0.4
+    <ShootCooldown>k__BackingField: 0.6
   <InvaderSettings>k__BackingField:
     <InvaderPrefab>k__BackingField: {fileID: 5372858572020088948, guid: f5e746262da09cd458388820b57611e0, type: 3}
-    <MarginRatioZ>k__BackingField: 0.05
+    <UpMarginRatioZ>k__BackingField: 0.1
+    <DownMarginRatioZ>k__BackingField: 0.2
     <SpawnRangeRatioX>k__BackingField: 0.7
     <SpacingRatioX>k__BackingField: 0.3
     <SpacingRatioZ>k__BackingField: 0.5
     <SpawnPositionY>k__BackingField: 0
     <RowIndices>k__BackingField: 0000000000000000010000000100000002000000
-    <StepX>k__BackingField: 2.5
-    <StepZ>k__BackingField: 5
+    <StepRatioX>k__BackingField: 0.15
+    <StepRatioZ>k__BackingField: 0.8
+    <StepDelay>k__BackingField: 0.7
     <ShootCooldown>k__BackingField: 0.4
   <BulletSettings>k__BackingField:
     <Speed>k__BackingField: 10

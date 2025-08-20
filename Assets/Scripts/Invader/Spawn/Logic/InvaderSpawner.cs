@@ -19,10 +19,10 @@ public class InvaderSpawner
     public void StartSpawn()
     {
         Bounds fieldBounds = _fieldView.Bounds;
-        Vector3 invaderSize = _invaderSettings.InvaderBounds.size;
+        Vector3 invaderSize = _invaderSettings.Size;
 
-        float invaderSlotWidth = invaderSize.x + (_invaderSettings.SpacingRatioX * invaderSize.x);
-        float invaderSlotDepth = invaderSize.z + (_invaderSettings.SpacingRatioZ * invaderSize.z);
+        float invaderSlotWidth = invaderSize.x + _invaderSettings.SpacingX;
+        float invaderSlotDepth = invaderSize.z + _invaderSettings.SpacingZ;
 
         float spawnRangeX = fieldBounds.size.x * _invaderSettings.SpawnRangeRatioX;
         int columnCount = Mathf.FloorToInt(spawnRangeX / invaderSlotWidth);
@@ -37,7 +37,7 @@ public class InvaderSpawner
         float startX = fieldBounds.center.x - totalWidth / 2f;
 
         float startZ = fieldBounds.max.z
-            - (fieldBounds.size.z * _invaderSettings.MarginRatioZ)
+            - (fieldBounds.size.z * _invaderSettings.UpMarginRatioZ)
             - (invaderSize.z / 2f);
         float currentZ = startZ;
 
