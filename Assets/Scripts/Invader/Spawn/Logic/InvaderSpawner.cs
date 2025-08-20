@@ -22,7 +22,7 @@ public class InvaderSpawner
         Vector3 invaderSize = _invaderSettings.Size;
 
         float invaderSlotWidth = invaderSize.x + _invaderSettings.SpacingX;
-        float invaderSlotDepth = invaderSize.z + _invaderSettings.SpacingZ;
+        float invaderSlotLength = invaderSize.z + _invaderSettings.SpacingZ;
 
         float spawnRangeX = fieldBounds.size.x * _invaderSettings.SpawnRangeRatioX;
         int columnCount = Mathf.FloorToInt(spawnRangeX / invaderSlotWidth);
@@ -36,10 +36,21 @@ public class InvaderSpawner
         float totalWidth = (columnCount - 1) * invaderSlotWidth;
         float startX = fieldBounds.center.x - totalWidth / 2f;
 
-        float startZ = fieldBounds.max.z
+        float maxZ = fieldBounds.max.z
             - (fieldBounds.size.z * _invaderSettings.UpMarginRatioZ)
             - (invaderSize.z / 2f);
-        float currentZ = startZ;
+        float currentZ = maxZ;
+
+        float spawnRangeZ = (1 - _invaderSettings.UpMarginRatioZ - _invaderSettings.DownMarginRatioZ)
+            * fieldBounds.size.z;
+        int rowCount = Mathf.FloorToInt(spawnRangeZ / invaderSlotLength);
+
+        if (_invaderSettings.RowIndices.Length > rowCount)
+        {
+            Debug.LogWarning("Ќедостаточно места дл€ спауна "
+                + "выбранного количества строк захватчиков!");
+            return;
+        }
 
         foreach (var rowIndex in _invaderSettings.RowIndices.Reverse())
         {
@@ -52,7 +63,7 @@ public class InvaderSpawner
                 currentX += invaderSlotWidth;
             }
 
-            currentZ -= invaderSlotDepth;
+            currentZ -= invaderSlotLength;
         }
     }
 }
