@@ -21,11 +21,10 @@ MonoBehaviour:
     <MaxVolume>k__BackingField: 0
     <SnapshotTransitionDuration>k__BackingField: 0
   <PlayerSettings>k__BackingField:
-    <MovementSpeed>k__BackingField: 3.5
-    <ShootCooldown>k__BackingField: 0.6
+    <MovementSpeed>k__BackingField: 6
   <InvaderSettings>k__BackingField:
     <InvaderPrefab>k__BackingField: {fileID: 5372858572020088948, guid: f5e746262da09cd458388820b57611e0, type: 3}
-    <UpMarginRatioZ>k__BackingField: 0.1
+    <UpMarginRatioZ>k__BackingField: 0.05
     <DownMarginRatioZ>k__BackingField: 0.2
     <SpawnRangeRatioX>k__BackingField: 0.7
     <SpacingRatioX>k__BackingField: 0.3

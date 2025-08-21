@@ -1,37 +1,25 @@
 using R3;
-using UnityEngine;
 using VContainer.Unity;
 
 public class PlayerShooter : ITickable
 {
     private readonly PlayerInputHandler _playerInputHandler;
-    private readonly PlayerSettings _playerSettings;
     private readonly Subject<Unit> _shot = new();
 
-    private float _remainingTime = 0f;
+    private bool _isBulletEnabled = false;
 
-    public PlayerShooter(PlayerInputHandler playerInputHandler,
-        PlayerSettings playerSettings)
-    {
-        _playerInputHandler = playerInputHandler;
-        _playerSettings = playerSettings;
-    }
+    public PlayerShooter(PlayerInputHandler playerInputHandler) => _playerInputHandler = playerInputHandler;
 
     public Observable<Unit> Shot => _shot;
 
     public void Tick()
     {
-        if (_remainingTime > 0f)
+        if (_playerInputHandler.ShootPressed.CurrentValue && !_isBulletEnabled)
         {
-            _remainingTime -= Time.deltaTime;
-        }
-        else
-        {
-            if (_playerInputHandler.ShootPressed.CurrentValue)
-            {
-                _shot.OnNext(Unit.Default);
-                _remainingTime = _playerSettings.ShootCooldown;
-            }
+            _shot.OnNext(Unit.Default);
+            SetBulletEnabled(true);
         }
     }
+
+    public void SetBulletEnabled(bool value) => _isBulletEnabled = value;
 }

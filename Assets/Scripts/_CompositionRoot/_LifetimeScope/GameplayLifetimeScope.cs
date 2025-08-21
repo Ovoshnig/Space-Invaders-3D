@@ -9,7 +9,7 @@ public class GameplayLifetimeScope : LifetimeScope
     [SerializeField] private PlayerSoundPlayerView _playerSoundPlayerView;
     [SerializeField] private PlayerMoverView _playerMoverView;
     [SerializeField] private PlayerShooterView _playerShooterView;
-    [SerializeField] private BulletMoverView _bulletPrefab;
+    [SerializeField] private PlayerBulletMoverView _playerBulletMoverView;
     [SerializeField] private GameObject[] _invaderPrefabs;
     [SerializeField] private InvaderSpawnerView _invaderSpawnerView;
 
@@ -72,12 +72,8 @@ public class GameplayLifetimeScope : LifetimeScope
         }, Lifetime.Singleton);
     }
 
-    private void ConfigureBulletMovement(IContainerBuilder builder)
-    {
-        GameObject bulletRoot = new("Bullets");
-        builder.RegisterComponentInNewPrefab(_bulletPrefab, Lifetime.Transient)
-            .UnderTransform(bulletRoot.transform);
-    }
+    private void ConfigureBulletMovement(IContainerBuilder builder) => 
+        builder.RegisterComponent(_playerBulletMoverView);
 
     private void ConfigureInvaderSpawn(IContainerBuilder builder)
     {

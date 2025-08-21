@@ -1,16 +1,19 @@
+using R3;
 using UnityEngine;
 using VContainer;
 
 public class PlayerShooterView : MonoBehaviour
 {
-    private IObjectResolver _container;
+    private BulletMoverView _bulletMoverView;
 
     [Inject]
-    public void Construct(IObjectResolver container) => _container = container;
+    public void Construct(PlayerBulletMoverView bulletMoverView) => _bulletMoverView = bulletMoverView;
+
+    public ReadOnlyReactiveProperty<bool> IsBulletEnabled => _bulletMoverView.IsEnabled;
 
     public void Shoot()
     {
-        BulletMoverView bulletMoverView = _container.Resolve<BulletMoverView>();
-        bulletMoverView.transform.position = transform.position;
+        _bulletMoverView.transform.position = transform.position;
+        _bulletMoverView.gameObject.SetActive(true);
     }
 }

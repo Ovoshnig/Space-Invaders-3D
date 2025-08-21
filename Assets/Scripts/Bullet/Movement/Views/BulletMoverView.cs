@@ -1,24 +1,57 @@
+using R3;
 using UnityEngine;
 using VContainer;
 
-public class BulletMoverView : MonoBehaviour
+public abstract class BulletMoverView : MonoBehaviour
 {
-    private FieldView _fieldView;
+    public enum DirectionZ
+    {
+        Forward = 1,
+        Backward = -1
+    }
+
+    private readonly ReactiveProperty<bool> _isEnabled = new();
+
     private BulletSettings _bulletSettings;
+    private float _fieldMinZ;
+    private float _fieldMaxZ;
+    private float _extentsZ;
 
     [Inject]
-    public void Construct(FieldView fieldView, BulletSettings bulletSettings)
+    public void Construct(BulletSettings bulletSettings, FieldView fieldView)
     {
-        _fieldView = fieldView;
         _bulletSettings = bulletSettings;
+        _fieldMinZ = fieldView.Bounds.min.z;
+        _fieldMaxZ = fieldView.Bounds.max.z;
+        _extentsZ = GetComponentInChildren<MeshRenderer>().bounds.extents.z;
     }
+
+    public ReadOnlyReactiveProperty<bool> IsEnabled => _isEnabled;
+
+    protected abstract DirectionZ Direction { get; }
+
+    private void OnEnable() => _isEnabled.Value = true;
+
+    private void OnDisable() => _isEnabled.Value = false;
 
     private void Update()
     {
-        Vector3 motion = Time.deltaTime * new Vector3(0f, 0f, _bulletSettings.Speed);
-        transform.Translate(motion, Space.World);
+        if (!enabled)
+            return;
 
-        if (transform.position.z > _fieldView.Bounds.extents.z)
-            Destroy(gameObject);
+        float positionZ = transform.position.z;
+        float deltaZ = (int)Direction * Time.deltaTime * _bulletSettings.Speed;
+        float endPositionZ = positionZ + deltaZ;
+
+        if (endPositionZ - _extentsZ >= _fieldMinZ
+            && endPositionZ + _extentsZ <= _fieldMaxZ)
+        {
+            Vector3 movement = new(0f, 0f, deltaZ);
+            transform.Translate(movement, Space.World);
+        }
+        else
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

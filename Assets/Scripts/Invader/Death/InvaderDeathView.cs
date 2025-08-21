@@ -4,9 +4,9 @@ public class InvaderDeathView : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<BulletMoverView>() != null)
+        if (other.GetComponent<PlayerBulletMoverView>() != null)
         {
-            Destroy(other.gameObject);
+            other.gameObject.SetActive(false);
             Destroy(gameObject);
         }
     }

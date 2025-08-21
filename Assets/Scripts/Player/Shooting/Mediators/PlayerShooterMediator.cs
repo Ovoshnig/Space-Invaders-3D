@@ -17,5 +17,9 @@ public class PlayerShooterMediator : Mediator
         _playerShooter.Shot
             .Subscribe(_ => _playerShooterView.Shoot())
             .AddTo(CompositeDisposable);
+
+        _playerShooterView.IsBulletEnabled
+            .Subscribe(_playerShooter.SetBulletEnabled)
+            .AddTo(CompositeDisposable);
     }
 }
