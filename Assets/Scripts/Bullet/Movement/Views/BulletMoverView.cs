@@ -23,7 +23,7 @@ public abstract class BulletMoverView : MonoBehaviour
         _bulletSettings = bulletSettings;
         _fieldMinZ = fieldView.Bounds.min.z;
         _fieldMaxZ = fieldView.Bounds.max.z;
-        _extentsZ = GetComponentInChildren<MeshRenderer>().bounds.extents.z;
+        _extentsZ = GetComponent<MeshRenderer>().bounds.extents.z;
     }
 
     public ReadOnlyReactiveProperty<bool> IsEnabled => _isEnabled;

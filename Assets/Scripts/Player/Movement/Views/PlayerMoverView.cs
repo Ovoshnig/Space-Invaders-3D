@@ -14,7 +14,7 @@ public class PlayerMoverView : MonoBehaviour
         get
         {
             if (_meshRenderer == null)
-                _meshRenderer = GetComponentInChildren<MeshRenderer>();
+                _meshRenderer = GetComponent<MeshRenderer>();
 
             return _meshRenderer;
         }

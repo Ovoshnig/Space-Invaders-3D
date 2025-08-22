@@ -23,7 +23,7 @@ MonoBehaviour:
   <PlayerSettings>k__BackingField:
     <MovementSpeed>k__BackingField: 6
   <InvaderSettings>k__BackingField:
-    <InvaderPrefab>k__BackingField: {fileID: 5372858572020088948, guid: f5e746262da09cd458388820b57611e0, type: 3}
+    <InvaderPrefab>k__BackingField: {fileID: 244211250993748604, guid: 89084bd4dabfccd4bb98578495bba0bc, type: 3}
     <UpMarginRatioZ>k__BackingField: 0.05
     <DownMarginRatioZ>k__BackingField: 0.2
     <SpawnRangeRatioX>k__BackingField: 0.7
