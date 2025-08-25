@@ -18,7 +18,7 @@ public class InvaderMoverMediator : Mediator
 
     public async override void Initialize()
     {
-        _registry.Invaders
+        _registry.InvaderMovers
             .Subscribe(invaders =>
             {
                 if (!invaders.Any())
@@ -34,14 +34,14 @@ public class InvaderMoverMediator : Mediator
         _invaderMover.Moved
             .Subscribe(movement =>
             {
-                foreach (var invader in _registry.Invaders.CurrentValue)
+                foreach (var invader in _registry.InvaderMovers.CurrentValue)
                     invader.Move(movement);
             })
             .AddTo(CompositeDisposable);
 
         try
         {
-            await _invaderMover.Move(_cts.Token);
+            await _invaderMover.StartMovingAsync(_cts.Token);
         }
         catch (System.OperationCanceledException)
         {

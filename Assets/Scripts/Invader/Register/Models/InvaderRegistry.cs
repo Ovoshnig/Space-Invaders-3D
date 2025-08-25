@@ -3,23 +3,31 @@ using System.Collections.Generic;
 
 public class InvaderRegistry
 {
-    private readonly List<InvaderMoverView> _list = new();
-    private readonly ReactiveProperty<IReadOnlyList<InvaderMoverView>> _invaders;
+    private readonly List<InvaderMoverView> _moversList = new();
+    private readonly List<InvaderShooterView> _shootersList = new();
+    private readonly ReactiveProperty<IReadOnlyList<InvaderMoverView>> _invaderMovers = new();
+    private readonly ReactiveProperty<IReadOnlyList<InvaderShooterView>> _invaderShooters = new();
 
-    public InvaderRegistry() => 
-        _invaders = new ReactiveProperty<IReadOnlyList<InvaderMoverView>>(_list.AsReadOnly());
+    public ReadOnlyReactiveProperty<IReadOnlyList<InvaderMoverView>> InvaderMovers => _invaderMovers;
+    public ReadOnlyReactiveProperty<IReadOnlyList<InvaderShooterView>> InvaderShooters => _invaderShooters;
 
-    public ReadOnlyReactiveProperty<IReadOnlyList<InvaderMoverView>> Invaders => _invaders;
-
-    public void Add(InvaderMoverView invader)
+    public void Add(InvaderMoverView invaderMover)
     {
-        _list.Add(invader);
-        _invaders.Value = _list.AsReadOnly();
+        _moversList.Add(invaderMover);
+        _invaderMovers.Value = _moversList.AsReadOnly();
+
+        _shootersList.Add(invaderMover.GetComponent<InvaderShooterView>());
+        _invaderShooters.Value = _shootersList.AsReadOnly();
     }
 
-    public void Remove(InvaderMoverView invader)
+    public void Remove(InvaderMoverView invaderMover)
     {
-        _list.Remove(invader);
-        _invaders.Value = _list.AsReadOnly();
+        int index = _moversList.IndexOf(invaderMover);
+
+        _moversList.RemoveAt(index);
+        _invaderMovers.Value = _moversList.AsReadOnly();
+
+        _shootersList.RemoveAt(index);
+        _invaderShooters.Value= _shootersList.AsReadOnly();
     }
 }

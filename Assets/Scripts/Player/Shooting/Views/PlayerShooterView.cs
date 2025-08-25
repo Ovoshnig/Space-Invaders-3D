@@ -4,7 +4,7 @@ using VContainer;
 
 public class PlayerShooterView : MonoBehaviour
 {
-    private BulletMoverView _bulletMoverView;
+    private PlayerBulletMoverView _bulletMoverView;
 
     [Inject]
     public void Construct(PlayerBulletMoverView bulletMoverView) => _bulletMoverView = bulletMoverView;

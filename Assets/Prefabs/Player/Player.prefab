@@ -122,6 +122,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 89b34ebaebb168447b4eed3f9f6abc06, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1474865632042182336}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 89b34ebaebb168447b4eed3f9f6abc06, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -1641518001650848003}
   m_SourcePrefab: {fileID: 100100000, guid: 89b34ebaebb168447b4eed3f9f6abc06, type: 3}
 --- !u!1 &4707027434170929777 stripped
 GameObject:
@@ -309,6 +312,18 @@ MonoBehaviour:
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
+--- !u!114 &-1641518001650848003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4707027434170929777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8f3442bc0a6e5b44841e2bde57575e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Player::PlayerColliderView
 --- !u!4 &5339413387173857483 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 89b34ebaebb168447b4eed3f9f6abc06, type: 3}

@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -12,6 +11,7 @@ public class GameplayLifetimeScope : LifetimeScope
     [SerializeField] private PlayerBulletMoverView _playerBulletMoverView;
     [SerializeField] private GameObject[] _invaderPrefabs;
     [SerializeField] private InvaderSpawnerView _invaderSpawnerView;
+    [SerializeField] private InvaderBulletMoverView[] _invaderBulletPrefabs;
 
     protected override void Configure(IContainerBuilder builder)
     {
@@ -27,6 +27,7 @@ public class GameplayLifetimeScope : LifetimeScope
 
         ConfigureInvaderSpawn(builder);
         ConfigureInvaderMovement(builder);
+        ConfigureInvaderShooting(builder);
     }
 
     private void ConfigurePlayerSound(IContainerBuilder builder)
@@ -95,6 +96,15 @@ public class GameplayLifetimeScope : LifetimeScope
     {
         builder.Register<InvaderMover>(Lifetime.Singleton);
         builder.RegisterEntryPoint<InvaderMoverMediator>(Lifetime.Singleton);
+    }
+
+    private void ConfigureInvaderShooting(IContainerBuilder builder)
+    {
+        builder.RegisterInstance(_invaderBulletPrefabs);
+        builder.RegisterEntryPoint<InvaderBulletPool>(Lifetime.Singleton).AsSelf();
+
+        builder.Register<InvaderShooter>(Lifetime.Singleton);
+        builder.RegisterEntryPoint<InvaderShooterMediator>(Lifetime.Singleton);
     }
 
     private void Start()

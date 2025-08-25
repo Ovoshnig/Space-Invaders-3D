@@ -489,6 +489,9 @@ MonoBehaviour:
   - {fileID: 5200137644347837608, guid: 1d30202986a5d0344b28c500cd827a2e, type: 3}
   - {fileID: 5558980254631014964, guid: 7fbfa19f11962c24b82f52d1ddbf07a5, type: 3}
   _invaderSpawnerView: {fileID: 2033446296}
+  _invaderBulletPrefabs:
+  - {fileID: -3898541994759505542, guid: 45a76ea7350445f42ad6494b9ee49b88, type: 3}
+  - {fileID: 1766495517313941118, guid: 7394284fc2bae35448a33a7652b83943, type: 3}
 --- !u!1 &2033446295
 GameObject:
   m_ObjectHideFlags: 0

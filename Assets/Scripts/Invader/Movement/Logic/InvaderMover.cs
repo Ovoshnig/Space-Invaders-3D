@@ -34,7 +34,7 @@ public class InvaderMover
         _currentMinPositionZ = positions.Min(p => p.z);
     }
 
-    public async UniTask Move(CancellationToken token)
+    public async UniTask StartMovingAsync(CancellationToken token)
     {
         float invaderExtentsX = _invaderSettings.Extents.x;
         float minPositionX = _fieldView.Bounds.min.x + invaderExtentsX;
