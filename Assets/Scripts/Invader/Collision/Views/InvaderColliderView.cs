@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class InvaderDeathView : MonoBehaviour
+public class InvaderColliderView : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {

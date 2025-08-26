@@ -9,8 +9,7 @@ public class GameplayLifetimeScope : LifetimeScope
     [SerializeField] private PlayerMoverView _playerMoverView;
     [SerializeField] private PlayerShooterView _playerShooterView;
     [SerializeField] private PlayerBulletMoverView _playerBulletMoverView;
-    [SerializeField] private GameObject[] _invaderPrefabs;
-    [SerializeField] private InvaderSpawnerView _invaderSpawnerView;
+    [SerializeField] private InvaderEntityView[] _invaderPrefabs;
     [SerializeField] private InvaderBulletMoverView[] _invaderBulletPrefabs;
 
     protected override void Configure(IContainerBuilder builder)
@@ -82,14 +81,7 @@ public class GameplayLifetimeScope : LifetimeScope
         builder.Register<InvaderFactory>(Lifetime.Singleton)
             .WithParameter(_invaderPrefabs);
 
-        builder.RegisterComponent(_invaderSpawnerView);
-        builder.Register<InvaderSpawner>(Lifetime.Singleton);
-        builder.RegisterEntryPoint(container =>
-        {
-            InvaderSpawner invaderSpawner = container.Resolve<InvaderSpawner>();
-            InvaderSpawnerView invaderSpawnerView = container.Resolve<InvaderSpawnerView>();
-            return new InvaderSpawnerMediator(invaderSpawner, invaderSpawnerView);
-        }, Lifetime.Singleton);
+        builder.RegisterEntryPoint<InvaderSpawner>(Lifetime.Singleton);
     }
 
     private void ConfigureInvaderMovement(IContainerBuilder builder)

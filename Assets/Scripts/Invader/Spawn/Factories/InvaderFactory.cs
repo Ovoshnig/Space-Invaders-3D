@@ -8,13 +8,13 @@ public class InvaderFactory : IDisposable
 {
     private readonly IObjectResolver _container;
     private readonly InvaderRegistry _registry;
-    private readonly GameObject[] _prefabs;
+    private readonly InvaderEntityView[] _prefabs;
     private readonly Transform _invaderRoot;
     private readonly CompositeDisposable _compositeDisposable = new();
 
     public InvaderFactory(IObjectResolver resolver,
         InvaderRegistry registry,
-        GameObject[] prefabs)
+        InvaderEntityView[] prefabs)
     {
         _container = resolver;
         _registry = registry;
@@ -22,19 +22,19 @@ public class InvaderFactory : IDisposable
         _invaderRoot = new GameObject("Invaders").transform;
     }
 
-    public InvaderMoverView Create<T>(int prefabIndex, Vector3 position)
+    public InvaderEntityView Create(int prefabIndex, Vector3 position)
     {
-        GameObject prefab = _prefabs[prefabIndex];
-        GameObject instance = _container.Instantiate(prefab, position, Quaternion.identity, _invaderRoot);
-        InvaderMoverView moverView = instance.GetComponent<InvaderMoverView>();
+        InvaderEntityView prefab = _prefabs[prefabIndex];
+        InvaderEntityView instance = _container
+            .Instantiate(prefab, position, Quaternion.identity, _invaderRoot);
 
-        _registry.Add(moverView);
+        _registry.Add(instance);
 
-        moverView.Destroyed
-            .Subscribe(_ => _registry.Remove(moverView))
+        instance.InvaderDestroyerView.Destroyed
+            .Subscribe(_ => _registry.Remove(instance))
             .AddTo(_compositeDisposable);
 
-        return moverView;
+        return instance;
     }
 
     public void Dispose() => _compositeDisposable.Dispose();

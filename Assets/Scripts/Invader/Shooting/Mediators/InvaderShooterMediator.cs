@@ -19,7 +19,7 @@ public class InvaderShooterMediator : Mediator
 
     public async override void Initialize()
     {
-        _registry.InvaderShooters
+        _registry.EntityViews
             .Subscribe(OnInvadersChange)
             .AddTo(CompositeDisposable);
 
@@ -45,7 +45,7 @@ public class InvaderShooterMediator : Mediator
         base.Dispose();
     }
 
-    private void OnInvadersChange(IReadOnlyList<InvaderShooterView> invaders)
+    private void OnInvadersChange(IReadOnlyList<InvaderEntityView> invaders)
     {
         if (invaders.Any())
         {
@@ -60,7 +60,7 @@ public class InvaderShooterMediator : Mediator
 
     private void OnShot(ShotEvent shotEvent)
     {
-        IReadOnlyList<InvaderShooterView> invaders = _registry.InvaderShooters.CurrentValue;
+        IReadOnlyList<InvaderShooterView> invaders = _registry.Get<InvaderShooterView>();
         InvaderShooterView invader = invaders[shotEvent.InvaderIndex];
         invader.Shoot(shotEvent.Bullet);
     }

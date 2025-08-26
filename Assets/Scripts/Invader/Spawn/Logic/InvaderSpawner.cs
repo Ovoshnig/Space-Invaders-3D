@@ -1,22 +1,27 @@
 using R3;
 using System.Linq;
 using UnityEngine;
+using VContainer.Unity;
 
-public class InvaderSpawner
+public class InvaderSpawner : IInitializable
 {
+    private readonly InvaderFactory _factory;
     private readonly FieldView _fieldView;
     private readonly InvaderSettings _invaderSettings;
     private readonly Subject<(int index, Vector3 position)> _positionSelected = new();
 
-    public InvaderSpawner(FieldView fieldView, InvaderSettings invaderSettings)
+    public InvaderSpawner(FieldView fieldView, InvaderSettings invaderSettings, InvaderFactory factory)
     {
         _fieldView = fieldView;
         _invaderSettings = invaderSettings;
+        _factory = factory;
     }
 
     public Observable<(int index, Vector3 position)> PositionSelected => _positionSelected;
 
-    public void StartSpawn()
+    public void Initialize() => Spawn();
+
+    public void Spawn()
     {
         Bounds fieldBounds = _fieldView.Bounds;
         Vector3 invaderSize = _invaderSettings.Size;
@@ -59,7 +64,7 @@ public class InvaderSpawner
             for (int i = 0; i < columnCount; i++)
             {
                 Vector3 spawnPosition = new(currentX, _invaderSettings.SpawnPositionY, currentZ);
-                _positionSelected.OnNext((rowIndex, spawnPosition));
+                _factory.Create(rowIndex, spawnPosition);
                 currentX += invaderSlotWidth;
             }
 

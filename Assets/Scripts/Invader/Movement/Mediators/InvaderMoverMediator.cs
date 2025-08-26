@@ -1,13 +1,16 @@
 using Cysharp.Threading.Tasks;
 using R3;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using UnityEngine;
 
 public class InvaderMoverMediator : Mediator
 {
     private readonly InvaderMover _invaderMover;
     private readonly InvaderRegistry _registry;
-    private readonly CancellationTokenSource _cts = new();
+
+    private CancellationTokenSource _cts = new();
 
     public InvaderMoverMediator(InvaderMover invaderMover, 
         InvaderRegistry registry)
@@ -18,25 +21,12 @@ public class InvaderMoverMediator : Mediator
 
     public async override void Initialize()
     {
-        _registry.InvaderMovers
-            .Subscribe(invaders =>
-            {
-                if (!invaders.Any())
-                {
-                    _cts.Cancel();
-                    return;
-                }
-
-                _invaderMover.SetPositions(invaders.Select(i => i.transform.position).ToArray());
-            })
+        _registry.EntityViews
+            .Subscribe(OnInvadersChange)
             .AddTo(CompositeDisposable);
 
         _invaderMover.Moved
-            .Subscribe(movement =>
-            {
-                foreach (var invader in _registry.InvaderMovers.CurrentValue)
-                    invader.Move(movement);
-            })
+            .Subscribe(OnMoved)
             .AddTo(CompositeDisposable);
 
         try
@@ -55,5 +45,24 @@ public class InvaderMoverMediator : Mediator
         _cts.Dispose();
 
         base.Dispose();
+    }
+
+    private void OnInvadersChange(IReadOnlyList<InvaderEntityView> invaders)
+    {
+        if (invaders.Any())
+        {
+            _invaderMover.SetPositions(invaders.Select(i => i.transform.position).ToArray());
+            return;
+        }
+
+        _cts.Cancel();
+        _cts.Dispose();
+        _cts = new CancellationTokenSource();
+    }
+
+    private void OnMoved(Vector3 movement)
+    {
+        foreach (var invader in _registry.Get<InvaderMoverView>())
+            invader.Move(movement);
     }
 }

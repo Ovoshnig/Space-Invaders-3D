@@ -1,16 +1,11 @@
-using R3;
 using UnityEngine;
 
 public class InvaderMoverView : MonoBehaviour
 {
     [SerializeField] private Mesh[] _meshes;
 
-    private readonly Subject<Unit> _destroyed = new();
-
     private MeshFilter _meshFilter;
     private int _meshIndex = 0;
-
-    public Observable<Unit> Destroyed => _destroyed;
 
     private MeshFilter MeshFilter
     {
@@ -22,8 +17,6 @@ public class InvaderMoverView : MonoBehaviour
             return _meshFilter;
         }
     }
-
-    private void OnDestroy() => _destroyed.OnNext(Unit.Default);
 
     public void Move(Vector3 movement)
     {

@@ -72,6 +72,9 @@ PrefabInstance:
       addedObject: {fileID: -5538482263008626082}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a1db74de26faf4f4991e0aa599fb5d6c, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 6978720937551604296}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a1db74de26faf4f4991e0aa599fb5d6c, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 9114820577947514190}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a1db74de26faf4f4991e0aa599fb5d6c, type: 3}
       insertIndex: -1
@@ -79,6 +82,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a1db74de26faf4f4991e0aa599fb5d6c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6712768841011845542}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a1db74de26faf4f4991e0aa599fb5d6c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 586423477631553088}
   m_SourcePrefab: {fileID: 100100000, guid: a1db74de26faf4f4991e0aa599fb5d6c, type: 3}
 --- !u!1 &244211250993748604 stripped
 GameObject:
@@ -133,6 +139,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &6978720937551604296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 244211250993748604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac28d79c075a2564791425f5896109c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Invader::InvaderEntityView
+  <InvaderMoverView>k__BackingField: {fileID: 9114820577947514190}
+  <InvaderShooterView>k__BackingField: {fileID: 6712768841011845542}
+  <InvaderDestroyerView>k__BackingField: {fileID: 586423477631553088}
 --- !u!114 &9114820577947514190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,6 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13d3b82226ac36b41ac8651506f80c65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Invader::InvaderMoverView
+  _meshes: []
 --- !u!114 &8074641786983112483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,3 +191,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91e186751ec149d48832146320df9dd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Invader::InvaderShooterView
+--- !u!114 &586423477631553088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 244211250993748604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06ddd88465a866f46be232fa30e7a0b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Invader::InvaderDestroyerView
