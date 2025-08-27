@@ -27,6 +27,8 @@ public class GameplayLifetimeScope : LifetimeScope
         ConfigureInvaderSpawn(builder);
         ConfigureInvaderMovement(builder);
         ConfigureInvaderShooting(builder);
+        ConfigureInvaderCollision(builder);
+        ConfigureInvaderDestruction(builder);
     }
 
     private void ConfigurePlayerSound(IContainerBuilder builder)
@@ -78,9 +80,10 @@ public class GameplayLifetimeScope : LifetimeScope
     private void ConfigureInvaderSpawn(IContainerBuilder builder)
     {
         builder.Register<InvaderRegistry>(Lifetime.Singleton);
-        builder.Register<InvaderFactory>(Lifetime.Singleton)
-            .WithParameter(_invaderPrefabs);
 
+        builder.RegisterEntryPoint<InvaderFactory>(Lifetime.Singleton)
+            .WithParameter(_invaderPrefabs)
+            .AsSelf();
         builder.RegisterEntryPoint<InvaderSpawner>(Lifetime.Singleton);
     }
 
@@ -97,6 +100,18 @@ public class GameplayLifetimeScope : LifetimeScope
 
         builder.Register<InvaderShooter>(Lifetime.Singleton);
         builder.RegisterEntryPoint<InvaderShooterMediator>(Lifetime.Singleton);
+    }
+
+    private void ConfigureInvaderCollision(IContainerBuilder builder)
+    {
+        builder.Register<InvaderCollider>(Lifetime.Singleton);
+        builder.RegisterEntryPoint<InvaderColliderMediator>(Lifetime.Singleton);
+    }
+
+    private void ConfigureInvaderDestruction(IContainerBuilder builder)
+    {
+        builder.RegisterEntryPoint<InvaderDestroyer>(Lifetime.Singleton).AsSelf();
+        builder.RegisterEntryPoint<InvaderDestroyerMediator>(Lifetime.Singleton);
     }
 
     private void Start()

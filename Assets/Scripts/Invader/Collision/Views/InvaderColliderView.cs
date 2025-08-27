@@ -1,13 +1,12 @@
+using R3;
 using UnityEngine;
 
+[RequireComponent(typeof(BoxCollider))]
 public class InvaderColliderView : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.GetComponent<PlayerBulletMoverView>() != null)
-        {
-            other.gameObject.SetActive(false);
-            Destroy(gameObject);
-        }
-    }
+    private readonly Subject<Collider> _collided = new();
+
+    public Observable<Collider> Collided => _collided;
+
+    private void OnTriggerEnter(Collider other) => _collided.OnNext(other);
 }

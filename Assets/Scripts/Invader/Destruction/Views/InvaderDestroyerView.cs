@@ -1,11 +1,8 @@
-﻿using R3;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class InvaderDestroyerView : MonoBehaviour
 {
-    private readonly Subject<Unit> _destroyed = new();
+    [SerializeField] private InvaderExplosionView _explosionView;
 
-    public Observable<Unit> Destroyed => _destroyed;
-
-    private void OnDestroy() => _destroyed.OnNext(Unit.Default);
+    public void Destroy() => Instantiate(_explosionView, transform.position, Quaternion.identity);
 }

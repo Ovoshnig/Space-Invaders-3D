@@ -78,10 +78,10 @@ PrefabInstance:
       addedObject: {fileID: 9114820577947514190}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a1db74de26faf4f4991e0aa599fb5d6c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8074641786983112483}
+      addedObject: {fileID: 6712768841011845542}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a1db74de26faf4f4991e0aa599fb5d6c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6712768841011845542}
+      addedObject: {fileID: 8074641786983112483}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a1db74de26faf4f4991e0aa599fb5d6c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 586423477631553088}
@@ -153,6 +153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Invader::InvaderEntityView
   <InvaderMoverView>k__BackingField: {fileID: 9114820577947514190}
   <InvaderShooterView>k__BackingField: {fileID: 6712768841011845542}
+  <InvaderColliderView>k__BackingField: {fileID: 8074641786983112483}
   <InvaderDestroyerView>k__BackingField: {fileID: 586423477631553088}
 --- !u!114 &9114820577947514190
 MonoBehaviour:
@@ -167,18 +168,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Invader::InvaderMoverView
   _meshes: []
---- !u!114 &8074641786983112483
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 244211250993748604}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7e6ae842b4829e47b7dfe501031cdd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Invader::InvaderDeathView
 --- !u!114 &6712768841011845542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,6 +180,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91e186751ec149d48832146320df9dd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Invader::InvaderShooterView
+--- !u!114 &8074641786983112483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 244211250993748604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7e6ae842b4829e47b7dfe501031cdd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Invader::InvaderDeathView
 --- !u!114 &586423477631553088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,3 +204,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06ddd88465a866f46be232fa30e7a0b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Invader::InvaderDestroyerView
+  _explosionView: {fileID: 6243279858726585704, guid: 9b301c7c1e50d06418261e3332bc2d09, type: 3}
