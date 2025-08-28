@@ -25,20 +25,21 @@ MonoBehaviour:
   <BulletSettings>k__BackingField:
     <Speed>k__BackingField: 10
   <InvaderSettings>k__BackingField:
-    <InvaderPrefab>k__BackingField: {fileID: 244211250993748604, guid: 89084bd4dabfccd4bb98578495bba0bc, type: 3}
-    <UpMarginRatioZ>k__BackingField: 0.05
-    <DownMarginRatioZ>k__BackingField: 0.2
-    <SpawnRangeRatioX>k__BackingField: 0.7
-    <SpacingRatioX>k__BackingField: 0.3
-    <SpacingRatioZ>k__BackingField: 0.5
-    <SpawnPositionY>k__BackingField: 0
-    <RowIndices>k__BackingField: 0000000000000000010000000100000002000000
-    <StepRatioX>k__BackingField: 0.15
-    <StepRatioZ>k__BackingField: 0.8
-    <StepDelay>k__BackingField: 0.7
-    <ShootCooldown>k__BackingField: 0.4
-  <InvaderShootingSettings>k__BackingField:
-    <MinDelay>k__BackingField: 0.5
-    <MaxDelay>k__BackingField: 2
-    <MaxActive>k__BackingField: 3
-    <DefaultCapacity>k__BackingField: 6
+    <InvaderSpawnSettings>k__BackingField:
+      <MeshRenderer>k__BackingField: {fileID: 1757354549830319017, guid: 89084bd4dabfccd4bb98578495bba0bc, type: 3}
+      <UpMarginRatioZ>k__BackingField: 0.1
+      <DownMarginRatioZ>k__BackingField: 0.2
+      <SpawnRangeRatioX>k__BackingField: 0.7
+      <SpacingRatioX>k__BackingField: 0.5
+      <SpacingRatioZ>k__BackingField: 0.8
+      <SpawnPositionY>k__BackingField: 0.1
+      <RowIndices>k__BackingField: 0000000000000000010000000100000002000000
+    <InvaderMovementSettings>k__BackingField:
+      <MeshRenderer>k__BackingField: {fileID: -7511558181221131132, guid: c4d590d729eb0b3439b0080c5f85745a, type: 3}
+      <StepRatioX>k__BackingField: 0.1
+      <StepRatioZ>k__BackingField: 0.8
+      <StepDelay>k__BackingField: 0.5
+    <InvaderShootingSettings>k__BackingField:
+      <MinDelay>k__BackingField: 0.5
+      <MaxDelay>k__BackingField: 2.5
+      <MaxActive>k__BackingField: 3

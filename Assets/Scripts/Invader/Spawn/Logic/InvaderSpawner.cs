@@ -7,10 +7,10 @@ public class InvaderSpawner : IInitializable
 {
     private readonly InvaderFactory _factory;
     private readonly FieldView _fieldView;
-    private readonly InvaderSettings _invaderSettings;
+    private readonly InvaderSpawnSettings _invaderSettings;
     private readonly Subject<(int index, Vector3 position)> _positionSelected = new();
 
-    public InvaderSpawner(FieldView fieldView, InvaderSettings invaderSettings, InvaderFactory factory)
+    public InvaderSpawner(FieldView fieldView, InvaderSpawnSettings invaderSettings, InvaderFactory factory)
     {
         _fieldView = fieldView;
         _invaderSettings = invaderSettings;

@@ -7,7 +7,8 @@ using UnityEngine;
 public class InvaderMover
 {
     private readonly FieldView _fieldView;
-    private readonly InvaderSettings _invaderSettings;
+    private readonly InvaderSpawnSettings _invaderSpawnSettings;
+    private readonly InvaderMovementSettings _invaderMovementSettings;
     private readonly Subject<Vector3> _moved = new();
     private readonly Subject<Unit> _bottomReached = new();
 
@@ -15,10 +16,13 @@ public class InvaderMover
     private float _currentMaxPositionX = 0f;
     private float _currentMinPositionZ = 0f;
 
-    public InvaderMover(FieldView fieldView, InvaderSettings invaderSettings)
+    public InvaderMover(FieldView fieldView,
+        InvaderSpawnSettings invaderSpawnSettings,
+        InvaderMovementSettings invaderMovementSettings)
     {
         _fieldView = fieldView;
-        _invaderSettings = invaderSettings;
+        _invaderSpawnSettings = invaderSpawnSettings;
+        _invaderMovementSettings = invaderMovementSettings;
     }
 
     public Observable<Vector3> Moved => _moved;
@@ -36,11 +40,11 @@ public class InvaderMover
 
     public async UniTask StartMovingAsync(CancellationToken token)
     {
-        float invaderExtentsX = _invaderSettings.Extents.x;
+        float invaderExtentsX = _invaderSpawnSettings.Extents.x;
         float minPositionX = _fieldView.Bounds.min.x + invaderExtentsX;
         float maxPositionX = _fieldView.Bounds.max.x - invaderExtentsX;
         float minPositionZ = _fieldView.Bounds.min.z
-            + _invaderSettings.DownMarginRatioZ * _fieldView.Bounds.size.z;
+            + _invaderSpawnSettings.DownMarginRatioZ * _fieldView.Bounds.size.z;
 
         int sign = 1;
 
@@ -48,9 +52,9 @@ public class InvaderMover
         {
             switch (sign)
             {
-                case 1 when _currentMaxPositionX + _invaderSettings.StepRatioX <= maxPositionX:
-                case -1 when _currentMinPositionX - _invaderSettings.StepRatioX >= minPositionX:
-                    float deltaX = sign * _invaderSettings.StepX;
+                case 1 when _currentMaxPositionX + _invaderMovementSettings.StepRatioX <= maxPositionX:
+                case -1 when _currentMinPositionX - _invaderMovementSettings.StepRatioX >= minPositionX:
+                    float deltaX = sign * _invaderMovementSettings.StepX;
                     Vector3 movementX = new(deltaX, 0f, 0f);
                     _moved.OnNext(movementX);
 
@@ -58,10 +62,10 @@ public class InvaderMover
                     _currentMaxPositionX += deltaX;
                     break;
                 default:
-                    Vector3 movementZ = new(0f, 0f, -_invaderSettings.StepZ);
+                    Vector3 movementZ = new(0f, 0f, -_invaderMovementSettings.StepZ);
                     _moved.OnNext(movementZ);
 
-                    _currentMinPositionZ -= _invaderSettings.StepZ;
+                    _currentMinPositionZ -= _invaderMovementSettings.StepZ;
                     sign *= -1;
 
                     if (_currentMinPositionZ < minPositionZ)
@@ -73,7 +77,7 @@ public class InvaderMover
                     break;
             }
 
-            await UniTask.WaitForSeconds(_invaderSettings.StepDelay, cancellationToken: token);
+            await UniTask.WaitForSeconds(_invaderMovementSettings.StepDelay, cancellationToken: token);
         }
     }
 }
