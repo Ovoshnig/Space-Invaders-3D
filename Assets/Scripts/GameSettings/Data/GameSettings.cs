@@ -9,4 +9,5 @@ public class GameSettings : ScriptableObject
     [field: SerializeField] public PlayerSettings PlayerSettings { get; private set; }
     [field: SerializeField] public BulletSettings BulletSettings { get; private set; }
     [field: SerializeField] public InvaderSettings InvaderSettings { get; private set; }
+    [field: SerializeField] public UFOMovementSettings UFOMovementSettings { get; private set; }
 }

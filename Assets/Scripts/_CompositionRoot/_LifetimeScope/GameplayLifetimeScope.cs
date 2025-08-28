@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -11,6 +12,7 @@ public class GameplayLifetimeScope : LifetimeScope
     [SerializeField] private PlayerBulletMoverView _playerBulletMoverView;
     [SerializeField] private InvaderEntityView[] _invaderPrefabs;
     [SerializeField] private InvaderBulletMoverView[] _invaderBulletPrefabs;
+    [SerializeField] private UFOMoverView _UFOMoverView;
 
     protected override void Configure(IContainerBuilder builder)
     {
@@ -29,6 +31,8 @@ public class GameplayLifetimeScope : LifetimeScope
         ConfigureInvaderShooting(builder);
         ConfigureInvaderCollision(builder);
         ConfigureInvaderDestruction(builder);
+
+        ConfigureUFOMovement(builder);
     }
 
     private void ConfigurePlayerSound(IContainerBuilder builder)
@@ -65,7 +69,7 @@ public class GameplayLifetimeScope : LifetimeScope
     private void ConfigurePlayerShooting(IContainerBuilder builder)
     {
         builder.RegisterComponent(_playerShooterView);
-        builder.Register<PlayerShooterData>(Lifetime.Singleton);
+        builder.Register<PlayerShooterModel>(Lifetime.Singleton);
         builder.RegisterEntryPoint<PlayerShooter>(Lifetime.Singleton).AsSelf();
         builder.RegisterEntryPoint<PlayerShooterMediator>(Lifetime.Singleton);
     }
@@ -108,6 +112,13 @@ public class GameplayLifetimeScope : LifetimeScope
     {
         builder.RegisterEntryPoint<InvaderDestroyer>(Lifetime.Singleton).AsSelf();
         builder.RegisterEntryPoint<InvaderDestroyerMediator>(Lifetime.Singleton);
+    }
+
+    private void ConfigureUFOMovement(IContainerBuilder builder)
+    {
+        builder.RegisterComponent(_UFOMoverView);
+        builder.RegisterEntryPoint<UFOMover>(Lifetime.Singleton).AsSelf();
+        builder.RegisterEntryPoint<UFOMoverMediator>(Lifetime.Singleton);
     }
 
     private void Start()

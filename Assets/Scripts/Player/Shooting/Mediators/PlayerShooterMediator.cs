@@ -4,15 +4,15 @@ public class PlayerShooterMediator : Mediator
 {
     private readonly PlayerShooter _playerShooter;
     private readonly PlayerShooterView _playerShooterView;
-    private readonly PlayerShooterData _playerShooterData;
+    private readonly PlayerShooterModel _playerShooterModel;
 
     public PlayerShooterMediator(PlayerShooter playerShooter,
         PlayerShooterView playerShooterView,
-        PlayerShooterData playerShooterData)
+        PlayerShooterModel playerShooterModel)
     {
         _playerShooter = playerShooter;
         _playerShooterView = playerShooterView;
-        _playerShooterData = playerShooterData;
+        _playerShooterModel = playerShooterModel;
     }
 
     public override void Initialize()
@@ -28,7 +28,7 @@ public class PlayerShooterMediator : Mediator
 
     private void OnShot(Unit _)
     {
-        _playerShooterData.Increment();
+        _playerShooterModel.Increment();
         _playerShooterView.Shoot();
     }
 }
