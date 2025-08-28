@@ -65,13 +65,9 @@ public class GameplayLifetimeScope : LifetimeScope
     private void ConfigurePlayerShooting(IContainerBuilder builder)
     {
         builder.RegisterComponent(_playerShooterView);
+        builder.Register<PlayerShooterData>(Lifetime.Singleton);
         builder.RegisterEntryPoint<PlayerShooter>(Lifetime.Singleton).AsSelf();
-        builder.RegisterEntryPoint(container =>
-        {
-            PlayerShooter playerShooter = container.Resolve<PlayerShooter>();
-            PlayerShooterView playerShooterView = container.Resolve<PlayerShooterView>();
-            return new PlayerShooterMediator(playerShooter, playerShooterView);
-        }, Lifetime.Singleton);
+        builder.RegisterEntryPoint<PlayerShooterMediator>(Lifetime.Singleton);
     }
 
     private void ConfigureBulletMovement(IContainerBuilder builder) => 
