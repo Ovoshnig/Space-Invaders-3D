@@ -2,7 +2,7 @@ using R3;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider))]
-public class InvaderColliderView : MonoBehaviour
+public class TriggerColliderView : MonoBehaviour
 {
     private readonly Subject<Collider> _collided = new();
 

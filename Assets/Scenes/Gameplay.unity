@@ -420,18 +420,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1db155d3b122eb345b4e2e418ff62382, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FieldView
---- !u!1 &1444990743 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8756561834830188286, guid: 0b4230b04d1b80043805e965790c51d2, type: 3}
+--- !u!114 &1444990754 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 252646928038389969, guid: 0b4230b04d1b80043805e965790c51d2, type: 3}
   m_PrefabInstance: {fileID: 5862275375840532365}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1444990754
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1444990743}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8488ee42d9ea43846bdb1142cc85f2fa, type: 3}
@@ -842,10 +836,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8756561834830188286, guid: 0b4230b04d1b80043805e965790c51d2, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1444990754}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b4230b04d1b80043805e965790c51d2, type: 3}
 --- !u!1001 &8140632494318022426
 PrefabInstance:

@@ -4,11 +4,11 @@ using VContainer.Unity;
 
 public class InvaderDestroyer : IInitializable
 {
-    private readonly InvaderCollider _collider;
+    private readonly CollisionReporter<InvaderEntityView> _collider;
     private readonly Subject<InvaderEntityView> _destroyed = new();
     private readonly CompositeDisposable _compositeDisposable = new();
 
-    public InvaderDestroyer(InvaderCollider collider) => _collider = collider;
+    public InvaderDestroyer(CollisionReporter<InvaderEntityView> collider) => _collider = collider;
 
     public Observable<InvaderEntityView> Destroyed => _destroyed;
 
@@ -19,11 +19,11 @@ public class InvaderDestroyer : IInitializable
             .AddTo(_compositeDisposable);
     }
 
-    private void OnCollided(InvaderCollidedEvent collidedEvent)
+    private void OnCollided(CollidedEvent<InvaderEntityView> collidedEvent)
     {
         if (collidedEvent.Other.TryGetComponent(out PlayerBulletMoverView bullet))
         {
-            InvaderEntityView invader = collidedEvent.InvaderColliderView.GetComponent<InvaderEntityView>();
+            InvaderEntityView invader = collidedEvent.View.GetComponent<InvaderEntityView>();
             _destroyed.OnNext(invader);
 
             bullet.gameObject.SetActive(false);

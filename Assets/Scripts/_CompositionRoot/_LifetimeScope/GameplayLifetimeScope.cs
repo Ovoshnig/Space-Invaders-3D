@@ -33,6 +33,7 @@ public class GameplayLifetimeScope : LifetimeScope
         ConfigureInvaderDestruction(builder);
 
         ConfigureUFOMovement(builder);
+        ConfigureUFOCollision(builder);
     }
 
     private void ConfigurePlayerSound(IContainerBuilder builder)
@@ -104,8 +105,8 @@ public class GameplayLifetimeScope : LifetimeScope
 
     private void ConfigureInvaderCollision(IContainerBuilder builder)
     {
-        builder.Register<InvaderCollider>(Lifetime.Singleton);
-        builder.RegisterEntryPoint<InvaderColliderMediator>(Lifetime.Singleton);
+        builder.Register<CollisionReporter<InvaderEntityView>>(Lifetime.Singleton);
+        builder.RegisterEntryPoint<InvaderCollisionMediator>(Lifetime.Singleton);
     }
 
     private void ConfigureInvaderDestruction(IContainerBuilder builder)
@@ -119,6 +120,12 @@ public class GameplayLifetimeScope : LifetimeScope
         builder.RegisterComponent(_UFOMoverView);
         builder.RegisterEntryPoint<UFOMover>(Lifetime.Singleton).AsSelf();
         builder.RegisterEntryPoint<UFOMoverMediator>(Lifetime.Singleton);
+    }
+
+    private void ConfigureUFOCollision(IContainerBuilder builder)
+    {
+        builder.Register<CollisionReporter<UFOMoverView>>(Lifetime.Singleton);
+        builder.RegisterEntryPoint<UFOCollisionMediator>(Lifetime.Singleton);
     }
 
     private void Start()

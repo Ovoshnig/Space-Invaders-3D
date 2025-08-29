@@ -5,7 +5,7 @@ public class InvaderEntityView : MonoBehaviour
 {
     [field: SerializeField] public InvaderMoverView InvaderMoverView { get; private set; }
     [field: SerializeField] public InvaderShooterView InvaderShooterView { get; private set; }
-    [field: SerializeField] public InvaderColliderView InvaderColliderView { get; private set; }
+    [field: SerializeField] public TriggerColliderView InvaderColliderView { get; private set; }
     [field: SerializeField] public InvaderDestroyerView InvaderDestroyerView { get; private set; }
 
     public T Get<T>() where T : MonoBehaviour
@@ -16,7 +16,7 @@ public class InvaderEntityView : MonoBehaviour
             return InvaderMoverView as T;
         if (type == typeof(InvaderShooterView))
             return InvaderShooterView as T;
-        if (type == typeof(InvaderColliderView))
+        if (type == typeof(TriggerColliderView))
             return InvaderColliderView as T;
         if (type == typeof(InvaderDestroyerView))
             return InvaderDestroyerView as T;
