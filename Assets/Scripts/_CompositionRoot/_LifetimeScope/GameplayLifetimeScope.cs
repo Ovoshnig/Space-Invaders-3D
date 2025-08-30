@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -111,7 +110,8 @@ public class GameplayLifetimeScope : LifetimeScope
 
     private void ConfigureInvaderDestruction(IContainerBuilder builder)
     {
-        builder.RegisterEntryPoint<InvaderDestroyer>(Lifetime.Singleton).AsSelf();
+        builder.RegisterEntryPoint<CollidedDestroyer<InvaderEntityView, PlayerBulletMoverView>>(Lifetime.Singleton)
+            .AsSelf();
         builder.RegisterEntryPoint<InvaderDestroyerMediator>(Lifetime.Singleton);
     }
 

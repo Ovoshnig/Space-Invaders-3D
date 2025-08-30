@@ -19,6 +19,6 @@ public class CollisionReporter<TView> where TView : MonoBehaviour
 
     public Observable<CollidedEvent<TView>> Collided => _collided;
 
-    public void Report(TView invaderColliderView, Collider other) =>
-        _collided.OnNext(new CollidedEvent<TView>(invaderColliderView, other));
+    public void Report(TView colliderView, Collider other) =>
+        _collided.OnNext(new CollidedEvent<TView>(colliderView, other));
 }

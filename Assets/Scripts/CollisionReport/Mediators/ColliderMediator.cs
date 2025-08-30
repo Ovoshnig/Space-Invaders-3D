@@ -1,11 +1,12 @@
 ﻿using R3;
 using UnityEngine;
 
-public abstract class CollisionMediator<TEntityView> : Mediator where TEntityView : MonoBehaviour
+public abstract class CollisionMediator<TView> : Mediator where TView : MonoBehaviour
 {
-    private readonly CollisionReporter<TEntityView> _collisionHub;
+    private readonly CollisionReporter<TView> _collisionReporter;
 
-    protected CollisionMediator(CollisionReporter<TEntityView> collisionHub) => _collisionHub = collisionHub;
+    protected CollisionMediator(CollisionReporter<TView> collisionReporter) => 
+        _collisionReporter = collisionReporter;
 
     protected CompositeDisposable BindCompositeDisposable { get; } = new();
 
@@ -16,10 +17,10 @@ public abstract class CollisionMediator<TEntityView> : Mediator where TEntityVie
         BindCompositeDisposable.Dispose();
     }
 
-    protected void Subscribe(TEntityView entityView, TriggerColliderView colliderView)
+    protected void Subscribe(TView entityView, TriggerColliderView colliderView)
     {
         colliderView.Collided
-            .Subscribe(other => _collisionHub.Report(entityView, other))
+            .Subscribe(other => _collisionReporter.Report(entityView, other))
             .AddTo(BindCompositeDisposable);
     }
 }

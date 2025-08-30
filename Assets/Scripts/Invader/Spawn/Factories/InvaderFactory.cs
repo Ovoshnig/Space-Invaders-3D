@@ -9,14 +9,14 @@ public class InvaderFactory : IInitializable, IDisposable
     private readonly IObjectResolver _container;
     private readonly InvaderRegistry _registry;
     private readonly InvaderEntityView[] _prefabs;
-    private readonly InvaderDestroyer _destroyer;
+    private readonly CollidedDestroyer<InvaderEntityView, PlayerBulletMoverView> _destroyer;
     private readonly Transform _invaderRoot;
     private readonly CompositeDisposable _compositeDisposable = new();
 
     public InvaderFactory(IObjectResolver resolver,
         InvaderRegistry registry,
         InvaderEntityView[] prefabs,
-        InvaderDestroyer destroyer)
+        CollidedDestroyer<InvaderEntityView, PlayerBulletMoverView> destroyer)
     {
         _container = resolver;
         _registry = registry;
@@ -28,7 +28,7 @@ public class InvaderFactory : IInitializable, IDisposable
     public void Initialize()
     {
         _destroyer.Destroyed
-            .Subscribe(_registry.Remove)
+            .Subscribe(collidedDestructionEvent => _registry.Remove(collidedDestructionEvent.CollidedView))
             .AddTo(_compositeDisposable);
     }
 

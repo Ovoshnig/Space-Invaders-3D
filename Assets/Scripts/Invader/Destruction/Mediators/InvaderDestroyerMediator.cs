@@ -1,16 +1,8 @@
-﻿using R3;
-
-public class InvaderDestroyerMediator : Mediator
+﻿public class InvaderDestroyerMediator : CollidedDestroyerMediator<InvaderEntityView, PlayerBulletMoverView>
 {
-    private readonly InvaderDestroyer _invaderDestroyer;
+    public InvaderDestroyerMediator(CollidedDestroyer<InvaderEntityView, PlayerBulletMoverView> invaderDestroyer)
+        : base(invaderDestroyer) { }
 
-    public InvaderDestroyerMediator(InvaderDestroyer invaderDestroyer) =>
-        _invaderDestroyer = invaderDestroyer;
-
-    public override void Initialize()
-    {
-        _invaderDestroyer.Destroyed
-            .Subscribe(invader => invader.Get<InvaderDestroyerView>().Destroy())
-            .AddTo(CompositeDisposable);
-    }
+    protected override CollidedDestroyerView<PlayerBulletMoverView> GetDestroyerView(InvaderEntityView invaderEntityView) =>
+        invaderEntityView.Get<InvaderDestroyerView>();
 }
