@@ -76,6 +76,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6d2cff3e3a4225a4f997bda5e77f0909, type: 3}
       insertIndex: -1
       addedObject: {fileID: 148602806402497823}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6d2cff3e3a4225a4f997bda5e77f0909, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -2264353315318098224}
   m_SourcePrefab: {fileID: 100100000, guid: 6d2cff3e3a4225a4f997bda5e77f0909, type: 3}
 --- !u!1 &8756561834830188286 stripped
 GameObject:
@@ -154,3 +157,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7e6ae842b4829e47b7dfe501031cdd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Invader::TriggerColliderView
+--- !u!114 &-2264353315318098224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8756561834830188286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f14ccc6a2d7dfb40847bf119964f292, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UFO::UFODestroyerView
+  _explosionView: {fileID: 6243279858726585704, guid: 9b301c7c1e50d06418261e3332bc2d09, type: 3}

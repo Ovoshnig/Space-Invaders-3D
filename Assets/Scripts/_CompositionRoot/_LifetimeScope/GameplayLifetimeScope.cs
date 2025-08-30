@@ -33,6 +33,7 @@ public class GameplayLifetimeScope : LifetimeScope
 
         ConfigureUFOMovement(builder);
         ConfigureUFOCollision(builder);
+        ConfigureUFODestruction(builder);
     }
 
     private void ConfigurePlayerSound(IContainerBuilder builder)
@@ -126,6 +127,13 @@ public class GameplayLifetimeScope : LifetimeScope
     {
         builder.Register<CollisionReporter<UFOMoverView>>(Lifetime.Singleton);
         builder.RegisterEntryPoint<UFOCollisionMediator>(Lifetime.Singleton);
+    }
+
+    private void ConfigureUFODestruction(IContainerBuilder builder)
+    {
+        builder.RegisterEntryPoint<CollidedDestroyer<UFOMoverView, PlayerBulletMoverView>>(Lifetime.Singleton)
+            .AsSelf();
+        builder.RegisterEntryPoint<UFODestroyerMediator>(Lifetime.Singleton);
     }
 
     private void Start()
