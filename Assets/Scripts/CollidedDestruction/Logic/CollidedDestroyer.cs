@@ -2,19 +2,9 @@ using R3;
 using UnityEngine;
 using VContainer.Unity;
 
-public readonly struct CollidedDestructionEvent<TCollidedView, TOtherView>
+public record CollidedDestructionEvent<TCollidedView, TOtherView>(TCollidedView CollidedView, TOtherView OtherView)
     where TCollidedView : MonoBehaviour
-    where TOtherView : MonoBehaviour
-{
-    public CollidedDestructionEvent(TCollidedView collidedView, TOtherView otherView)
-    {
-        CollidedView = collidedView;
-        OtherView = otherView;
-    }
-
-    public TCollidedView CollidedView { get; }
-    public TOtherView OtherView { get; }
-}
+    where TOtherView : MonoBehaviour;
 
 public class CollidedDestroyer<TCollidedView, TOtherView> : IInitializable
     where TCollidedView : MonoBehaviour
@@ -39,7 +29,6 @@ public class CollidedDestroyer<TCollidedView, TOtherView> : IInitializable
     {
         if (collidedEvent.Other.TryGetComponent(out TOtherView otherView))
             _destroyed.OnNext(new CollidedDestructionEvent<TCollidedView, TOtherView>(
-                collidedEvent.View,
-                otherView));
+                collidedEvent.View, otherView));
     }
 }

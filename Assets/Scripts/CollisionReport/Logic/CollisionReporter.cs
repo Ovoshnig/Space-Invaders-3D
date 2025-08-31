@@ -1,17 +1,8 @@
 ﻿using R3;
 using UnityEngine;
 
-public readonly struct CollidedEvent<TView> where TView : MonoBehaviour
-{
-    public CollidedEvent(TView view, Collider other)
-    {
-        View = view;
-        Other = other;
-    }
-
-    public TView View { get; }
-    public Collider Other { get; }
-}
+public record CollidedEvent<TView>(TView View, Collider Other)
+    where TView : MonoBehaviour;
 
 public class CollisionReporter<TView> where TView : MonoBehaviour
 {
