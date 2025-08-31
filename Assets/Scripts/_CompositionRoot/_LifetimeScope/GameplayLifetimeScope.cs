@@ -22,6 +22,7 @@ public class GameplayLifetimeScope : LifetimeScope
         ConfigurePlayerSound(builder);
         ConfigurePlayerMovement(builder);
         ConfigurePlayerShooting(builder);
+        ConfigurePlayerCollision(builder);
 
         ConfigureBulletMovement(builder);
 
@@ -57,6 +58,12 @@ public class GameplayLifetimeScope : LifetimeScope
         builder.Register<PlayerShooterModel>(Lifetime.Singleton);
         builder.RegisterEntryPoint<PlayerShooter>(Lifetime.Singleton).AsSelf();
         builder.RegisterEntryPoint<PlayerShooterMediator>(Lifetime.Singleton);
+    }
+
+    private void ConfigurePlayerCollision(IContainerBuilder builder)
+    {
+        builder.Register<CollisionReporter<PlayerMoverView>>(Lifetime.Singleton);
+        builder.RegisterEntryPoint<PlayerCollisionMediator>(Lifetime.Singleton);
     }
 
     private void ConfigureBulletMovement(IContainerBuilder builder) =>

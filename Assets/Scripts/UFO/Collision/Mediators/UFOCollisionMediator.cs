@@ -2,8 +2,9 @@
 {
     private readonly UFOMoverView _ufoMoverView;
 
-    public UFOCollisionMediator(CollisionReporter<UFOMoverView> collisionHub, UFOMoverView ufoMoverView)
-        : base(collisionHub) => _ufoMoverView = ufoMoverView;
+    public UFOCollisionMediator(CollisionReporter<UFOMoverView> collisionReporter, 
+        UFOMoverView ufoMoverView)
+        : base(collisionReporter) => _ufoMoverView = ufoMoverView;
 
     public override void Initialize()
     {
