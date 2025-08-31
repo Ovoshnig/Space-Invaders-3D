@@ -40,31 +40,15 @@ public class GameplayLifetimeScope : LifetimeScope
     {
         builder.RegisterComponent(_playerSoundPlayerView);
         builder.Register<PlayerSoundLoader>(Lifetime.Singleton);
-        builder.RegisterEntryPoint(container =>
-        {
-            PlayerSoundLoader playerSoundLoader = container.Resolve<PlayerSoundLoader>();
-            PlayerSoundPlayerView playerSoundPlayerView = container.Resolve<PlayerSoundPlayerView>();
-            return new PlayerSoundLoaderSoundPlayerViewMediator(playerSoundLoader, playerSoundPlayerView);
-        }, Lifetime.Singleton);
-
-        builder.RegisterEntryPoint(container =>
-        {
-            PlayerShooter playerShooter = container.Resolve<PlayerShooter>();
-            PlayerSoundPlayerView playerSoundPlayerView = container.Resolve<PlayerSoundPlayerView>();
-            return new PlayerSoundPlayerShooterMediator(playerShooter, playerSoundPlayerView);
-        }, Lifetime.Singleton);
+        builder.RegisterEntryPoint<PlayerSoundLoaderSoundPlayerViewMediator>(Lifetime.Singleton);
+        builder.RegisterEntryPoint<PlayerSoundPlayerShooterMediator>(Lifetime.Singleton);
     }
 
     private void ConfigurePlayerMovement(IContainerBuilder builder)
     {
         builder.RegisterComponent(_playerMoverView);
         builder.RegisterEntryPoint<PlayerMover>(Lifetime.Singleton).AsSelf();
-        builder.RegisterEntryPoint(container =>
-        {
-            PlayerMover playerMover = container.Resolve<PlayerMover>();
-            PlayerMoverView playerMoverView = container.Resolve<PlayerMoverView>();
-            return new PlayerMoverMediator(playerMover, playerMoverView);
-        }, Lifetime.Singleton);
+        builder.RegisterEntryPoint<PlayerMoverMediator>(Lifetime.Singleton);
     }
 
     private void ConfigurePlayerShooting(IContainerBuilder builder)
@@ -75,7 +59,7 @@ public class GameplayLifetimeScope : LifetimeScope
         builder.RegisterEntryPoint<PlayerShooterMediator>(Lifetime.Singleton);
     }
 
-    private void ConfigureBulletMovement(IContainerBuilder builder) => 
+    private void ConfigureBulletMovement(IContainerBuilder builder) =>
         builder.RegisterComponent(_playerBulletMoverView);
 
     private void ConfigureInvaderSpawn(IContainerBuilder builder)
