@@ -7,6 +7,7 @@ public class PlayerShooter : ITickable
     private readonly Subject<Unit> _shot = new();
 
     private bool _isBulletEnabled = false;
+    private bool _isPause = false;
 
     public PlayerShooter(PlayerInputHandler playerInputHandler) => _playerInputHandler = playerInputHandler;
 
@@ -14,7 +15,7 @@ public class PlayerShooter : ITickable
 
     public void Tick()
     {
-        if (_playerInputHandler.ShootPressed.CurrentValue && !_isBulletEnabled)
+        if (_playerInputHandler.ShootPressed.CurrentValue && !_isBulletEnabled && !_isPause)
         {
             _shot.OnNext(Unit.Default);
             SetBulletEnabled(true);
@@ -22,4 +23,6 @@ public class PlayerShooter : ITickable
     }
 
     public void SetBulletEnabled(bool value) => _isBulletEnabled = value;
+
+    public void SetPause(bool value) => _isPause = value;
 }

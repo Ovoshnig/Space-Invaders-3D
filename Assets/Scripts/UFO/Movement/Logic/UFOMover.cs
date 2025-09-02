@@ -22,6 +22,7 @@ public class UFOMover : IInitializable, IDisposable
     private Vector3 _rightStartPosition;
     private int _direction = 1;
     private bool _isMoving = false;
+    private bool _isPause = false;
 
     public UFOMover(PlayerShooterModel playerShooterModel,
         CollidedDestroyer<UFOMoverView, PlayerBulletMoverView> collidedDestroyer,
@@ -74,6 +75,8 @@ public class UFOMover : IInitializable, IDisposable
 
         _compositeDisposable.Dispose();
     }
+
+    public void SetPause(bool value) => _isPause = value;
 
     private bool ShouldSpawnUFO(int currentShotCount)
     {
@@ -136,6 +139,9 @@ public class UFOMover : IInitializable, IDisposable
             _moved.OnNext(movement);
 
             await UniTask.Yield(cancellationToken: token);
+
+            if (_isPause)
+                await UniTask.WaitWhile(() => _isPause, cancellationToken: token);
         }
     }
 }

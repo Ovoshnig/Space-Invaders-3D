@@ -3,17 +3,7 @@ using R3;
 using System.Threading;
 using System.Threading.Tasks;
 
-public readonly struct ShotEvent
-{
-    public int InvaderIndex { get; }
-    public InvaderBulletMoverView Bullet { get; }
-
-    public ShotEvent(int invaderIndex, InvaderBulletMoverView bullet)
-    {
-        InvaderIndex = invaderIndex;
-        Bullet = bullet;
-    }
-}
+public record ShotEvent(int InvaderIndex, InvaderBulletMoverView Bullet);
 
 public class InvaderShooter
 {
@@ -23,6 +13,7 @@ public class InvaderShooter
     private readonly Subject<ShotEvent> _shot = new();
 
     private int _invadersCount = 0;
+    private bool _isPause = false;
 
     public InvaderShooter(InvaderBulletPool bulletPool,
         InvaderShootingSettings invaderShootingSettings)
@@ -45,6 +36,9 @@ public class InvaderShooter
 
             await UniTask.WaitForSeconds(randomDelay, cancellationToken: token);
 
+            if (_isPause)
+                await UniTask.WaitWhile(() => _isPause, cancellationToken: token);
+
             if (_bulletPool.TryGetBullet(out InvaderBulletMoverView bulletMoverView))
             {
                 int randomInvaderIndex = _random.Next(0, _invadersCount);
@@ -52,4 +46,6 @@ public class InvaderShooter
             }
         }
     }
+
+    public void SetPause(bool value) => _isPause = value;
 }

@@ -15,6 +15,10 @@ public class GameplayLifetimeScope : LifetimeScope
 
     protected override void Configure(IContainerBuilder builder)
     {
+        ConfigureCompositionRoot(builder);
+
+        builder.Register<GamePauser>(Lifetime.Singleton);
+
         builder.RegisterInstance(_fieldView);
 
         builder.RegisterEntryPoint<PlayerInputHandler>(Lifetime.Singleton).AsSelf();
@@ -38,6 +42,18 @@ public class GameplayLifetimeScope : LifetimeScope
         ConfigureUFOMovement(builder);
         ConfigureUFOCollision(builder);
         ConfigureUFODestruction(builder);
+    }
+
+    private void ConfigureCompositionRoot(IContainerBuilder builder)
+    {
+        builder.RegisterEntryPoint<GamePauserPlayerDestroyerMediator>();
+        builder.RegisterEntryPoint<PlayerMoverGamePauserMediator>();
+        builder.RegisterEntryPoint<PlayerShooterGamePauserMediator>();
+        builder.RegisterEntryPoint<PlayerBulletMoverGamePauserMediator>();
+        builder.RegisterEntryPoint<InvaderMoverGamePauserMediator>();
+        builder.RegisterEntryPoint<InvaderShooterGamePauserMediator>();
+        builder.RegisterEntryPoint<InvaderBulletPoolGamePauserMediator>();
+        builder.RegisterEntryPoint<UFOMoverGamePauserMediator>();
     }
 
     private void ConfigurePlayerSpawn(IContainerBuilder builder) =>
@@ -104,7 +120,7 @@ public class GameplayLifetimeScope : LifetimeScope
     private void ConfigureInvaderShooting(IContainerBuilder builder)
     {
         builder.RegisterInstance(_invaderBulletPrefabs);
-        builder.RegisterEntryPoint<InvaderBulletPool>(Lifetime.Singleton).AsSelf();
+        builder.Register<InvaderBulletPool>(Lifetime.Singleton);
 
         builder.Register<InvaderShooter>(Lifetime.Singleton);
         builder.RegisterEntryPoint<InvaderShooterMediator>(Lifetime.Singleton);

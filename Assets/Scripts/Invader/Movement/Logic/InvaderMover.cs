@@ -15,6 +15,7 @@ public class InvaderMover
     private float _currentMinPositionX = 0f;
     private float _currentMaxPositionX = 0f;
     private float _currentMinPositionZ = 0f;
+    private bool _isPause = false;
 
     public InvaderMover(FieldView fieldView,
         InvaderSpawnSettings invaderSpawnSettings,
@@ -78,6 +79,11 @@ public class InvaderMover
             }
 
             await UniTask.WaitForSeconds(_invaderMovementSettings.StepDelay, cancellationToken: token);
+
+            if (_isPause)
+                await UniTask.WaitWhile(() => _isPause, cancellationToken: token);
         }
     }
+
+    public void SetPause(bool value) => _isPause = value;
 }
