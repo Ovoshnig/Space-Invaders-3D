@@ -25,7 +25,7 @@ public class CollidedDestroyer<TCollidedView, TOtherView> : IInitializable
             .AddTo(_compositeDisposable);
     }
 
-    private void OnCollided(CollidedEvent<TCollidedView> collidedEvent)
+    protected virtual void OnCollided(CollidedEvent<TCollidedView> collidedEvent)
     {
         if (collidedEvent.Other.TryGetComponent(out TOtherView otherView))
             _destroyed.OnNext(new CollidedDestructionEvent<TCollidedView, TOtherView>(

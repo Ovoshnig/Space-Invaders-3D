@@ -4,27 +4,27 @@ using VContainer;
 public class PlayerMoverView : MonoBehaviour
 {
     private FieldView _fieldView;
-    private MeshRenderer _meshRenderer;
+    private BoxCollider _boxCollider;
 
     [Inject]
     public void Construct(FieldView fieldView) => _fieldView = fieldView;
 
-    private MeshRenderer MeshRenderer
+    private BoxCollider BoxCollider
     {
         get
         {
-            if (_meshRenderer == null)
-                _meshRenderer = GetComponent<MeshRenderer>();
+            if (_boxCollider == null)
+                _boxCollider = GetComponent<BoxCollider>();
 
-            return _meshRenderer;
+            return _boxCollider;
         }
-        set => _meshRenderer = value;
+        set => _boxCollider = value;
     }
 
     public void Move(Vector3 motion)
     {
-        var innerBounds = MeshRenderer.bounds;
-        var outerBounds = _fieldView.Bounds;
+        Bounds innerBounds = BoxCollider.bounds;
+        Bounds outerBounds = _fieldView.Bounds;
 
         if (innerBounds.min.x + motion.x >= outerBounds.min.x && 
             innerBounds.max.x + motion.x <= outerBounds.max.x)

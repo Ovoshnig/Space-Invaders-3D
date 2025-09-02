@@ -19,10 +19,13 @@ public class GameplayLifetimeScope : LifetimeScope
 
         builder.RegisterEntryPoint<PlayerInputHandler>(Lifetime.Singleton).AsSelf();
 
-        ConfigurePlayerSound(builder);
+        ConfigurePlayerSpawn(builder);
         ConfigurePlayerMovement(builder);
         ConfigurePlayerShooting(builder);
         ConfigurePlayerCollision(builder);
+        ConfigurePlayerDestruction(builder);
+        ConfigurePlayerAnimation(builder);
+        ConfigurePlayerSound(builder);
 
         ConfigureBulletMovement(builder);
 
@@ -37,13 +40,8 @@ public class GameplayLifetimeScope : LifetimeScope
         ConfigureUFODestruction(builder);
     }
 
-    private void ConfigurePlayerSound(IContainerBuilder builder)
-    {
-        builder.RegisterComponent(_playerSoundPlayerView);
-        builder.Register<PlayerSoundLoader>(Lifetime.Singleton);
-        builder.RegisterEntryPoint<PlayerSoundLoaderSoundPlayerViewMediator>(Lifetime.Singleton);
-        builder.RegisterEntryPoint<PlayerSoundPlayerShooterMediator>(Lifetime.Singleton);
-    }
+    private void ConfigurePlayerSpawn(IContainerBuilder builder) =>
+        builder.RegisterEntryPoint<PlayerSpawner>(Lifetime.Singleton);
 
     private void ConfigurePlayerMovement(IContainerBuilder builder)
     {
@@ -64,6 +62,24 @@ public class GameplayLifetimeScope : LifetimeScope
     {
         builder.Register<CollisionReporter<PlayerMoverView>>(Lifetime.Singleton);
         builder.RegisterEntryPoint<PlayerCollisionMediator>(Lifetime.Singleton);
+    }
+
+    private void ConfigurePlayerDestruction(IContainerBuilder builder)
+    {
+        builder.RegisterEntryPoint<PlayerDestroyer>(Lifetime.Singleton)
+            .AsSelf();
+        builder.RegisterEntryPoint<PlayerDestroyerMediator>(Lifetime.Singleton);
+    }
+
+    private void ConfigurePlayerAnimation(IContainerBuilder builder) => 
+        builder.RegisterEntryPoint<PlayerDestroyerAnimatorViewMediator>(Lifetime.Singleton);
+
+    private void ConfigurePlayerSound(IContainerBuilder builder)
+    {
+        builder.RegisterComponent(_playerSoundPlayerView);
+        builder.Register<PlayerSoundLoader>(Lifetime.Singleton);
+        builder.RegisterEntryPoint<PlayerSoundLoaderSoundPlayerViewMediator>(Lifetime.Singleton);
+        builder.RegisterEntryPoint<PlayerSoundPlayerShooterMediator>(Lifetime.Singleton);
     }
 
     private void ConfigureBulletMovement(IContainerBuilder builder) =>

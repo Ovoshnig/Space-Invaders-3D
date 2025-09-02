@@ -2,5 +2,5 @@ using UnityEngine;
 
 public static class PlayerAnimatorConstants
 {
-    public static readonly int IsWalkingId = Animator.StringToHash("isWalking");
+    public static readonly int IsExplodingId = Animator.StringToHash("isExploding");
 }

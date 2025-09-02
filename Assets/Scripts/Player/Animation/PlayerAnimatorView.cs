@@ -16,5 +16,5 @@ public class PlayerAnimatorView : MonoBehaviour
         }
     }
 
-    public void SetWalking(bool value) => Animator.SetBool(PlayerAnimatorConstants.IsWalkingId, value);
+    public void SetExploding(bool value) => Animator.SetBool(PlayerAnimatorConstants.IsExplodingId, value);
 }
