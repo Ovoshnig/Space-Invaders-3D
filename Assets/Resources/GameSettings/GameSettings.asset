@@ -23,6 +23,7 @@ MonoBehaviour:
   <PlayerSettings>k__BackingField:
     <MovementSpeed>k__BackingField: 6
     <ExplosionDuration>k__BackingField: 1
+    <InitialHealth>k__BackingField: 5
   <BulletSettings>k__BackingField:
     <Speed>k__BackingField: 10
   <InvaderSettings>k__BackingField:

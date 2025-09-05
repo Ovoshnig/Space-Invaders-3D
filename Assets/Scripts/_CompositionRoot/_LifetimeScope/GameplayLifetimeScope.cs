@@ -9,6 +9,7 @@ public class GameplayLifetimeScope : LifetimeScope
     [SerializeField] private PlayerMoverView _playerMoverView;
     [SerializeField] private PlayerShooterView _playerShooterView;
     [SerializeField] private PlayerBulletMoverView _playerBulletMoverView;
+    [SerializeField] private PlayerHealthView _playerHealthView;
     [SerializeField] private InvaderEntityView[] _invaderPrefabs;
     [SerializeField] private InvaderBulletMoverView[] _invaderBulletPrefabs;
     [SerializeField] private UFOMoverView _UFOMoverView;
@@ -28,6 +29,7 @@ public class GameplayLifetimeScope : LifetimeScope
         ConfigurePlayerShooting(builder);
         ConfigurePlayerCollision(builder);
         ConfigurePlayerDestruction(builder);
+        ConfigurePlayerHealth(builder);
         ConfigurePlayerAnimation(builder);
         ConfigurePlayerSound(builder);
 
@@ -47,6 +49,7 @@ public class GameplayLifetimeScope : LifetimeScope
     private void ConfigureCompositionRoot(IContainerBuilder builder)
     {
         builder.RegisterEntryPoint<GamePauserPlayerDestroyerMediator>();
+        builder.RegisterEntryPoint<GamePauserPlayerHealthMediator>();
         builder.RegisterEntryPoint<PlayerMoverGamePauserMediator>();
         builder.RegisterEntryPoint<PlayerShooterGamePauserMediator>();
         builder.RegisterEntryPoint<PlayerBulletMoverGamePauserMediator>();
@@ -87,7 +90,16 @@ public class GameplayLifetimeScope : LifetimeScope
         builder.RegisterEntryPoint<PlayerDestroyerMediator>(Lifetime.Singleton);
     }
 
-    private void ConfigurePlayerAnimation(IContainerBuilder builder) => 
+    private void ConfigurePlayerHealth(IContainerBuilder builder)
+    {
+        builder.Register<PlayerHealthModel>(Lifetime.Singleton);
+        builder.RegisterEntryPoint<PlayerHealthLogic>(Lifetime.Singleton)
+            .AsSelf();
+        builder.RegisterComponent(_playerHealthView);
+        builder.RegisterEntryPoint<PlayerHealthMediator>(Lifetime.Singleton);
+    }
+
+    private void ConfigurePlayerAnimation(IContainerBuilder builder) =>
         builder.RegisterEntryPoint<PlayerDestroyerAnimatorViewMediator>(Lifetime.Singleton);
 
     private void ConfigurePlayerSound(IContainerBuilder builder)
