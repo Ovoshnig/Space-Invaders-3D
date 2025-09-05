@@ -1,0 +1,16 @@
+{
+    "name": "Shield",
+    "rootNamespace": "",
+    "references": [
+        "GUID:785f5caf9cb6a99439d9ede9378ece1f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
