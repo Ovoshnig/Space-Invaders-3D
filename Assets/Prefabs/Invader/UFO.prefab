@@ -51,7 +51,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 6d2cff3e3a4225a4f997bda5e77f0909, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 33c9e5f7e5d4bb24781e7f1e4e50bf5b, type: 2}
+      objectReference: {fileID: 2100000, guid: 856b6935b0785984fa55c5f68134206f, type: 2}
     - target: {fileID: 919132149155446097, guid: 6d2cff3e3a4225a4f997bda5e77f0909, type: 3}
       propertyPath: m_Name
       value: UFO
