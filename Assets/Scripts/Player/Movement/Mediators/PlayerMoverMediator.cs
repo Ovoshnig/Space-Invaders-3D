@@ -13,7 +13,7 @@ public class PlayerMoverMediator : Mediator
 
     public override void Initialize()
     {
-        _playerMover.FrameMotion
+        _playerMover.FrameMovement
             .Subscribe(_playerMoverView.Move)
             .AddTo(CompositeDisposable);
     }

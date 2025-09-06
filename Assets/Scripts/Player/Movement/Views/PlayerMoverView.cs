@@ -4,7 +4,7 @@ using VContainer;
 public class PlayerMoverView : MonoBehaviour
 {
     private FieldView _fieldView;
-    private BoxCollider _boxCollider;
+    private BoxCollider _boxCollider = null;
 
     [Inject]
     public void Construct(FieldView fieldView) => _fieldView = fieldView;
@@ -18,16 +18,16 @@ public class PlayerMoverView : MonoBehaviour
 
             return _boxCollider;
         }
-        set => _boxCollider = value;
     }
 
-    public void Move(Vector3 motion)
+    public void Move(Vector3 movement)
     {
-        Bounds innerBounds = BoxCollider.bounds;
-        Bounds outerBounds = _fieldView.Bounds;
+        float halfWidth = BoxCollider.bounds.extents.x;
+        float minX = _fieldView.Bounds.min.x + halfWidth;
+        float maxX = _fieldView.Bounds.max.x - halfWidth;
 
-        if (innerBounds.min.x + motion.x >= outerBounds.min.x && 
-            innerBounds.max.x + motion.x <= outerBounds.max.x)
-            transform.Translate(motion, Space.World);
+        Vector3 nextPosition = transform.position + movement;
+        nextPosition.x = Mathf.Clamp(nextPosition.x, minX, maxX);
+        transform.position = nextPosition;
     }
 }

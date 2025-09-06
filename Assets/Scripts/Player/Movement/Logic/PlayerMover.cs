@@ -7,10 +7,9 @@ public class PlayerMover : ITickable, IDisposable
 {
     private readonly PlayerInputHandler _playerInputHandler;
     private readonly PlayerSettings _playerSettings;
-    private readonly ReactiveProperty<Vector3> _frameMotion = new(Vector3.zero);
+    private readonly ReactiveProperty<Vector3> _frameMovement = new(Vector3.zero);
     private readonly CompositeDisposable _compositeDisposable = new();
 
-    private float _velocity;
     private bool _isPause = false;
 
     public PlayerMover(PlayerInputHandler playerState,
@@ -20,15 +19,15 @@ public class PlayerMover : ITickable, IDisposable
         _playerSettings = playerSettings;
     }
 
-    public ReadOnlyReactiveProperty<Vector3> FrameMotion => _frameMotion;
+    public ReadOnlyReactiveProperty<Vector3> FrameMovement => _frameMovement;
 
     public void Tick()
     {
         if (_isPause)
             return;
 
-        _velocity = _playerSettings.MovementSpeed * _playerInputHandler.WalkInput.CurrentValue;
-        _frameMotion.Value = Time.deltaTime * new Vector3(_velocity, 0f, 0f);
+        float velocity = _playerSettings.MovementSpeed * _playerInputHandler.WalkInput.CurrentValue;
+        _frameMovement.Value = Time.deltaTime * new Vector3(velocity, 0f, 0f);
     }
 
     public void Dispose() => _compositeDisposable.Dispose();

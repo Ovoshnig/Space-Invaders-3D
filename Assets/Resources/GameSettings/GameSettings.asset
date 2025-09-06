@@ -45,6 +45,11 @@ MonoBehaviour:
       <MinDelay>k__BackingField: 0.5
       <MaxDelay>k__BackingField: 2.5
       <MaxActive>k__BackingField: 3
+    <InvaderPointsSettings>k__BackingField:
+      <Invader1Points>k__BackingField: 10
+      <Invader2Points>k__BackingField: 20
+      <Invader3Points>k__BackingField: 30
+      <UFOPointsVariants>k__BackingField: 3200000064000000960000002c010000
   <UFOMovementSettings>k__BackingField:
     <MeshRenderer>k__BackingField: {fileID: 7099206728451125035, guid: 0b4230b04d1b80043805e965790c51d2, type: 3}
     <FirstShotCount>k__BackingField: 5
