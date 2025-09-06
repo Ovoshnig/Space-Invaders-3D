@@ -5,6 +5,7 @@ using VContainer.Unity;
 public class GameplayLifetimeScope : LifetimeScope
 {
     [SerializeField] private FieldView _fieldView;
+    [SerializeField] private ScoreView _scoreView;
     [SerializeField] private PlayerSoundPlayerView _playerSoundPlayerView;
     [SerializeField] private PlayerMoverView _playerMoverView;
     [SerializeField] private PlayerShooterView _playerShooterView;
@@ -23,6 +24,8 @@ public class GameplayLifetimeScope : LifetimeScope
         builder.RegisterInstance(_fieldView);
 
         builder.RegisterEntryPoint<PlayerInputHandler>(Lifetime.Singleton).AsSelf();
+
+        ConfigureScore(builder);
 
         ConfigurePlayerSpawn(builder);
         ConfigurePlayerMovement(builder);
@@ -57,6 +60,13 @@ public class GameplayLifetimeScope : LifetimeScope
         builder.RegisterEntryPoint<InvaderShooterGamePauserMediator>();
         builder.RegisterEntryPoint<InvaderBulletPoolGamePauserMediator>();
         builder.RegisterEntryPoint<UFOMoverGamePauserMediator>();
+    }
+
+    private void ConfigureScore(IContainerBuilder builder)
+    {
+        builder.RegisterComponent(_scoreView);
+        builder.RegisterEntryPoint<Score>(Lifetime.Singleton).AsSelf();
+        builder.RegisterEntryPoint<ScoreMediator>(Lifetime.Singleton);
     }
 
     private void ConfigurePlayerSpawn(IContainerBuilder builder) =>

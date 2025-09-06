@@ -18,6 +18,7 @@ public class ProjectLifetimeScope : LifetimeScope
         builder.RegisterInstance(_gameSettings.InvaderSettings.InvaderSpawnSettings);
         builder.RegisterInstance(_gameSettings.InvaderSettings.InvaderMovementSettings);
         builder.RegisterInstance(_gameSettings.InvaderSettings.InvaderShootingSettings);
+        builder.RegisterInstance(_gameSettings.InvaderSettings.InvaderPointsSettings);
 
         builder.RegisterInstance(_gameSettings.UFOMovementSettings);
     }

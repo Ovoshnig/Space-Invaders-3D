@@ -7,4 +7,5 @@ public class InvaderSettings
     [field: SerializeField] public InvaderSpawnSettings InvaderSpawnSettings { get; private set; }
     [field: SerializeField] public InvaderMovementSettings InvaderMovementSettings { get; private set; }
     [field: SerializeField] public InvaderShootingSettings InvaderShootingSettings { get; private set; }
+    [field: SerializeField] public InvaderPointsSettings InvaderPointsSettings { get; private set; }
 }

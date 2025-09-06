@@ -56,6 +56,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 6233388704452498101, guid: a1db74de26faf4f4991e0aa599fb5d6c, type: 3}
+    - target: {fileID: 6978720937551604296, guid: 89084bd4dabfccd4bb98578495bba0bc, type: 3}
+      propertyPath: <InvaderPointsView>k__BackingField
+      value: 
+      objectReference: {fileID: -5990776556019693295}
     - target: {fileID: 9114820577947514190, guid: 89084bd4dabfccd4bb98578495bba0bc, type: 3}
       propertyPath: _meshes.Array.size
       value: 2
@@ -71,5 +75,26 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 244211250993748604, guid: 89084bd4dabfccd4bb98578495bba0bc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -5990776556019693295}
   m_SourcePrefab: {fileID: 100100000, guid: 89084bd4dabfccd4bb98578495bba0bc, type: 3}
+--- !u!1 &5200137644347837608 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 244211250993748604, guid: 89084bd4dabfccd4bb98578495bba0bc, type: 3}
+  m_PrefabInstance: {fileID: 5424873222252238548}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-5990776556019693295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5200137644347837608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a001d72539e09064bb6fb351a5108a1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Invader::Invader2PointsView
+  _gameSettings: {fileID: 11400000, guid: 0988861611452554ba55170e30c85ebb, type: 2}
