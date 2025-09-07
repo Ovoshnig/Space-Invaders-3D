@@ -115,9 +115,9 @@ public class GameplayLifetimeScope : LifetimeScope
     private void ConfigurePlayerSound(IContainerBuilder builder)
     {
         builder.RegisterComponent(_playerSoundPlayerView);
-        builder.Register<PlayerSoundLoader>(Lifetime.Singleton);
-        builder.RegisterEntryPoint<PlayerSoundLoaderSoundPlayerViewMediator>(Lifetime.Singleton);
-        builder.RegisterEntryPoint<PlayerSoundPlayerShooterMediator>(Lifetime.Singleton);
+        builder.RegisterEntryPoint<PlayerSoundPlayer>(Lifetime.Singleton)
+            .AsSelf();
+        builder.RegisterEntryPoint<PlayerSoundPlayerMediator>(Lifetime.Singleton);
     }
 
     private void ConfigureBulletMovement(IContainerBuilder builder) =>

@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: cc28f5d8dce39af459f665b09b5a0b5b
   m_currentHash:
     serializedVersion: 2
-    Hash: 55886e51624d860d49aa5fe722d3cf2d
+    Hash: 53a4ff983ce648ceadfea10f36fe2ec5
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_CatalogRequestsTimeout: 0
@@ -99,6 +99,11 @@ MonoBehaviour:
   m_LabelTable:
     m_LabelNames:
     - default
+    - audio
+    - sfx
+    - player
+    - explosion
+    - shoot
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: a3f52e669ab57ac40a297feba8b683a0, type: 2}

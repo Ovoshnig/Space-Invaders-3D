@@ -8,6 +8,7 @@ public class ProjectLifetimeScope : LifetimeScope
 
     protected override void Configure(IContainerBuilder builder)
     {
+        builder.Register<AddressableLoader>(Lifetime.Singleton);
         builder.Register<InputActions>(Lifetime.Singleton);
 
         builder.RegisterInstance(_gameSettings.SceneSettings);
