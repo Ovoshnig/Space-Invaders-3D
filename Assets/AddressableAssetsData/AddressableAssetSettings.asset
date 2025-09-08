@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: cc28f5d8dce39af459f665b09b5a0b5b
   m_currentHash:
     serializedVersion: 2
-    Hash: 53a4ff983ce648ceadfea10f36fe2ec5
+    Hash: 65a1679ba2373d4db217bd9d150616f8
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_CatalogRequestsTimeout: 0
@@ -104,6 +104,8 @@ MonoBehaviour:
     - player
     - explosion
     - shoot
+    - invader
+    - movement
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: a3f52e669ab57ac40a297feba8b683a0, type: 2}

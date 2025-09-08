@@ -15,6 +15,33 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: cc28f5d8dce39af459f665b09b5a0b5b
   m_SerializeEntries:
+  - m_GUID: 02d71d13b8895e74d9f77ec70cfc5ff7
+    m_Address: Assets/Resources_moved/Audio/SFX/Invader/fastinvader3.wav
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - audio
+    - invader
+    - movement
+    - sfx
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1421216920edeb046b2e175314f01d31
+    m_Address: Assets/Resources_moved/Audio/SFX/Invader/fastinvader2.wav
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - audio
+    - invader
+    - movement
+    - sfx
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 40e792316c2cad646aa9201c5e07656d
+    m_Address: Assets/Resources_moved/Audio/SFX/Invader/fastinvader4.wav
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - audio
+    - invader
+    - movement
+    - sfx
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 88aa3a0762d3f12478590eb25c174d71
     m_Address: Assets/Resources_moved/Audio/SFX/Player/shoot.wav
     m_ReadOnly: 0
@@ -24,6 +51,15 @@ MonoBehaviour:
     - sfx
     - shoot
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d589faaad3778e7488c35493110f3d04
+    m_Address: Assets/Resources_moved/Audio/SFX/Invader/fastinvader1.wav
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - audio
+    - invader
+    - movement
+    - sfx
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dfe260a8117fdc04eafa2a8233fe7c64
     m_Address: Audio/explosion
     m_ReadOnly: 0
@@ -31,6 +67,15 @@ MonoBehaviour:
     - audio
     - explosion
     - player
+    - sfx
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: edbe1ad63cc907542ab522d056f873e3
+    m_Address: Assets/Resources_moved/Audio/SFX/Invader/invaderkilled.wav
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - audio
+    - explosion
+    - invader
     - sfx
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0

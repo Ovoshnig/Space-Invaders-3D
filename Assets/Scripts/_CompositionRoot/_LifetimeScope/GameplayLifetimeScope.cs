@@ -6,13 +6,14 @@ public class GameplayLifetimeScope : LifetimeScope
 {
     [SerializeField] private FieldView _fieldView;
     [SerializeField] private ScoreView _scoreView;
-    [SerializeField] private PlayerSoundPlayerView _playerSoundPlayerView;
     [SerializeField] private PlayerMoverView _playerMoverView;
     [SerializeField] private PlayerShooterView _playerShooterView;
     [SerializeField] private PlayerBulletMoverView _playerBulletMoverView;
+    [SerializeField] private PlayerSoundPlayerView _playerSoundPlayerView;
     [SerializeField] private PlayerHealthView _playerHealthView;
     [SerializeField] private InvaderEntityView[] _invaderPrefabs;
     [SerializeField] private InvaderBulletMoverView[] _invaderBulletPrefabs;
+    [SerializeField] private InvaderSoundPlayerView _invaderSoundPlayerView;
     [SerializeField] private UFOMoverView _UFOMoverView;
 
     protected override void Configure(IContainerBuilder builder)
@@ -43,6 +44,7 @@ public class GameplayLifetimeScope : LifetimeScope
         ConfigureInvaderShooting(builder);
         ConfigureInvaderCollision(builder);
         ConfigureInvaderDestruction(builder);
+        ConfigureInvaderSound(builder);
 
         ConfigureUFOMovement(builder);
         ConfigureUFOCollision(builder);
@@ -159,6 +161,14 @@ public class GameplayLifetimeScope : LifetimeScope
         builder.RegisterEntryPoint<CollidedDestroyer<InvaderEntityView, PlayerBulletMoverView>>(Lifetime.Singleton)
             .AsSelf();
         builder.RegisterEntryPoint<InvaderDestroyerMediator>(Lifetime.Singleton);
+    }
+
+    private void ConfigureInvaderSound(IContainerBuilder builder)
+    {
+        builder.RegisterComponent(_invaderSoundPlayerView);
+        builder.RegisterEntryPoint<InvaderSoundPlayer>(Lifetime.Singleton)
+            .AsSelf();
+        builder.RegisterEntryPoint<InvaderSoundPlayerMediator>(Lifetime.Singleton);
     }
 
     private void ConfigureUFOMovement(IContainerBuilder builder)
