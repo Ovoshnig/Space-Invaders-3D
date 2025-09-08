@@ -69,6 +69,15 @@ MonoBehaviour:
     - player
     - sfx
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ed7a1a20dcfccfc49879d9fd0a1787fa
+    m_Address: Assets/Resources_moved/Audio/SFX/UFO/ufo_highpitch.wav
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - audio
+    - movement
+    - sfx
+    - ufo
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: edbe1ad63cc907542ab522d056f873e3
     m_Address: Assets/Resources_moved/Audio/SFX/Invader/invaderkilled.wav
     m_ReadOnly: 0
@@ -77,6 +86,15 @@ MonoBehaviour:
     - explosion
     - invader
     - sfx
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f65a77e41554ea2498a32063315e3bb5
+    m_Address: Assets/Resources_moved/Audio/SFX/UFO/ufo_lowpitch.wav
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - audio
+    - movement
+    - sfx
+    - ufo
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 8b115d1a2665021489d7e586e32df0fc, type: 2}

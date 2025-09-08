@@ -15,6 +15,7 @@ public class GameplayLifetimeScope : LifetimeScope
     [SerializeField] private InvaderBulletMoverView[] _invaderBulletPrefabs;
     [SerializeField] private InvaderSoundPlayerView _invaderSoundPlayerView;
     [SerializeField] private UFOMoverView _UFOMoverView;
+    [SerializeField] private UFOSoundPlayerView _ufoSoundPlayerView;
 
     protected override void Configure(IContainerBuilder builder)
     {
@@ -49,6 +50,7 @@ public class GameplayLifetimeScope : LifetimeScope
         ConfigureUFOMovement(builder);
         ConfigureUFOCollision(builder);
         ConfigureUFODestruction(builder);
+        ConfigureUFOSound(builder);
     }
 
     private void ConfigureCompositionRoot(IContainerBuilder builder)
@@ -189,6 +191,14 @@ public class GameplayLifetimeScope : LifetimeScope
         builder.RegisterEntryPoint<CollidedDestroyer<UFOMoverView, PlayerBulletMoverView>>(Lifetime.Singleton)
             .AsSelf();
         builder.RegisterEntryPoint<UFODestroyerMediator>(Lifetime.Singleton);
+    }
+
+    private void ConfigureUFOSound(IContainerBuilder builder)
+    {
+        builder.RegisterComponent(_ufoSoundPlayerView);
+        builder.RegisterEntryPoint<UFOSoundPlayer>(Lifetime.Singleton)
+            .AsSelf();
+        builder.RegisterEntryPoint<UFOSoundPlayerMediator>(Lifetime.Singleton);
     }
 
     private void Start()
