@@ -6,6 +6,8 @@ public class GameplayLifetimeScope : LifetimeScope
 {
     [SerializeField] private FieldView _fieldView;
     [SerializeField] private ScoreView _scoreView;
+    [SerializeField] private GameOverView _gameOverView;
+    [SerializeField] private GameRestarterView _gameRestarterView;
     [SerializeField] private PlayerMoverView _playerMoverView;
     [SerializeField] private PlayerShooterView _playerShooterView;
     [SerializeField] private PlayerBulletMoverView _playerBulletMoverView;
@@ -28,6 +30,7 @@ public class GameplayLifetimeScope : LifetimeScope
         builder.RegisterEntryPoint<PlayerInputHandler>(Lifetime.Singleton).AsSelf();
 
         ConfigureScore(builder);
+        ConfigureGameOver(builder);
 
         ConfigurePlayerSpawn(builder);
         ConfigurePlayerMovement(builder);
@@ -55,8 +58,10 @@ public class GameplayLifetimeScope : LifetimeScope
 
     private void ConfigureCompositionRoot(IContainerBuilder builder)
     {
+        builder.RegisterEntryPoint<GamePauserSceneSwitchMediator>();
         builder.RegisterEntryPoint<GamePauserPlayerDestroyerMediator>();
-        builder.RegisterEntryPoint<GamePauserPlayerHealthMediator>();
+        builder.RegisterEntryPoint<GamePauserGameOverMediator>();
+
         builder.RegisterEntryPoint<PlayerMoverGamePauserMediator>();
         builder.RegisterEntryPoint<PlayerShooterGamePauserMediator>();
         builder.RegisterEntryPoint<PlayerBulletMoverGamePauserMediator>();
@@ -71,6 +76,18 @@ public class GameplayLifetimeScope : LifetimeScope
         builder.RegisterComponent(_scoreView);
         builder.RegisterEntryPoint<Score>(Lifetime.Singleton).AsSelf();
         builder.RegisterEntryPoint<ScoreMediator>(Lifetime.Singleton);
+    }
+
+    private void ConfigureGameOver(IContainerBuilder builder)
+    {
+        builder.RegisterComponent(_gameOverView);
+        builder.RegisterEntryPoint<GameOver>(Lifetime.Singleton)
+            .AsSelf();
+        builder.RegisterEntryPoint<GameOverMediator>(Lifetime.Singleton);
+
+        builder.RegisterComponent(_gameRestarterView);
+        builder.Register<GameRestarter>(Lifetime.Singleton);
+        builder.RegisterEntryPoint<GameRestarterMediator>(Lifetime.Singleton);
     }
 
     private void ConfigurePlayerSpawn(IContainerBuilder builder) =>

@@ -11,6 +11,9 @@ public class ProjectLifetimeScope : LifetimeScope
         builder.Register<AddressableLoader>(Lifetime.Singleton);
         builder.Register<InputActions>(Lifetime.Singleton);
 
+        builder.RegisterEntryPoint<SceneSwitch>(Lifetime.Singleton)
+            .AsSelf();
+
         builder.RegisterInstance(_gameSettings.SceneSettings);
         builder.RegisterInstance(_gameSettings.AudioSettings);
         builder.RegisterInstance(_gameSettings.PlayerSettings);

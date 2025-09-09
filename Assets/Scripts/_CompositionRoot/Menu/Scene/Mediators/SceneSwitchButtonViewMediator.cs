@@ -24,14 +24,8 @@ public class SceneSwitchButtonViewMediator : Mediator
     {
         switch (_sceneButtonView)
         {
-            case AchievedLevelButtonView:
-                _sceneSwitch.LoadAchievedLevelAsync().Forget();
-                break;
             case CurrentLevelButtonView:
                 _sceneSwitch.LoadCurrentLevelAsync().Forget();
-                break;
-            case FirstLevelButtonView:
-                _sceneSwitch.LoadFirstLevelAsync().Forget();
                 break;
             case MainMenuButtonView:
                 _sceneSwitch.LoadLevelAsync(0).Forget();
