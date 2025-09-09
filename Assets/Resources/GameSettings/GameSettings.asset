@@ -30,7 +30,7 @@ MonoBehaviour:
     <InvaderSpawnSettings>k__BackingField:
       <MeshRenderer>k__BackingField: {fileID: 1757354549830319017, guid: 89084bd4dabfccd4bb98578495bba0bc, type: 3}
       <UpMarginRatioZ>k__BackingField: 0.15
-      <DownMarginRatioZ>k__BackingField: 0.2
+      <DownMarginRatioZ>k__BackingField: 0.25
       <SpawnRangeRatioX>k__BackingField: 0.7
       <SpacingRatioX>k__BackingField: 0.35
       <SpacingRatioZ>k__BackingField: 0.9
