@@ -54,4 +54,4 @@ MonoBehaviour:
     <MeshRenderer>k__BackingField: {fileID: 7099206728451125035, guid: 0b4230b04d1b80043805e965790c51d2, type: 3}
     <FirstShotCount>k__BackingField: 5
     <NextShotCount>k__BackingField: 3
-    <Speed>k__BackingField: 150
+    <Speed>k__BackingField: 5

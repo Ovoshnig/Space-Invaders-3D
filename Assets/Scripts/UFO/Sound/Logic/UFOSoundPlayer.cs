@@ -65,16 +65,16 @@ public class UFOSoundPlayer : IInitializable, IDisposable
     {
         try
         {
-            _movementClip = await LoadClipAsync(_movementLabels);
-            _explosionClip = await LoadClipAsync(_explosionLabels);
+            _movementClip = await LoadClipAsync(_movementLabels, 1);
+            _explosionClip = await LoadClipAsync(_explosionLabels, 0);
         }
         catch (OperationCanceledException)
         {
         }
     }
 
-    private async Task<AudioClip> LoadClipAsync(string[] labels) =>
-        (await _addressableLoader.LoadAssets<AudioClip>(labels, _cts.Token)).FirstOrDefault();
+    private async Task<AudioClip> LoadClipAsync(string[] labels, int index) =>
+        (await _addressableLoader.LoadAssets<AudioClip>(labels, _cts.Token)).ElementAtOrDefault(index);
 
     private void Subscribe()
     {
