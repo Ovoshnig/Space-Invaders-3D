@@ -24,7 +24,7 @@ public class InvaderSoundPlayer : IInitializable, IDisposable
 
     private readonly AddressableLoader _addressableLoader;
     private readonly InvaderMover _invaderMover;
-    private readonly CollidedDestroyer<InvaderEntityView, PlayerBulletMoverView> _invaderDestroyer;
+    private readonly InvaderDestroyer _invaderDestroyer;
     private readonly Subject<AudioClip> _playing = new();
     private readonly CancellationTokenSource _cts = new();
     private readonly CompositeDisposable _compositeDisposable = new();
@@ -34,7 +34,7 @@ public class InvaderSoundPlayer : IInitializable, IDisposable
 
     public InvaderSoundPlayer(AddressableLoader addressableLoader,
         InvaderMover invaderMover,
-        CollidedDestroyer<InvaderEntityView, PlayerBulletMoverView> invaderDestroyer)
+        InvaderDestroyer invaderDestroyer)
     {
         _addressableLoader = addressableLoader;
         _invaderMover = invaderMover;

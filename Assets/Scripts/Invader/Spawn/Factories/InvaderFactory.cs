@@ -9,14 +9,14 @@ public class InvaderFactory : IInitializable, IDisposable
     private readonly IObjectResolver _container;
     private readonly InvaderRegistry _registry;
     private readonly InvaderEntityView[] _prefabs;
-    private readonly CollidedDestroyer<InvaderEntityView, PlayerBulletMoverView> _destroyer;
+    private readonly InvaderDestroyer _destroyer;
     private readonly Transform _invaderRoot;
     private readonly CompositeDisposable _compositeDisposable = new();
 
     public InvaderFactory(IObjectResolver resolver,
         InvaderRegistry registry,
         InvaderEntityView[] prefabs,
-        CollidedDestroyer<InvaderEntityView, PlayerBulletMoverView> destroyer)
+        InvaderDestroyer destroyer)
     {
         _container = resolver;
         _registry = registry;

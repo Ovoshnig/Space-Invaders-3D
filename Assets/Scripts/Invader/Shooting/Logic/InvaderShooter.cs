@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using R3;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -9,7 +10,7 @@ public class InvaderShooter
 {
     private readonly InvaderBulletPool _bulletPool;
     private readonly InvaderShootingSettings _settings;
-    private readonly System.Random _random = new();
+    private readonly Random _random = new();
     private readonly Subject<ShotEvent> _shot = new();
 
     private int _invadersCount = 0;

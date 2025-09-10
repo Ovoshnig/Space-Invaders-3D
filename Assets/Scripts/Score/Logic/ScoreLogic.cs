@@ -4,14 +4,14 @@ using VContainer.Unity;
 
 public class ScoreLogic : IInitializable, IDisposable
 {
-    private readonly CollidedDestroyer<InvaderEntityView, PlayerBulletMoverView> _invaderDestroyer;
+    private readonly InvaderDestroyer _invaderDestroyer;
     private readonly UFODestroyer _ufoDestroyer;
     private readonly ScoreModel _scoreModel = new();
     private readonly ReactiveProperty<int> _lastPoints = new();
     private readonly ReactiveProperty<int> _score = new();
     private readonly CompositeDisposable _compositeDisposable = new();
 
-    public ScoreLogic(CollidedDestroyer<InvaderEntityView, PlayerBulletMoverView> invaderDestroyer,
+    public ScoreLogic(InvaderDestroyer invaderDestroyer,
         UFODestroyer ufoDestroyer)
     {
         _invaderDestroyer = invaderDestroyer;

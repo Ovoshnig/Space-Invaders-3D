@@ -178,7 +178,7 @@ public class GameplayLifetimeScope : LifetimeScope
 
     private void ConfigureInvaderDestruction(IContainerBuilder builder)
     {
-        builder.RegisterEntryPoint<CollidedDestroyer<InvaderEntityView, PlayerBulletMoverView>>(Lifetime.Singleton)
+        builder.RegisterEntryPoint<InvaderDestroyer>(Lifetime.Singleton)
             .AsSelf();
         builder.RegisterEntryPoint<InvaderDestroyerMediator>(Lifetime.Singleton);
     }
