@@ -12,15 +12,13 @@ public abstract class BulletMoverView : MonoBehaviour
 
     private readonly ReactiveProperty<bool> _isEnabled = new();
 
-    private BulletSettings _bulletSettings;
     private float _fieldMinZ;
     private float _fieldMaxZ;
     private float _extentsZ;
 
     [Inject]
-    public void Construct(BulletSettings bulletSettings, FieldView fieldView)
+    public void Construct(FieldView fieldView)
     {
-        _bulletSettings = bulletSettings;
         _fieldMinZ = fieldView.Bounds.min.z;
         _fieldMaxZ = fieldView.Bounds.max.z;
         _extentsZ = GetComponent<BoxCollider>().bounds.extents.z;
@@ -29,6 +27,7 @@ public abstract class BulletMoverView : MonoBehaviour
     public ReadOnlyReactiveProperty<bool> IsEnabled => _isEnabled;
 
     protected abstract DirectionZ Direction { get; }
+    protected abstract float Speed { get; }
 
     private void OnEnable() => _isEnabled.Value = true;
 
@@ -40,7 +39,7 @@ public abstract class BulletMoverView : MonoBehaviour
             return;
 
         float positionZ = transform.position.z;
-        float deltaZ = (int)Direction * Time.deltaTime * _bulletSettings.Speed;
+        float deltaZ = (int)Direction * Time.deltaTime * Speed;
         float endPositionZ = positionZ + deltaZ;
 
         if (endPositionZ - _extentsZ >= _fieldMinZ
