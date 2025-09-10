@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class UFOMoverView : MonoBehaviour
 {
+    private void Start() => gameObject.SetActive(false);
+
     public void StartMovement(Vector3 startPosition)
     {
         transform.position = startPosition;
