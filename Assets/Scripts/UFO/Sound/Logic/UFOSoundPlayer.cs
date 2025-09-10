@@ -24,18 +24,18 @@ public class UFOSoundPlayer : IInitializable, IDisposable
 
     private readonly AddressableLoader _addressableLoader;
     private readonly UFOMover _ufoMover;
-    private readonly CollidedDestroyer<UFOMoverView, PlayerBulletMoverView> _ufoDestroyer;
+    private readonly UFODestroyer _ufoDestroyer;
     private readonly Subject<AudioClip> _playing = new();
     private readonly CancellationTokenSource _cts = new();
     private readonly CompositeDisposable _compositeDisposable = new();
 
     private AudioClip _movementClip;
     private AudioClip _explosionClip;
-    private float _previousfMovePlayingTime = 0f;
+    private float _previousMovePlayingTime = 0f;
 
     public UFOSoundPlayer(AddressableLoader addressableLoader,
         UFOMover ufoMover,
-        CollidedDestroyer<UFOMoverView, PlayerBulletMoverView> ufoDestroyer)
+        UFODestroyer ufoDestroyer)
     {
         _addressableLoader = addressableLoader;
         _ufoMover = ufoMover;
@@ -81,10 +81,10 @@ public class UFOSoundPlayer : IInitializable, IDisposable
         _ufoMover.Moved
             .Subscribe(_ =>
             {
-                if (Time.time - _previousfMovePlayingTime > _movementClip.length)
+                if (Time.time - _previousMovePlayingTime > _movementClip.length)
                 {
                     _playing.OnNext(_movementClip);
-                    _previousfMovePlayingTime = Time.time;
+                    _previousMovePlayingTime = Time.time;
                 }
             })
             .AddTo(_compositeDisposable);

@@ -1841,6 +1841,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4568b51bd0dbb7841b602ea2c37ead96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: GameOver::GameRestarterView
+--- !u!114 &1844203572 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -2264353315318098224, guid: 0b4230b04d1b80043805e965790c51d2, type: 3}
+  m_PrefabInstance: {fileID: 5862275375840532365}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f14ccc6a2d7dfb40847bf119964f292, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UFO::UFODestroyerView
 --- !u!1 &1855037686
 GameObject:
   m_ObjectHideFlags: 0
@@ -1908,6 +1919,7 @@ MonoBehaviour:
   _invaderSoundPlayerView: {fileID: 1950452117}
   _UFOMoverView: {fileID: 1444990754}
   _ufoSoundPlayerView: {fileID: 637418184}
+  _ufoDestroyerView: {fileID: 1844203572}
 --- !u!1001 &1881429246
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2429,6 +2441,125 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d45b5af39c8da5a4c870f80eb462cabd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Player::PlayerShooterView
+--- !u!1001 &3105855972805354899
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2794539680186680651, guid: 29a63e608951e4e43b89906b6e9e4e30, type: 3}
+      propertyPath: m_Name
+      value: UFOExplosion
+      objectReference: {fileID: 0}
+    - target: {fileID: 3279715251178872817, guid: 29a63e608951e4e43b89906b6e9e4e30, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3279715251178872817, guid: 29a63e608951e4e43b89906b6e9e4e30, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3279715251178872817, guid: 29a63e608951e4e43b89906b6e9e4e30, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3279715251178872817, guid: 29a63e608951e4e43b89906b6e9e4e30, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3279715251178872817, guid: 29a63e608951e4e43b89906b6e9e4e30, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3279715251178872817, guid: 29a63e608951e4e43b89906b6e9e4e30, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3279715251178872817, guid: 29a63e608951e4e43b89906b6e9e4e30, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3279715251178872817, guid: 29a63e608951e4e43b89906b6e9e4e30, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3279715251178872817, guid: 29a63e608951e4e43b89906b6e9e4e30, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3279715251178872817, guid: 29a63e608951e4e43b89906b6e9e4e30, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4452036347081614494, guid: 29a63e608951e4e43b89906b6e9e4e30, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5001562819533911578, guid: 29a63e608951e4e43b89906b6e9e4e30, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5001562819533911578, guid: 29a63e608951e4e43b89906b6e9e4e30, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5001562819533911578, guid: 29a63e608951e4e43b89906b6e9e4e30, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5001562819533911578, guid: 29a63e608951e4e43b89906b6e9e4e30, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8591410261408945286, guid: 29a63e608951e4e43b89906b6e9e4e30, type: 3}
+      propertyPath: m_text
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8591410261408945286, guid: 29a63e608951e4e43b89906b6e9e4e30, type: 3}
+      propertyPath: m_margin.w
+      value: -0.6614671
+      objectReference: {fileID: 0}
+    - target: {fileID: 8591410261408945286, guid: 29a63e608951e4e43b89906b6e9e4e30, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.11372546
+      objectReference: {fileID: 0}
+    - target: {fileID: 8591410261408945286, guid: 29a63e608951e4e43b89906b6e9e4e30, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.10980389
+      objectReference: {fileID: 0}
+    - target: {fileID: 8591410261408945286, guid: 29a63e608951e4e43b89906b6e9e4e30, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.97647053
+      objectReference: {fileID: 0}
+    - target: {fileID: 8591410261408945286, guid: 29a63e608951e4e43b89906b6e9e4e30, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4280098041
+      objectReference: {fileID: 0}
+    - target: {fileID: 8591410261408945286, guid: 29a63e608951e4e43b89906b6e9e4e30, type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 512
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2397923736923601889, guid: 29a63e608951e4e43b89906b6e9e4e30, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+  m_SourcePrefab: {fileID: 100100000, guid: 29a63e608951e4e43b89906b6e9e4e30, type: 3}
+--- !u!114 &3105855972805354902 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5607585338341738059, guid: 29a63e608951e4e43b89906b6e9e4e30, type: 3}
+  m_PrefabInstance: {fileID: 3105855972805354899}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6d836f01195a2840967ba6339a9f9d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UFO::UFOExploderView
 --- !u!1001 &4829653993139979104
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2551,6 +2682,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2264353315318098224, guid: 0b4230b04d1b80043805e965790c51d2, type: 3}
+      propertyPath: _ufoExploderView
+      value: 
+      objectReference: {fileID: 3105855972805354902}
+    - target: {fileID: -2264353315318098224, guid: 0b4230b04d1b80043805e965790c51d2, type: 3}
+      propertyPath: _ufoExplosionView
+      value: 
+      objectReference: {fileID: 3105855972805354902}
     - target: {fileID: 8272653145784161348, guid: 0b4230b04d1b80043805e965790c51d2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -25
@@ -2674,6 +2813,7 @@ SceneRoots:
   - {fileID: 2955268501308012541}
   - {fileID: 243478666532429206}
   - {fileID: 5862275375840532365}
+  - {fileID: 3105855972805354899}
   - {fileID: 1950452119}
   - {fileID: 637418186}
   - {fileID: 1349007608}

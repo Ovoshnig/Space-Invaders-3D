@@ -8,7 +8,7 @@ using VContainer.Unity;
 public class UFOMover : IInitializable, IDisposable
 {
     private readonly PlayerShooterModel _playerShooterModel;
-    private readonly CollidedDestroyer<UFOMoverView, PlayerBulletMoverView> _collidedDestroyer;
+    private readonly UFODestroyer _ufoDestroyer;
     private readonly FieldView _fieldView;
     private readonly UFOMovementSettings _ufoMovementSettings;
     private readonly InvaderSpawnSettings _invaderSpawnSettings;
@@ -25,13 +25,13 @@ public class UFOMover : IInitializable, IDisposable
     private bool _isPause = false;
 
     public UFOMover(PlayerShooterModel playerShooterModel,
-        CollidedDestroyer<UFOMoverView, PlayerBulletMoverView> collidedDestroyer,
+        UFODestroyer ufoDestroyer,
         FieldView fieldView,
         UFOMovementSettings ufoMovementSettings,
         InvaderSpawnSettings invaderSpawnSettings)
     {
         _playerShooterModel = playerShooterModel;
-        _collidedDestroyer = collidedDestroyer;
+        _ufoDestroyer = ufoDestroyer;
         _fieldView = fieldView;
         _ufoMovementSettings = ufoMovementSettings;
         _invaderSpawnSettings = invaderSpawnSettings;
@@ -63,7 +63,7 @@ public class UFOMover : IInitializable, IDisposable
             .Subscribe(count => OnShotCountChanged(count).Forget())
             .AddTo(_compositeDisposable);
 
-        _collidedDestroyer.Destroyed
+        _ufoDestroyer.Destroyed
             .Subscribe(_ => OnDestroyed())
             .AddTo(_compositeDisposable);
     }
