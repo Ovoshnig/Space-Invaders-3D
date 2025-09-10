@@ -9,6 +9,8 @@ public class UFODestroyerView : CollidedDestroyerView<PlayerBulletMoverView>
 
     public override void Destroy(PlayerBulletMoverView playerBulletView)
     {
+        playerBulletView.gameObject.SetActive(false);
+
         _ufoExplosionView.transform.position = transform.position;
         _ufoExplosionView.ExplodeAsync(_lastPoints).Forget();
     }
