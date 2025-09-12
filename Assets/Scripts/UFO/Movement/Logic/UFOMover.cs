@@ -22,6 +22,7 @@ public class UFOMover : IInitializable, IDisposable
     private Vector3 _leftStartPosition;
     private Vector3 _rightStartPosition;
     private int _direction = 1;
+    private int _lastShotCount = 0;
     private bool _isMoving = false;
     private bool _isPause = false;
 
@@ -46,6 +47,21 @@ public class UFOMover : IInitializable, IDisposable
 
     public void Initialize()
     {
+        CalculateStartPositions();
+        Subscribe();
+    }
+
+    public void Dispose()
+    {
+        _compositeDisposable.Dispose();
+
+        CancelCTS();
+    }
+
+    public void SetPause(bool value) => _isPause = value;
+
+    private void CalculateStartPositions()
+    {
         Bounds fieldBounds = _fieldView.Bounds;
 
         float fieldMinX = fieldBounds.min.x;
@@ -61,7 +77,10 @@ public class UFOMover : IInitializable, IDisposable
 
         _leftStartPosition = new Vector3(leftStartPositionX, startPositionY, startPositionZ);
         _rightStartPosition = new Vector3(rightStartPositionX, startPositionY, startPositionZ);
+    }
 
+    private void Subscribe()
+    {
         _playerShooterModel.ShotCount
             .Subscribe(OnShotCountChanged)
             .AddTo(_compositeDisposable);
@@ -76,27 +95,15 @@ public class UFOMover : IInitializable, IDisposable
             .AddTo(_compositeDisposable);
     }
 
-    public void Dispose()
-    {
-        CancelCTS();
-
-        _compositeDisposable.Dispose();
-    }
-
-    public void SetPause(bool value) => _isPause = value;
-
     private bool ShouldSpawnUFO(int currentShotCount)
     {
+        if (currentShotCount < _ufoMovementSettings.FirstShotCount)
+            return false;
+
         if (currentShotCount == _ufoMovementSettings.FirstShotCount)
             return true;
 
-        if (currentShotCount > _ufoMovementSettings.FirstShotCount)
-        {
-            int difference = currentShotCount - _ufoMovementSettings.FirstShotCount;
-            return difference % _ufoMovementSettings.NextShotCount == 0;
-        }
-
-        return false;
+        return currentShotCount - _lastShotCount == _ufoMovementSettings.NextShotCount;
     }
 
     private void OnShotCountChanged(int count)
@@ -128,6 +135,7 @@ public class UFOMover : IInitializable, IDisposable
         {
             _direction *= -1;
             _isMoving = false;
+            _lastShotCount = _playerShooterModel.ShotCount.CurrentValue;
             _ended.OnNext(Unit.Default);
         }
     }
