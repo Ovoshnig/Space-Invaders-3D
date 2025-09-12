@@ -1,6 +1,4 @@
 ﻿using R3;
-using System.Collections.Generic;
-using System.Linq;
 
 public class InvaderCollisionMediator : CollisionMediator<InvaderEntityView>
 {
@@ -11,19 +9,19 @@ public class InvaderCollisionMediator : CollisionMediator<InvaderEntityView>
 
     public override void Initialize()
     {
-        _registry.EntityViews
+        _registry.Changed
             .Subscribe(OnInvadersChange)
             .AddTo(CompositeDisposable);
     }
 
-    private void OnInvadersChange(IReadOnlyList<InvaderEntityView> invaders)
+    private void OnInvadersChange(InvaderEntityView _)
     {
         BindCompositeDisposable.Clear();
 
-        if (!invaders.Any())
+        if (!_registry.Any.CurrentValue)
             return;
 
-        foreach (var invader in invaders)
+        foreach (var invader in _registry.InvaderEntityViews)
         {
             TriggerColliderView colliderView = invader.Get<TriggerColliderView>();
             Subscribe(invader, colliderView);

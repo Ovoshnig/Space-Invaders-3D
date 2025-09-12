@@ -7,22 +7,35 @@ public class PlayerSpawner : IInitializable, IDisposable
 {
     private readonly PlayerDestroyer _playerDestroyer;
     private readonly PlayerMoverView _playerMoverView;
+    private readonly InvaderRegistry _invaderRegistry;
     private readonly CompositeDisposable _compositeDisposable = new();
 
-    public PlayerSpawner(PlayerDestroyer playerDestroyer, PlayerMoverView playerMoverView)
+    private Vector3 _startPosition;
+
+    public PlayerSpawner(PlayerDestroyer playerDestroyer,
+        PlayerMoverView playerMoverView,
+        InvaderRegistry invaderRegistry)
     {
         _playerDestroyer = playerDestroyer;
         _playerMoverView = playerMoverView;
+        _invaderRegistry = invaderRegistry;
     }
 
     public void Initialize()
     {
-        Vector3 startPosition = _playerMoverView.transform.position;
+        _startPosition = _playerMoverView.transform.position;
 
         _playerDestroyer.Destroyed
-            .Subscribe(_ => _playerMoverView.transform.position = startPosition)
+            .Subscribe(_ => ReturnToStartPosition())
+            .AddTo(_compositeDisposable);
+
+        _invaderRegistry.Any
+            .Where(any => !any)
+            .Subscribe(_ => ReturnToStartPosition())
             .AddTo(_compositeDisposable);
     }
 
     public void Dispose() => _compositeDisposable.Dispose();
+
+    private void ReturnToStartPosition() => _playerMoverView.transform.position = _startPosition;
 }

@@ -40,6 +40,10 @@ public class InvaderFactory : IInitializable, IDisposable
 
         _registry.Add(instance);
 
+        instance.Get<InvaderDestroyerView>().DestroyedFromEditor
+            .Subscribe(_ => _registry.Remove(instance))
+            .AddTo(_compositeDisposable);
+
         return instance;
     }
 

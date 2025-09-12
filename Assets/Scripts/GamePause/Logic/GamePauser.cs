@@ -10,5 +10,5 @@ public class GamePauser
 
     public void UnPause() => SetPause(false);
 
-    private void SetPause(bool value) => _isPause.OnNext(value);
+    private void SetPause(bool value) => _isPause.Value = value;
 }

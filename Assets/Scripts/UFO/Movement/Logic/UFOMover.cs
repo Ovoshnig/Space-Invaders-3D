@@ -9,6 +9,7 @@ public class UFOMover : IInitializable, IDisposable
 {
     private readonly PlayerShooterModel _playerShooterModel;
     private readonly UFODestroyer _ufoDestroyer;
+    private readonly InvaderRegistry _invaderRegistry;
     private readonly FieldView _fieldView;
     private readonly UFOMovementSettings _ufoMovementSettings;
     private readonly InvaderSpawnSettings _invaderSpawnSettings;
@@ -26,12 +27,14 @@ public class UFOMover : IInitializable, IDisposable
 
     public UFOMover(PlayerShooterModel playerShooterModel,
         UFODestroyer ufoDestroyer,
+        InvaderRegistry invaderRegistry,
         FieldView fieldView,
         UFOMovementSettings ufoMovementSettings,
         InvaderSpawnSettings invaderSpawnSettings)
     {
         _playerShooterModel = playerShooterModel;
         _ufoDestroyer = ufoDestroyer;
+        _invaderRegistry = invaderRegistry;
         _fieldView = fieldView;
         _ufoMovementSettings = ufoMovementSettings;
         _invaderSpawnSettings = invaderSpawnSettings;
@@ -60,18 +63,22 @@ public class UFOMover : IInitializable, IDisposable
         _rightStartPosition = new Vector3(rightStartPositionX, startPositionY, startPositionZ);
 
         _playerShooterModel.ShotCount
-            .Subscribe(count => OnShotCountChanged(count).Forget())
+            .Subscribe(OnShotCountChanged)
             .AddTo(_compositeDisposable);
 
         _ufoDestroyer.Destroyed
             .Subscribe(_ => OnDestroyed())
             .AddTo(_compositeDisposable);
+
+        _invaderRegistry.Any
+            .Where(any => !any)
+            .Subscribe(_ => OnInvadersEmpty())
+            .AddTo(_compositeDisposable);
     }
 
     public void Dispose()
     {
-        _cts.Cancel();
-        _cts.Dispose();
+        CancelCTS();
 
         _compositeDisposable.Dispose();
     }
@@ -92,14 +99,22 @@ public class UFOMover : IInitializable, IDisposable
         return false;
     }
 
-    private async UniTask OnShotCountChanged(int count)
+    private void OnShotCountChanged(int count)
     {
         if (_isMoving || !ShouldSpawnUFO(count))
             return;
 
-        _isMoving = true;
+        StartMoveAsync().Forget();
+    }
 
+    private void OnDestroyed() => ResetCTS();
+
+    private void OnInvadersEmpty() => ResetCTS();
+
+    private async UniTask StartMoveAsync()
+    {
         Vector3 startPosition = _direction == 1 ? _leftStartPosition : _rightStartPosition;
+        _isMoving = true;
         _started.OnNext(startPosition);
 
         try
@@ -111,18 +126,10 @@ public class UFOMover : IInitializable, IDisposable
         }
         finally
         {
-            _ended.OnNext(Unit.Default);
-
             _direction *= -1;
             _isMoving = false;
+            _ended.OnNext(Unit.Default);
         }
-    }
-
-    private void OnDestroyed()
-    {
-        _cts.Cancel();
-        _cts.Dispose();
-        _cts = new CancellationTokenSource();
     }
 
     private async UniTask MoveAsync(Vector3 startPosition, CancellationToken token)
@@ -143,5 +150,17 @@ public class UFOMover : IInitializable, IDisposable
             if (_isPause)
                 await UniTask.WaitWhile(() => _isPause, cancellationToken: token);
         }
+    }
+
+    private void CancelCTS()
+    {
+        _cts.Cancel();
+        _cts.Dispose();
+    }
+
+    private void ResetCTS()
+    {
+        CancelCTS();
+        _cts = new CancellationTokenSource();
     }
 }

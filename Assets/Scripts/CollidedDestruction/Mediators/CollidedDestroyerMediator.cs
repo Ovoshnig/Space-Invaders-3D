@@ -5,14 +5,14 @@ public abstract class CollidedDestroyerMediator<TCollidedView, TOtherView> : Med
     where TCollidedView : MonoBehaviour
     where TOtherView : MonoBehaviour
 {
-    private readonly CollidedDestroyer<TCollidedView, TOtherView> _invaderDestroyer;
+    private readonly CollidedDestroyer<TCollidedView, TOtherView> _collidedDestroyer;
 
-    public CollidedDestroyerMediator(CollidedDestroyer<TCollidedView, TOtherView> invaderDestroyer) =>
-        _invaderDestroyer = invaderDestroyer;
+    public CollidedDestroyerMediator(CollidedDestroyer<TCollidedView, TOtherView> collidedDestroyer) =>
+        _collidedDestroyer = collidedDestroyer;
 
     public override void Initialize()
     {
-        _invaderDestroyer.Destroyed
+        _collidedDestroyer.Destroyed
             .Subscribe(OnDestroyed)
             .AddTo(CompositeDisposable);
     }

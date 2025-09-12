@@ -19,6 +19,7 @@ public class GameplayLifetimeScope : LifetimeScope
     [SerializeField] private UFOMoverView _UFOMoverView;
     [SerializeField] private UFOSoundPlayerView _ufoSoundPlayerView;
     [SerializeField] private UFODestroyerView _ufoDestroyerView;
+    [SerializeField] private GameObject _shieldParent;
 
     protected override void Configure(IContainerBuilder builder)
     {
@@ -55,12 +56,14 @@ public class GameplayLifetimeScope : LifetimeScope
         ConfigureUFOCollision(builder);
         ConfigureUFODestruction(builder);
         ConfigureUFOSound(builder);
+
+        ConfigureShieldTiles(builder);
     }
 
     private void ConfigureCompositionRoot(IContainerBuilder builder)
     {
-        builder.RegisterEntryPoint<GamePauserSceneSwitchMediator>();
         builder.RegisterEntryPoint<GamePauserPlayerDestroyerMediator>();
+        builder.RegisterEntryPoint<GamePauserInvaderSpawnerMediator>();
         builder.RegisterEntryPoint<GamePauserGameOverMediator>();
 
         builder.RegisterEntryPoint<PlayerMoverGamePauserMediator>();
@@ -152,7 +155,8 @@ public class GameplayLifetimeScope : LifetimeScope
         builder.RegisterEntryPoint<InvaderFactory>(Lifetime.Singleton)
             .WithParameter(_invaderPrefabs)
             .AsSelf();
-        builder.RegisterEntryPoint<InvaderSpawner>(Lifetime.Singleton);
+        builder.RegisterEntryPoint<InvaderSpawner>(Lifetime.Singleton)
+            .AsSelf();
     }
 
     private void ConfigureInvaderMovement(IContainerBuilder builder)
@@ -194,7 +198,8 @@ public class GameplayLifetimeScope : LifetimeScope
     private void ConfigureUFOMovement(IContainerBuilder builder)
     {
         builder.RegisterComponent(_UFOMoverView);
-        builder.RegisterEntryPoint<UFOMover>(Lifetime.Singleton).AsSelf();
+        builder.RegisterEntryPoint<UFOMover>(Lifetime.Singleton)
+            .AsSelf();
         builder.RegisterEntryPoint<UFOMoverMediator>(Lifetime.Singleton);
     }
 
@@ -218,6 +223,14 @@ public class GameplayLifetimeScope : LifetimeScope
         builder.RegisterEntryPoint<UFOSoundPlayer>(Lifetime.Singleton)
             .AsSelf();
         builder.RegisterEntryPoint<UFOSoundPlayerMediator>(Lifetime.Singleton);
+    }
+
+    private void ConfigureShieldTiles(IContainerBuilder builder)
+    {
+        ShieldTileView[] tiles = _shieldParent.GetComponentsInChildren<ShieldTileView>();
+        builder.RegisterComponent(tiles);
+
+        builder.RegisterEntryPoint<ShieldTileMediator>(Lifetime.Singleton);
     }
 
     private void Start()

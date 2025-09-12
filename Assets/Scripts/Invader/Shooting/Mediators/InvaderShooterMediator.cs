@@ -1,4 +1,5 @@
 using R3;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -19,7 +20,7 @@ public class InvaderShooterMediator : Mediator
 
     public async override void Initialize()
     {
-        _registry.EntityViews
+        _registry.Changed
             .Subscribe(OnInvadersChange)
             .AddTo(CompositeDisposable);
 
@@ -31,7 +32,7 @@ public class InvaderShooterMediator : Mediator
         {
             await _invaderShooter.StartShootingAsync(_cts.Token);
         }
-        catch (System.OperationCanceledException)
+        catch (OperationCanceledException)
         {
             return;
         }
@@ -45,11 +46,11 @@ public class InvaderShooterMediator : Mediator
         base.Dispose();
     }
 
-    private void OnInvadersChange(IReadOnlyList<InvaderEntityView> invaders)
+    private void OnInvadersChange(InvaderEntityView _)
     {
-        if (invaders.Any())
+        if (_registry.Any.CurrentValue)
         {
-            _invaderShooter.SetInvadersCount(invaders.Count());
+            _invaderShooter.SetInvadersCount(_registry.InvaderEntityViews.Count());
             return;
         }
 

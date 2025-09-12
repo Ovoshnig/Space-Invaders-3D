@@ -12,6 +12,7 @@ public class InvaderSpawnSettings
     [field: SerializeField, Range(0f, 1f)] public float SpacingRatioZ { get; private set; } = 0.8f;
     [field: SerializeField] public float SpawnPositionY { get; private set; } = 0.1f;
     [field: SerializeField] public int[] RowIndices { get; private set; } = { };
+    [field: SerializeField, Min(0f)] public float Delay { get; private set; } = 0.05f;
 
     public Bounds Bounds => MeshRenderer.bounds;
     public Vector3 Size => Bounds.size;

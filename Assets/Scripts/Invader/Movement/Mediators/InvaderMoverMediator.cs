@@ -1,6 +1,6 @@
 using Cysharp.Threading.Tasks;
 using R3;
-using System.Collections.Generic;
+using System;
 using System.Linq;
 using System.Threading;
 using UnityEngine;
@@ -21,7 +21,7 @@ public class InvaderMoverMediator : Mediator
 
     public async override void Initialize()
     {
-        _registry.EntityViews
+        _registry.Changed
             .Subscribe(OnInvadersChange)
             .AddTo(CompositeDisposable);
 
@@ -33,7 +33,7 @@ public class InvaderMoverMediator : Mediator
         {
             await _invaderMover.StartMovingAsync(_cts.Token);
         }
-        catch (System.OperationCanceledException)
+        catch (OperationCanceledException)
         {
             return;
         }
@@ -47,11 +47,11 @@ public class InvaderMoverMediator : Mediator
         base.Dispose();
     }
 
-    private void OnInvadersChange(IReadOnlyList<InvaderEntityView> invaders)
+    private void OnInvadersChange(InvaderEntityView _)
     {
-        if (invaders.Any())
+        if (_registry.Any.CurrentValue)
         {
-            _invaderMover.SetPositions(invaders.Select(i => i.transform.position).ToArray());
+            _invaderMover.SetPositions(_registry.InvaderEntityViews.Select(i => i.transform.position).ToArray());
             return;
         }
 

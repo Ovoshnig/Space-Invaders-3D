@@ -1,40 +1,68 @@
+using Cysharp.Threading.Tasks;
 using R3;
+using System;
 using System.Linq;
+using System.Threading;
 using UnityEngine;
 using VContainer.Unity;
 
-public class InvaderSpawner : IInitializable
+public class InvaderSpawner : IStartable, IDisposable
 {
     private readonly InvaderFactory _factory;
+    private readonly InvaderRegistry _registry;
     private readonly FieldView _fieldView;
-    private readonly InvaderSpawnSettings _invaderSettings;
-    private readonly Subject<(int index, Vector3 position)> _positionSelected = new();
+    private readonly InvaderSpawnSettings _spawnSettings;
+    private readonly Subject<Unit> _started = new();
+    private readonly Subject<Unit> _ended = new();
+    private readonly CancellationTokenSource _cts = new();
+    private readonly CompositeDisposable _compositeDisposable = new();
 
-    public InvaderSpawner(FieldView fieldView, InvaderSpawnSettings invaderSettings, InvaderFactory factory)
+    public InvaderSpawner(InvaderFactory factory,
+        InvaderRegistry registry,
+        FieldView fieldView,
+        InvaderSpawnSettings spawnSettings)
     {
-        _fieldView = fieldView;
-        _invaderSettings = invaderSettings;
         _factory = factory;
+        _registry = registry;
+        _fieldView = fieldView;
+        _spawnSettings = spawnSettings;
     }
 
-    public Observable<(int index, Vector3 position)> PositionSelected => _positionSelected;
+    public Observable<Unit> Started => _started;
+    public Observable<Unit> Ended => _ended;
 
-    public void Initialize() => Spawn();
-
-    public void Spawn()
+    public void Start()
     {
+        _registry.Any
+            .Where(any => !any)
+            .Subscribe(_ => SpawnAsync(_cts.Token).Forget())
+            .AddTo(_compositeDisposable);
+    }
+
+    public void Dispose()
+    {
+        _compositeDisposable.Dispose();
+
+        _cts.Cancel();
+        _cts.Dispose();
+    }
+
+    public async UniTask SpawnAsync(CancellationToken token)
+    {
+        _started.OnNext(Unit.Default);
+
         Bounds fieldBounds = _fieldView.Bounds;
-        Vector3 invaderSize = _invaderSettings.Size;
+        Vector3 invaderSize = _spawnSettings.Size;
 
-        float invaderSlotWidth = invaderSize.x + _invaderSettings.SpacingX;
-        float invaderSlotLength = invaderSize.z + _invaderSettings.SpacingZ;
+        float invaderSlotWidth = invaderSize.x + _spawnSettings.SpacingX;
+        float invaderSlotLength = invaderSize.z + _spawnSettings.SpacingZ;
 
-        float spawnRangeX = fieldBounds.size.x * _invaderSettings.SpawnRangeRatioX;
+        float spawnRangeX = fieldBounds.size.x * _spawnSettings.SpawnRangeRatioX;
         int columnCount = Mathf.FloorToInt(spawnRangeX / invaderSlotWidth);
 
         if (columnCount == 0)
         {
-            Debug.LogWarning("Недостаточно места для спауна даже одной колонки захватчиков!");
+            Debug.LogWarning("There is not enough space to spawn even one column of invaders!");
             return;
         }
 
@@ -42,33 +70,36 @@ public class InvaderSpawner : IInitializable
         float startX = fieldBounds.center.x - totalWidth / 2f;
 
         float maxZ = fieldBounds.max.z
-            - (fieldBounds.size.z * _invaderSettings.UpMarginRatioZ)
+            - (fieldBounds.size.z * _spawnSettings.UpMarginRatioZ)
             - (invaderSize.z / 2f);
         float currentZ = maxZ;
 
-        float spawnRangeZ = (1 - _invaderSettings.UpMarginRatioZ - _invaderSettings.DownMarginRatioZ)
+        float spawnRangeZ = (1 - _spawnSettings.UpMarginRatioZ - _spawnSettings.DownMarginRatioZ)
             * fieldBounds.size.z;
         int rowCount = Mathf.FloorToInt(spawnRangeZ / invaderSlotLength);
 
-        if (_invaderSettings.RowIndices.Length > rowCount)
+        if (_spawnSettings.RowIndices.Length > rowCount)
         {
-            Debug.LogWarning("Недостаточно места для спауна "
-                + "выбранного количества строк захватчиков!");
+            Debug.LogWarning("Not enough space to spawn the selected number of invader rows!");
             return;
         }
 
-        foreach (var rowIndex in _invaderSettings.RowIndices.Reverse())
+        foreach (var rowIndex in _spawnSettings.RowIndices.Reverse())
         {
             float currentX = startX;
 
             for (int i = 0; i < columnCount; i++)
             {
-                Vector3 spawnPosition = new(currentX, _invaderSettings.SpawnPositionY, currentZ);
+                Vector3 spawnPosition = new(currentX, _spawnSettings.SpawnPositionY, currentZ);
                 _factory.Create(rowIndex, spawnPosition);
                 currentX += invaderSlotWidth;
+
+                await UniTask.WaitForSeconds(_spawnSettings.Delay, cancellationToken: token);
             }
 
             currentZ -= invaderSlotLength;
         }
+
+        _ended.OnNext(Unit.Default);
     }
 }

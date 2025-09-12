@@ -5,22 +5,38 @@ using UnityEngine;
 
 public class InvaderRegistry
 {
-    private readonly List<InvaderEntityView> _list = new();
-    private readonly ReactiveProperty<IReadOnlyList<InvaderEntityView>> _entityViews = new();
+    private readonly List<InvaderEntityView> _invaderEntityViews = new();
+    private readonly Subject<InvaderEntityView> _added = new();
+    private readonly Subject<InvaderEntityView> _removed = new();
 
-    public ReadOnlyReactiveProperty<IReadOnlyList<InvaderEntityView>> EntityViews => _entityViews;
+    public InvaderRegistry()
+    {
+        Changed = Observable.Merge(Added, Removed);
+        Observable<bool> updates = Changed.Select(_ => _invaderEntityViews.Any());
+
+        Any = Observable.Return(_invaderEntityViews.Any())
+            .Concat(updates)
+            .DistinctUntilChanged()
+            .ToReadOnlyReactiveProperty();
+    }
+
+    public IReadOnlyList<InvaderEntityView> InvaderEntityViews => _invaderEntityViews;
+    public Observable<InvaderEntityView> Added => _added;
+    public Observable<InvaderEntityView> Removed => _removed;
+    public Observable<InvaderEntityView> Changed { get; }
+    public ReadOnlyReactiveProperty<bool> Any { get; }
 
     public void Add(InvaderEntityView entityView)
     {
-        _list.Add(entityView);
-        _entityViews.OnNext(_list);
+        _invaderEntityViews.Add(entityView);
+        _added.OnNext(entityView);
     }
 
     public void Remove(InvaderEntityView entityView)
     {
-        _list.Remove(entityView);
-        _entityViews.OnNext(_list);
+        _invaderEntityViews.Remove(entityView);
+        _removed.OnNext(entityView);
     }
 
-    public IReadOnlyList<T> Get<T>() where T : MonoBehaviour => _list.Select(e => e.Get<T>()).ToList();
+    public IReadOnlyList<T> Get<T>() where T : MonoBehaviour => InvaderEntityViews.Select(e => e.Get<T>()).ToList();
 }

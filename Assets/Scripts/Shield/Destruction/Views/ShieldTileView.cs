@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ShieldDestroyerView : MonoBehaviour
+public class ShieldTileView : MonoBehaviour
 {
     [SerializeField] private Mesh[] _meshes;
 
@@ -34,5 +34,15 @@ public class ShieldDestroyerView : MonoBehaviour
 
             MeshFilter.mesh = _meshes[_index];
         }
+    }
+
+    public void Restore()
+    {
+        if (this == null)
+            return;
+
+        _index = 0;
+        MeshFilter.mesh = _meshes[_index];
+        gameObject.SetActive(true);
     }
 }
