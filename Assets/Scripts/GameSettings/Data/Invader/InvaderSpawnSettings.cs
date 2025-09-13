@@ -7,10 +7,10 @@ public class InvaderSpawnSettings
     [field: SerializeField] public MeshRenderer MeshRenderer { get; private set; }
     [field: SerializeField, Range(0f, 1f)] public float UpMarginRatioZ { get; private set; } = 0.1f;
     [field: SerializeField, Range(0f, 1f)] public float DownMarginRatioZ { get; private set; } = 0.2f;
-    [field: SerializeField, Range(0f, 1f)] public float SpawnRangeRatioX { get; private set; } = 0.7f;
     [field: SerializeField, Range(0f, 1f)] public float SpacingRatioX { get; private set; } = 0.5f;
     [field: SerializeField, Range(0f, 1f)] public float SpacingRatioZ { get; private set; } = 0.8f;
     [field: SerializeField] public float SpawnPositionY { get; private set; } = 0.1f;
+    [field: SerializeField, Min(1f)] public int ColumnCount { get; private set; } = 10;
     [field: SerializeField] public int[] RowIndices { get; private set; } = { };
     [field: SerializeField, Min(0f)] public float Delay { get; private set; } = 0.05f;
 
@@ -22,4 +22,5 @@ public class InvaderSpawnSettings
     public Vector3 Max => Bounds.max;
     public float SpacingX => SpacingRatioX * Size.x;
     public float SpacingZ => SpacingRatioZ * Size.z;
+    public int InitialCount => ColumnCount * RowIndices.Length;
 }

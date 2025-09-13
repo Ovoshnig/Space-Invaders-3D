@@ -58,17 +58,14 @@ public class InvaderSpawner : IStartable, IDisposable
         float invaderSlotWidth = invaderSize.x + _spawnSettings.SpacingX;
         float invaderSlotLength = invaderSize.z + _spawnSettings.SpacingZ;
 
-        float spawnRangeX = fieldBounds.size.x * _spawnSettings.SpawnRangeRatioX;
-        int columnCount = Mathf.FloorToInt(spawnRangeX / invaderSlotWidth);
+        float totalWidth = (_spawnSettings.ColumnCount - 1) * invaderSlotWidth;
+        float startX = fieldBounds.center.x - totalWidth / 2f;
 
-        if (columnCount == 0)
+        if (totalWidth > fieldBounds.size.x)
         {
-            Debug.LogWarning("There is not enough space to spawn even one column of invaders!");
+            Debug.LogWarning("Not enough space to spawn the selected number of invader columns!");
             return;
         }
-
-        float totalWidth = (columnCount - 1) * invaderSlotWidth;
-        float startX = fieldBounds.center.x - totalWidth / 2f;
 
         float maxZ = fieldBounds.max.z
             - (fieldBounds.size.z * _spawnSettings.UpMarginRatioZ)
@@ -89,7 +86,7 @@ public class InvaderSpawner : IStartable, IDisposable
         {
             float currentX = startX;
 
-            for (int i = 0; i < columnCount; i++)
+            for (int i = 0; i < _spawnSettings.ColumnCount; i++)
             {
                 Vector3 spawnPosition = new(currentX, _spawnSettings.SpawnPositionY, currentZ);
                 _factory.Create(rowIndex, spawnPosition);

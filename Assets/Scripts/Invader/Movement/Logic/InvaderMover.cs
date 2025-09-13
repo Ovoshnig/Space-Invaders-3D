@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using R3;
+using System;
 using System.Linq;
 using System.Threading;
 using UnityEngine;
@@ -12,6 +13,7 @@ public class InvaderMover
     private readonly Subject<Vector3> _moved = new();
     private readonly Subject<Unit> _bottomReached = new();
 
+    private float _delay = 1f;
     private float _currentMinPositionX = 0f;
     private float _currentMaxPositionX = 0f;
     private float _currentMinPositionZ = 0f;
@@ -33,6 +35,8 @@ public class InvaderMover
     {
         if (!positions.Any())
             return;
+
+        CalculateDelay(positions);
 
         _currentMinPositionX = positions.Min(p => p.x);
         _currentMaxPositionX = positions.Max(p => p.x);
@@ -78,7 +82,7 @@ public class InvaderMover
                     break;
             }
 
-            await UniTask.WaitForSeconds(_invaderMovementSettings.StepDelay, cancellationToken: token);
+            await UniTask.WaitForSeconds(_delay, cancellationToken: token);
 
             if (_isPause)
                 await UniTask.WaitWhile(() => _isPause, cancellationToken: token);
@@ -86,4 +90,13 @@ public class InvaderMover
     }
 
     public void SetPause(bool value) => _isPause = value;
+
+    private void CalculateDelay(Vector3[] positions)
+    {
+        float percentageLeft = (float)positions.Length / _invaderSpawnSettings.InitialCount;
+
+        _delay = Mathf.Lerp(_invaderMovementSettings.EndDelay,
+            _invaderMovementSettings.StartDelay,
+            percentageLeft);
+    }
 }
