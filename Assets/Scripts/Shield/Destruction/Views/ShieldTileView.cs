@@ -20,7 +20,8 @@ public class ShieldTileView : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out BulletMoverView bulletView))
+        if (other.TryGetComponent(out BulletMoverView bulletView)
+            && bulletView.IsEnabled.CurrentValue)
         {
             bulletView.gameObject.SetActive(false);
 
