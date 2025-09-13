@@ -2,7 +2,6 @@ using Cysharp.Threading.Tasks;
 using R3;
 using System;
 using System.Threading;
-using System.Threading.Tasks;
 
 public record ShotEvent(int InvaderIndex, InvaderBulletMoverView Bullet);
 

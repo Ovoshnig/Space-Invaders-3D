@@ -1946,6 +1946,7 @@ MonoBehaviour:
   - {fileID: 3359560491919458816, guid: 7fbfa19f11962c24b82f52d1ddbf07a5, type: 3}
   _invaderBulletPrefabs:
   - {fileID: -3898541994759505542, guid: 45a76ea7350445f42ad6494b9ee49b88, type: 3}
+  - {fileID: -3088587566987001662, guid: 1b3019b69c76d084493e9a69b8da47e2, type: 3}
   - {fileID: 1766495517313941118, guid: 7394284fc2bae35448a33a7652b83943, type: 3}
   _invaderSoundPlayerView: {fileID: 1950452117}
   _UFOMoverView: {fileID: 1444990754}

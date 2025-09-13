@@ -2,7 +2,6 @@ using Cysharp.Threading.Tasks;
 using R3;
 using System.Linq;
 using System.Threading;
-using UnityEngine;
 
 public class InvaderShooterMediator : Mediator
 {

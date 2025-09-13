@@ -30,11 +30,11 @@ MonoBehaviour:
       <MeshRenderer>k__BackingField: {fileID: 1757354549830319017, guid: 89084bd4dabfccd4bb98578495bba0bc, type: 3}
       <UpMarginRatioZ>k__BackingField: 0.15
       <DownMarginRatioZ>k__BackingField: 0.25
-      <SpawnRangeRatioX>k__BackingField: 0.7
+      <SpawnRangeRatioX>k__BackingField: 0.361
       <SpacingRatioX>k__BackingField: 0.35
       <SpacingRatioZ>k__BackingField: 0.9
       <SpawnPositionY>k__BackingField: 0.1
-      <RowIndices>k__BackingField: 0000000000000000010000000100000002000000
+      <RowIndices>k__BackingField: 00000000
       <Delay>k__BackingField: 0.05
     <InvaderMovementSettings>k__BackingField:
       <MeshRenderer>k__BackingField: {fileID: -7511558181221131132, guid: c4d590d729eb0b3439b0080c5f85745a, type: 3}

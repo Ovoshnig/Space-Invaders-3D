@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1aefd8835d3537842be21f67411afbf1
+guid: 7beba749622ff2f409737dfda688978c
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
@@ -32,10 +32,10 @@ ModelImporter:
     clipAnimations:
     - serializedVersion: 16
       name: Moving
-      takeName: Plunger.002|Moving
+      takeName: Scene
       internalID: -623603649343465320
       firstFrame: 0
-      lastFrame: 52
+      lastFrame: 22
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
