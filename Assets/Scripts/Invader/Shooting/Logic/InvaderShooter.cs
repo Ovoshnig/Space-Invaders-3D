@@ -27,7 +27,7 @@ public class InvaderShooter
 
     public void SetInvadersCount(int value) => _invadersCount = value;
 
-    public async Task StartShootingAsync(CancellationToken token)
+    public async UniTask StartShootingAsync(CancellationToken token)
     {
         while (true)
         {

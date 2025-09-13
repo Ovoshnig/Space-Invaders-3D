@@ -1,68 +1,77 @@
+using Cysharp.Threading.Tasks;
 using R3;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using UnityEngine;
 
 public class InvaderShooterMediator : Mediator
 {
     private readonly InvaderShooter _invaderShooter;
     private readonly InvaderRegistry _registry;
+    private readonly InvaderSpawner _spawner;
 
     private CancellationTokenSource _cts = new();
 
     public InvaderShooterMediator(InvaderShooter invaderShooter,
-        InvaderRegistry registry)
+        InvaderRegistry registry,
+        InvaderSpawner spawner)
     {
         _invaderShooter = invaderShooter;
         _registry = registry;
+        _spawner = spawner;
     }
 
-    public async override void Initialize()
+    public override void Initialize()
     {
+        _spawner.Ended
+            .Subscribe(_ => OnWaveSpawnEnded())
+            .AddTo(CompositeDisposable);
+
+        _registry.Any
+            .Where(any => !any)
+            .Subscribe(_ => OnRegistryEmpty())
+            .AddTo(CompositeDisposable);
         _registry.Changed
-            .Subscribe(OnInvadersChange)
+            .Subscribe(OnRegistryChanged)
             .AddTo(CompositeDisposable);
 
         _invaderShooter.Shot
             .Subscribe(OnShot)
             .AddTo(CompositeDisposable);
-
-        try
-        {
-            await _invaderShooter.StartShootingAsync(_cts.Token);
-        }
-        catch (OperationCanceledException)
-        {
-            return;
-        }
     }
 
     public override void Dispose()
     {
-        _cts.Cancel();
-        _cts.Dispose();
-
+        StopShootingTask();
         base.Dispose();
     }
 
-    private void OnInvadersChange(InvaderEntityView _)
+    private void OnWaveSpawnEnded()
+    {
+        StopShootingTask();
+        _cts = new CancellationTokenSource();
+        _invaderShooter.StartShootingAsync(_cts.Token).Forget();
+    }
+
+    private void OnRegistryEmpty() => StopShootingTask();
+
+    private void OnRegistryChanged(InvaderEntityView _)
     {
         if (_registry.Any.CurrentValue)
-        {
-            _invaderShooter.SetInvadersCount(_registry.InvaderEntityViews.Count());
-            return;
-        }
-
-        _cts.Cancel();
-        _cts.Dispose();
-        _cts = new CancellationTokenSource();
+            _invaderShooter.SetInvadersCount(_registry.Invaders.Count());
     }
 
     private void OnShot(ShotEvent shotEvent)
     {
-        IReadOnlyList<InvaderShooterView> invaders = _registry.Get<InvaderShooterView>();
-        InvaderShooterView invader = invaders[shotEvent.InvaderIndex];
-        invader.Shoot(shotEvent.Bullet);
+        InvaderEntityView entityView = _registry.Invaders[shotEvent.InvaderIndex];
+        InvaderShooterView shooterView = entityView.Get<InvaderShooterView>();
+        shooterView.Shoot(shotEvent.Bullet);
+    }
+
+    private void StopShootingTask()
+    {
+        _cts?.Cancel();
+        _cts?.Dispose();
+        _cts = null;
     }
 }

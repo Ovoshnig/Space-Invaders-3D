@@ -1,30 +1,36 @@
 ﻿using R3;
+using System;
+using System.Collections.Generic;
 
 public class InvaderCollisionMediator : CollisionMediator<InvaderEntityView>
 {
     private readonly InvaderRegistry _registry;
+    private readonly Dictionary<InvaderEntityView, IDisposable> _disposableByInvader = new();
 
-    public InvaderCollisionMediator(CollisionReporter<InvaderEntityView> collisionHub,
-        InvaderRegistry registry) : base(collisionHub) => _registry = registry;
+    public InvaderCollisionMediator(CollisionReporter<InvaderEntityView> collisionReporter, InvaderRegistry registry) 
+        : base(collisionReporter) => _registry = registry;
 
     public override void Initialize()
     {
-        _registry.Changed
-            .Subscribe(OnInvadersChange)
+        _registry.Added
+            .Subscribe(OnInvaderAdded)
+            .AddTo(CompositeDisposable);
+        _registry.Removed
+            .Subscribe(OnInvaderRemoved)
             .AddTo(CompositeDisposable);
     }
 
-    private void OnInvadersChange(InvaderEntityView _)
+    private void OnInvaderAdded(InvaderEntityView entityView)
     {
-        BindCompositeDisposable.Clear();
+        TriggerColliderView triggerColliderView = entityView.Get<TriggerColliderView>();
+        Subscribe(entityView, triggerColliderView, out IDisposable disposable);
+        _disposableByInvader[entityView] = disposable;
+    }
 
-        if (!_registry.Any.CurrentValue)
-            return;
-
-        foreach (var invader in _registry.InvaderEntityViews)
-        {
-            TriggerColliderView colliderView = invader.Get<TriggerColliderView>();
-            Subscribe(invader, colliderView);
-        }
+    private void OnInvaderRemoved(InvaderEntityView entityView)
+    {
+        IDisposable disposable = _disposableByInvader[entityView];
+        disposable.Dispose();
+        _disposableByInvader.Remove(entityView);
     }
 }

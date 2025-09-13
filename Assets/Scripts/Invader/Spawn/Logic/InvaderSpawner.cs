@@ -35,6 +35,7 @@ public class InvaderSpawner : IStartable, IDisposable
     {
         _registry.Any
             .Where(any => !any)
+            .DelayFrame(1)
             .Subscribe(_ => SpawnAsync(_cts.Token).Forget())
             .AddTo(_compositeDisposable);
     }

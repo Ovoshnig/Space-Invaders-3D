@@ -1,6 +1,5 @@
 using Cysharp.Threading.Tasks;
 using R3;
-using System;
 using System.Linq;
 using System.Threading;
 using UnityEngine;
@@ -9,60 +8,76 @@ public class InvaderMoverMediator : Mediator
 {
     private readonly InvaderMover _invaderMover;
     private readonly InvaderRegistry _registry;
+    private readonly InvaderSpawner _spawner;
 
-    private CancellationTokenSource _cts = new();
+    private CancellationTokenSource _cts;
 
-    public InvaderMoverMediator(InvaderMover invaderMover, 
-        InvaderRegistry registry)
+    public InvaderMoverMediator(InvaderMover invaderMover,
+        InvaderRegistry registry,
+        InvaderSpawner spawner)
     {
         _invaderMover = invaderMover;
         _registry = registry;
+        _spawner = spawner;
     }
 
-    public async override void Initialize()
+    public override void Initialize()
     {
+        _spawner.Ended
+            .Subscribe(_ => OnWaveSpawnEnded())
+            .AddTo(CompositeDisposable);
+
+        _registry.Any
+            .Where(any => !any)
+            .Subscribe(_ => OnRegistryEmpty())
+            .AddTo(CompositeDisposable);
         _registry.Changed
-            .Subscribe(OnInvadersChange)
+            .Subscribe(_ => OnRegistryChanged())
             .AddTo(CompositeDisposable);
 
         _invaderMover.Moved
             .Subscribe(OnMoved)
             .AddTo(CompositeDisposable);
-
-        try
-        {
-            await _invaderMover.StartMovingAsync(_cts.Token);
-        }
-        catch (OperationCanceledException)
-        {
-            return;
-        }
     }
 
     public override void Dispose()
     {
-        _cts.Cancel();
-        _cts.Dispose();
-
+        StopMovingTask();
         base.Dispose();
     }
 
-    private void OnInvadersChange(InvaderEntityView _)
+    private void OnWaveSpawnEnded()
     {
-        if (_registry.Any.CurrentValue)
-        {
-            _invaderMover.SetPositions(_registry.InvaderEntityViews.Select(i => i.transform.position).ToArray());
-            return;
-        }
-
-        _cts.Cancel();
-        _cts.Dispose();
+        StopMovingTask();
         _cts = new CancellationTokenSource();
+        _invaderMover.StartMovingAsync(_cts.Token).Forget();
     }
+
+    private void OnRegistryEmpty() => StopMovingTask();
+
+    private void OnRegistryChanged() => UpdateInvaderPositions();
 
     private void OnMoved(Vector3 movement)
     {
-        foreach (var invader in _registry.Get<InvaderMoverView>())
-            invader.Move(movement);
+        foreach (var moverView in _registry.Get<InvaderMoverView>())
+            moverView.Move(movement);
+    }
+
+    private void UpdateInvaderPositions()
+    {
+        if (!_registry.Any.CurrentValue)
+            return;
+
+        Vector3[] positions = _registry.Invaders
+            .Select(i => i.transform.position)
+            .ToArray();
+        _invaderMover.SetPositions(positions);
+    }
+
+    private void StopMovingTask()
+    {
+        _cts?.Cancel();
+        _cts?.Dispose();
+        _cts = null;
     }
 }
