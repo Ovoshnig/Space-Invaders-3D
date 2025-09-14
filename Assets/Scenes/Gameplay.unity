@@ -2373,7 +2373,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 15888e3cd7b4a0547a0ce32910686c90, type: 2}
     - target: {fileID: 6306772940561273904, guid: c3595c5ac4df8844097e05a778564933, type: 3}
       propertyPath: m_Name
-      value: Bullet
+      value: PlayerBullet
       objectReference: {fileID: 0}
     - target: {fileID: 6306772940561273904, guid: c3595c5ac4df8844097e05a778564933, type: 3}
       propertyPath: m_IsActive

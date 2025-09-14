@@ -2,9 +2,9 @@ using Cysharp.Threading.Tasks;
 using System.Threading;
 using UnityEngine;
 
-public class InvaderExplosionView : MonoBehaviour
+public class BulletExplosionView : MonoBehaviour
 {
-    [SerializeField, Min(0f)] private float _duration = 0.5f;
+    [SerializeField, Min(0f)] private float _duration = 0.7f;
 
     private readonly CancellationTokenSource _cts = new();
 

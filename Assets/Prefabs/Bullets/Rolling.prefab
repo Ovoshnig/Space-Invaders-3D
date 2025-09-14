@@ -88,6 +88,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7beba749622ff2f409737dfda688978c, type: 3}
       insertIndex: -1
       addedObject: {fileID: -3088587566987001662}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7beba749622ff2f409737dfda688978c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -565271870427633462}
   m_SourcePrefab: {fileID: 100100000, guid: 7beba749622ff2f409737dfda688978c, type: 3}
 --- !u!1 &2623403074194409097 stripped
 GameObject:
@@ -176,3 +179,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a7235ae5b7202c4899f15e52c1d7e98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Bullet::InvaderBulletMoverView
+  _explosionViewPrefab: {fileID: -4185584578113438225, guid: e31361c2a67e48e439c329f189a292e5, type: 3}
+--- !u!114 &-565271870427633462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2623403074194409097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c75a09ac83d506c4885c52e22606e220, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Bullet::BulletDestroyerView
+  _explosionViewPrefab: {fileID: -4185584578113438225, guid: e31361c2a67e48e439c329f189a292e5, type: 3}

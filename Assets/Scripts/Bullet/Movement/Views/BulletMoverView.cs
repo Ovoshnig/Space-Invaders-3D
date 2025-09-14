@@ -10,6 +10,8 @@ public abstract class BulletMoverView : MonoBehaviour
         Backward = -1
     }
 
+    [SerializeField] private BulletExplosionView _explosionViewPrefab;
+
     private readonly ReactiveProperty<bool> _isEnabled = new();
 
     private float _fieldMinZ;
@@ -50,6 +52,8 @@ public abstract class BulletMoverView : MonoBehaviour
         }
         else
         {
+            Instantiate(_explosionViewPrefab, transform.position, Quaternion.identity);
+
             gameObject.SetActive(false);
         }
     }

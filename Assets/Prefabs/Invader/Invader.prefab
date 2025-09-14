@@ -155,6 +155,7 @@ MonoBehaviour:
   <InvaderShooterView>k__BackingField: {fileID: 6712768841011845542}
   <InvaderColliderView>k__BackingField: {fileID: 8074641786983112483}
   <InvaderDestroyerView>k__BackingField: {fileID: 586423477631553088}
+  <InvaderPointsView>k__BackingField: {fileID: 0}
 --- !u!114 &9114820577947514190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,4 +205,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06ddd88465a866f46be232fa30e7a0b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Invader::InvaderDestroyerView
-  _explosionView: {fileID: 6243279858726585704, guid: 9b301c7c1e50d06418261e3332bc2d09, type: 3}
+  _explosionViewPrefab: {fileID: 6243279858726585704, guid: 9b301c7c1e50d06418261e3332bc2d09, type: 3}

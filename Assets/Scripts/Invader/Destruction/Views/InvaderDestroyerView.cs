@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class InvaderDestroyerView : CollidedDestroyerView<PlayerBulletMoverView>
 {
-    [SerializeField] private InvaderExplosionView _explosionView;
+    [SerializeField] private InvaderExplosionView _explosionViewPrefab;
 
     private readonly Subject<Unit> _destroyedFromEditor = new();
 
@@ -16,7 +16,7 @@ public class InvaderDestroyerView : CollidedDestroyerView<PlayerBulletMoverView>
     {
         playerBulletView.gameObject.SetActive(false);
 
-        Instantiate(_explosionView, transform.position, Quaternion.identity);
+        Instantiate(_explosionViewPrefab, transform.position, Quaternion.identity);
 
         _wasDestroyedFromScript = true;
         Destroy(gameObject);
