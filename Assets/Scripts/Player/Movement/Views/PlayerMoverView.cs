@@ -1,13 +1,10 @@
 using UnityEngine;
-using VContainer;
 
 public class PlayerMoverView : MonoBehaviour
 {
-    private FieldView _fieldView;
-    private BoxCollider _boxCollider = null;
+    [SerializeField] private GameSettings _gameSettings;
 
-    [Inject]
-    public void Construct(FieldView fieldView) => _fieldView = fieldView;
+    private BoxCollider _boxCollider = null;
 
     private BoxCollider BoxCollider
     {
@@ -23,8 +20,10 @@ public class PlayerMoverView : MonoBehaviour
     public void Move(Vector3 movement)
     {
         float halfWidth = BoxCollider.bounds.extents.x;
-        float minX = _fieldView.Bounds.min.x + halfWidth;
-        float maxX = _fieldView.Bounds.max.x - halfWidth;
+
+        FieldSettings fieldSettings = _gameSettings.FieldSettings;
+        float minX = fieldSettings.Min.x + halfWidth;
+        float maxX = fieldSettings.Max.x - halfWidth;
 
         Vector3 nextPosition = transform.position + movement;
         nextPosition.x = Mathf.Clamp(nextPosition.x, minX, maxX);

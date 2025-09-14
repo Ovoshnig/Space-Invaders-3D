@@ -5,9 +5,9 @@ public class InvaderBulletMoverView : BulletMoverView
     private InvaderShootingSettings _invaderShootingSettings;
 
     [Inject]
-    public void Construct(FieldView fieldView, InvaderShootingSettings invaderShootingSettings)
+    public void Construct(FieldSettings fieldSettings, InvaderShootingSettings invaderShootingSettings)
     {
-        Construct(fieldView);
+        Construct(fieldSettings);
 
         _invaderShootingSettings = invaderShootingSettings;
     }

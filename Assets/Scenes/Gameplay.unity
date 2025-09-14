@@ -1256,7 +1256,6 @@ Transform:
   - {fileID: 330585546}
   - {fileID: 832575519}
   - {fileID: 1677319814324245353}
-  - {fileID: 905969565}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &832575519 stripped
@@ -1276,7 +1275,6 @@ GameObject:
   - component: {fileID: 905969564}
   - component: {fileID: 905969563}
   - component: {fileID: 905969562}
-  - component: {fileID: 905969566}
   m_Layer: 0
   m_Name: Field
   m_TagString: Untagged
@@ -1375,20 +1373,8 @@ Transform:
   m_LocalScale: {x: 4.4, y: 3, z: 4.58}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 814919849}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &905969566
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 905969561}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1db155d3b122eb345b4e2e418ff62382, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FieldView
 --- !u!1 &922423752 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1519124215760132835, guid: 8c32878ae634b2b499722f1ae8cfb007, type: 3}
@@ -2049,7 +2035,7 @@ MonoBehaviour:
     TypeName: 
   autoRun: 1
   autoInjectGameObjects: []
-  _fieldView: {fileID: 905969566}
+  _fieldView: {fileID: 0}
   _scoreView: {fileID: 1488295553}
   _gameOverView: {fileID: 922423757}
   _gameRestarterView: {fileID: 1689650803}
@@ -2899,6 +2885,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1855037687}
+  - {fileID: 905969565}
   - {fileID: 2955268501308012541}
   - {fileID: 243478666532429206}
   - {fileID: 5862275375840532365}

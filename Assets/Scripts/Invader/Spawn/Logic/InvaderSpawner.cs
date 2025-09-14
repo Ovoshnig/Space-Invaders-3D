@@ -10,7 +10,7 @@ public class InvaderSpawner : IStartable, IDisposable
 {
     private readonly InvaderFactory _factory;
     private readonly InvaderRegistry _registry;
-    private readonly FieldView _fieldView;
+    private readonly FieldSettings _fieldSettings;
     private readonly InvaderSpawnSettings _spawnSettings;
     private readonly Subject<Unit> _started = new();
     private readonly Subject<Unit> _ended = new();
@@ -19,12 +19,12 @@ public class InvaderSpawner : IStartable, IDisposable
 
     public InvaderSpawner(InvaderFactory factory,
         InvaderRegistry registry,
-        FieldView fieldView,
+        FieldSettings fieldSettings,
         InvaderSpawnSettings spawnSettings)
     {
         _factory = factory;
         _registry = registry;
-        _fieldView = fieldView;
+        _fieldSettings = fieldSettings;
         _spawnSettings = spawnSettings;
     }
 
@@ -52,7 +52,7 @@ public class InvaderSpawner : IStartable, IDisposable
     {
         _started.OnNext(Unit.Default);
 
-        Bounds fieldBounds = _fieldView.Bounds;
+        Bounds fieldBounds = _fieldSettings.Bounds;
         Vector3 invaderSize = _spawnSettings.Size;
 
         float invaderSlotWidth = invaderSize.x + _spawnSettings.SpacingX;

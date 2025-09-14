@@ -331,6 +331,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5687cb141c07784e814a39a9d432a26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Player::PlayerMoverView
+  _gameSettings: {fileID: 11400000, guid: 0988861611452554ba55170e30c85ebb, type: 2}
 --- !u!114 &-2969574455512215634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -379,18 +380,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a99565cc6436aba44b8a064edfe03add, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Player::PlayerSoundPlayerView
-  _shootReference:
-    m_AssetGUID: 88aa3a0762d3f12478590eb25c174d71
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_SubObjectGUID: 
-    m_EditorAssetChanged: 0
-  _deathReference:
-    m_AssetGUID: dfe260a8117fdc04eafa2a8233fe7c64
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_SubObjectGUID: 
-    m_EditorAssetChanged: 0
 --- !u!4 &5339413387173857483 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 89b34ebaebb168447b4eed3f9f6abc06, type: 3}

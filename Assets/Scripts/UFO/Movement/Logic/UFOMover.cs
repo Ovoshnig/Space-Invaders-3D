@@ -10,7 +10,7 @@ public class UFOMover : IInitializable, IDisposable
     private readonly PlayerShooterModel _playerShooterModel;
     private readonly UFODestroyer _ufoDestroyer;
     private readonly InvaderRegistry _invaderRegistry;
-    private readonly FieldView _fieldView;
+    private readonly FieldSettings _fieldSettings;
     private readonly UFOMovementSettings _ufoMovementSettings;
     private readonly InvaderSpawnSettings _invaderSpawnSettings;
     private readonly Subject<Vector3> _started = new();
@@ -29,14 +29,14 @@ public class UFOMover : IInitializable, IDisposable
     public UFOMover(PlayerShooterModel playerShooterModel,
         UFODestroyer ufoDestroyer,
         InvaderRegistry invaderRegistry,
-        FieldView fieldView,
+        FieldSettings fieldSettings,
         UFOMovementSettings ufoMovementSettings,
         InvaderSpawnSettings invaderSpawnSettings)
     {
         _playerShooterModel = playerShooterModel;
         _ufoDestroyer = ufoDestroyer;
         _invaderRegistry = invaderRegistry;
-        _fieldView = fieldView;
+        _fieldSettings = fieldSettings;
         _ufoMovementSettings = ufoMovementSettings;
         _invaderSpawnSettings = invaderSpawnSettings;
     }
@@ -62,7 +62,7 @@ public class UFOMover : IInitializable, IDisposable
 
     private void CalculateStartPositions()
     {
-        Bounds fieldBounds = _fieldView.Bounds;
+        Bounds fieldBounds = _fieldSettings.Bounds;
 
         float fieldMinX = fieldBounds.min.x;
         float fieldMaxX = fieldBounds.max.x;

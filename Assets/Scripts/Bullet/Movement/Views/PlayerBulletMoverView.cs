@@ -5,9 +5,9 @@ public class PlayerBulletMoverView : BulletMoverView
     private PlayerSettings _playerSettings;
 
     [Inject]
-    public void Construct(FieldView fieldView, PlayerSettings playerSettings)
+    public void Construct(FieldSettings fieldSettings, PlayerSettings playerSettings)
     {
-        Construct(fieldView);
+        Construct(fieldSettings);
 
         _playerSettings = playerSettings;
     }

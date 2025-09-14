@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class InvaderMover
 {
-    private readonly FieldView _fieldView;
+    private readonly FieldSettings _fieldSettings;
     private readonly InvaderSpawnSettings _invaderSpawnSettings;
     private readonly InvaderMovementSettings _invaderMovementSettings;
     private readonly Subject<Vector3> _moved = new();
@@ -18,11 +18,11 @@ public class InvaderMover
     private float _currentMinPositionZ = 0f;
     private bool _isPause = false;
 
-    public InvaderMover(FieldView fieldView,
+    public InvaderMover(FieldSettings fieldSettings,
         InvaderSpawnSettings invaderSpawnSettings,
         InvaderMovementSettings invaderMovementSettings)
     {
-        _fieldView = fieldView;
+        _fieldSettings = fieldSettings;
         _invaderSpawnSettings = invaderSpawnSettings;
         _invaderMovementSettings = invaderMovementSettings;
     }
@@ -45,10 +45,10 @@ public class InvaderMover
     public async UniTask StartMovingAsync(CancellationToken token)
     {
         float invaderExtentsX = _invaderSpawnSettings.Extents.x;
-        float minPositionX = _fieldView.Bounds.min.x + invaderExtentsX;
-        float maxPositionX = _fieldView.Bounds.max.x - invaderExtentsX;
-        float minPositionZ = _fieldView.Bounds.min.z
-            + _invaderSpawnSettings.DownMarginRatioZ * _fieldView.Bounds.size.z;
+        float minPositionX = _fieldSettings.Min.x + invaderExtentsX;
+        float maxPositionX = _fieldSettings.Max.x - invaderExtentsX;
+        float minPositionZ = _fieldSettings.Min.z
+            + _invaderSpawnSettings.DownMarginRatioZ * _fieldSettings.Size.z;
 
         int sign = 1;
 

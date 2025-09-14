@@ -9,7 +9,7 @@ public class InvaderBulletPool : IDisposable
 {
     private readonly InvaderBulletMoverView[] _bulletPrefabs;
     private readonly InvaderShootingSettings _invaderShootingSettings;
-    private readonly FieldView _fieldView;
+    private readonly FieldSettings _fieldSettings;
     private readonly ObjectPool<InvaderBulletMoverView> _pool;
     private readonly List<InvaderBulletMoverView> _activeBullets = new();
     private readonly Random _random = new();
@@ -18,11 +18,11 @@ public class InvaderBulletPool : IDisposable
     public InvaderBulletPool(
         InvaderBulletMoverView[] bulletPrefabs,
         InvaderShootingSettings invaderShootingSettings,
-        FieldView fieldView)
+        FieldSettings fieldSettings)
     {
         _bulletPrefabs = bulletPrefabs;
         _invaderShootingSettings = invaderShootingSettings;
-        _fieldView = fieldView;
+        _fieldSettings = fieldSettings;
 
         _pool = new ObjectPool<InvaderBulletMoverView>(
             createFunc: CreateBullet,
@@ -67,7 +67,7 @@ public class InvaderBulletPool : IDisposable
         int randomIndex = _random.Next(0, _bulletPrefabs.Length);
         InvaderBulletMoverView prefab = _bulletPrefabs[randomIndex];
         InvaderBulletMoverView bullet = Object.Instantiate(prefab);
-        bullet.Construct(_fieldView, _invaderShootingSettings);
+        bullet.Construct(_fieldSettings, _invaderShootingSettings);
 
         return bullet;
     }

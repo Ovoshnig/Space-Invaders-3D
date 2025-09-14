@@ -19,10 +19,10 @@ public abstract class BulletMoverView : MonoBehaviour
     private float _extentsZ;
 
     [Inject]
-    public void Construct(FieldView fieldView)
+    public void Construct(FieldSettings fieldSettings)
     {
-        _fieldMinZ = fieldView.Bounds.min.z;
-        _fieldMaxZ = fieldView.Bounds.max.z;
+        _fieldMinZ = fieldSettings.Min.z;
+        _fieldMaxZ = fieldSettings.Max.z;
         _extentsZ = GetComponent<BoxCollider>().bounds.extents.z;
     }
 

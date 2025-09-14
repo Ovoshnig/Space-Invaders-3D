@@ -4,7 +4,6 @@ using VContainer.Unity;
 
 public class GameplayLifetimeScope : LifetimeScope
 {
-    [SerializeField] private FieldView _fieldView;
     [SerializeField] private ScoreView _scoreView;
     [SerializeField] private GameOverView _gameOverView;
     [SerializeField] private GameRestarterView _gameRestarterView;
@@ -26,8 +25,6 @@ public class GameplayLifetimeScope : LifetimeScope
         ConfigureCompositionRoot(builder);
 
         builder.Register<GamePauser>(Lifetime.Singleton);
-
-        builder.RegisterInstance(_fieldView);
 
         builder.RegisterEntryPoint<PlayerInputHandler>(Lifetime.Singleton).AsSelf();
 

@@ -15,7 +15,8 @@ public class ProjectLifetimeScope : LifetimeScope
             .AsSelf();
 
         builder.RegisterInstance(_gameSettings.SceneSettings);
-        builder.RegisterInstance(_gameSettings.AudioSettings);
+        builder.RegisterInstance(_gameSettings.FieldSettings);
+
         builder.RegisterInstance(_gameSettings.PlayerSettings);
 
         builder.RegisterInstance(_gameSettings.InvaderSettings.InvaderSpawnSettings);
@@ -24,5 +25,7 @@ public class ProjectLifetimeScope : LifetimeScope
         builder.RegisterInstance(_gameSettings.InvaderSettings.InvaderPointsSettings);
 
         builder.RegisterInstance(_gameSettings.UFOMovementSettings);
+
+        builder.RegisterInstance(_gameSettings.AudioSettings);
     }
 }
