@@ -12,7 +12,7 @@ public class InvaderShooter
     private readonly Random _random = new();
     private readonly Subject<ShotEvent> _shot = new();
 
-    private int _invadersCount = 0;
+    private int[] _invaderIndices;
     private bool _isPause = false;
 
     public InvaderShooter(InvaderBulletPool bulletPool,
@@ -24,7 +24,7 @@ public class InvaderShooter
 
     public Observable<ShotEvent> Shot => _shot;
 
-    public void SetInvadersCount(int value) => _invadersCount = value;
+    public void SetInvaderIndices(int[] indices) => _invaderIndices = indices;
 
     public async UniTask StartShootingAsync(CancellationToken token)
     {
@@ -41,7 +41,7 @@ public class InvaderShooter
 
             if (_bulletPool.TryGetBullet(out InvaderBulletMoverView bulletMoverView))
             {
-                int randomInvaderIndex = _random.Next(0, _invadersCount);
+                int randomInvaderIndex = _invaderIndices[_random.Next(_invaderIndices.Length)];
                 _shot.OnNext(new ShotEvent(randomInvaderIndex, bulletMoverView));
             }
         }

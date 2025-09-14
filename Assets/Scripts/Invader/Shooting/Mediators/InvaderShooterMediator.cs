@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using R3;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
@@ -56,8 +57,17 @@ public class InvaderShooterMediator : Mediator
 
     private void OnRegistryChanged(InvaderEntityView _)
     {
-        if (_registry.Any.CurrentValue)
-            _invaderShooter.SetInvadersCount(_registry.Invaders.Count());
+        if (!_registry.Any.CurrentValue)
+            return;
+
+        int[] frontInvaderIndices = _registry.Invaders
+            .Select((invader, index) => (Invader: invader, Index: index))
+            .GroupBy(item => item.Invader.transform.position.x)
+            .Select(group => group.OrderBy(item => item.Invader.transform.position.z).First())
+            .Select(item => item.Index)
+            .ToArray();
+
+        _invaderShooter.SetInvaderIndices(frontInvaderIndices);
     }
 
     private void OnShot(ShotEvent shotEvent)
