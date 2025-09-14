@@ -63,7 +63,7 @@ public class InvaderShooterMediator : Mediator
     private void OnShot(ShotEvent shotEvent)
     {
         InvaderEntityView entityView = _registry.Invaders[shotEvent.InvaderIndex];
-        InvaderShooterView shooterView = entityView.Get<InvaderShooterView>();
+        InvaderShooterView shooterView = entityView.ShooterView;
         shooterView.Shoot(shotEvent.Bullet);
     }
 

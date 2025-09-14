@@ -151,10 +151,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac28d79c075a2564791425f5896109c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Invader::InvaderEntityView
-  <InvaderMoverView>k__BackingField: {fileID: 9114820577947514190}
-  <InvaderShooterView>k__BackingField: {fileID: 6712768841011845542}
-  <InvaderColliderView>k__BackingField: {fileID: 8074641786983112483}
-  <InvaderDestroyerView>k__BackingField: {fileID: 586423477631553088}
+  <MoverView>k__BackingField: {fileID: 9114820577947514190}
+  <ShooterView>k__BackingField: {fileID: 6712768841011845542}
+  <ColliderView>k__BackingField: {fileID: 8074641786983112483}
+  <DestroyerView>k__BackingField: {fileID: 586423477631553088}
   <InvaderPointsView>k__BackingField: {fileID: 0}
 --- !u!114 &9114820577947514190
 MonoBehaviour:

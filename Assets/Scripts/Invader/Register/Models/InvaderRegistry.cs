@@ -1,7 +1,6 @@
 using R3;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 public class InvaderRegistry
 {
@@ -28,7 +27,7 @@ public class InvaderRegistry
 
     public void Add(InvaderEntityView entityView)
     {
-        if (entityView == null || _invaders.Contains(entityView)) 
+        if (entityView == null || _invaders.Contains(entityView))
             return;
 
         _invaders.Add(entityView);
@@ -43,6 +42,4 @@ public class InvaderRegistry
         _invaders.Remove(entityView);
         _removed.OnNext(entityView);
     }
-
-    public IReadOnlyList<T> Get<T>() where T : MonoBehaviour => Invaders.Select(e => e.Get<T>()).ToList();
 }

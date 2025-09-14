@@ -73,7 +73,7 @@ public class InvaderFactory : IDisposable
         InvaderEntityView instance = pool.Get();
         instance.transform.SetPositionAndRotation(position, Quaternion.identity);
 
-        instance.Get<InvaderDestroyerView>().Destroyed
+        instance.DestroyerView.Destroyed
             .Take(1)
             .Subscribe(_ => pool.Release(instance));
 

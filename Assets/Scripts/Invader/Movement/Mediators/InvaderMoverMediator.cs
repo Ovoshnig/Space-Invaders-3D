@@ -59,7 +59,7 @@ public class InvaderMoverMediator : Mediator
 
     private void OnMoved(Vector3 movement)
     {
-        foreach (var moverView in _registry.Get<InvaderMoverView>())
+        foreach (var moverView in _registry.Invaders.Select(i => i.MoverView))
             moverView.Move(movement);
     }
 

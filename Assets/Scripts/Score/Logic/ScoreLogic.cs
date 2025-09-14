@@ -46,7 +46,7 @@ public class ScoreLogic : IInitializable, IDisposable
 
     private void OnInvaderDestroyed(CollidedDestructionEvent<InvaderEntityView, PlayerBulletMoverView> destructionEvent)
     {
-        InvaderPointsView pointsView = destructionEvent.CollidedView.Get<InvaderPointsView>();
+        InvaderPointsView pointsView = destructionEvent.CollidedView.PointsView;
         _lastPoints.OnNext(pointsView.GetPoints());
     }
 

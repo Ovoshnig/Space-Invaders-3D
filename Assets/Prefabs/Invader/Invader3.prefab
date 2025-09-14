@@ -57,6 +57,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3168285042972069038, guid: 4812c12e4e970ef49bdd22c303e21c80, type: 3}
     - target: {fileID: 6978720937551604296, guid: 89084bd4dabfccd4bb98578495bba0bc, type: 3}
+      propertyPath: <PointsView>k__BackingField
+      value: 
+      objectReference: {fileID: 4435054802027166716}
+    - target: {fileID: 6978720937551604296, guid: 89084bd4dabfccd4bb98578495bba0bc, type: 3}
       propertyPath: <InvaderPointsView>k__BackingField
       value: 
       objectReference: {fileID: 4435054802027166716}

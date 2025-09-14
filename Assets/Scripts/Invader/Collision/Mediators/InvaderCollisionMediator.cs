@@ -22,7 +22,7 @@ public class InvaderCollisionMediator : CollisionMediator<InvaderEntityView>
 
     private void OnInvaderAdded(InvaderEntityView entityView)
     {
-        TriggerColliderView triggerColliderView = entityView.Get<TriggerColliderView>();
+        TriggerColliderView triggerColliderView = entityView.ColliderView;
         Subscribe(entityView, triggerColliderView, out IDisposable disposable);
         _disposableByInvader[entityView] = disposable;
     }
