@@ -139,6 +139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Bullet::PlayerBulletMoverView
   _explosionViewPrefab: {fileID: 309819379637566640, guid: 31d0bc52c5299104fafd5fbcde4dbd6c, type: 3}
+  _gameSettings: {fileID: 11400000, guid: 0988861611452554ba55170e30c85ebb, type: 2}
 --- !u!114 &-1268244547275385165
 MonoBehaviour:
   m_ObjectHideFlags: 0

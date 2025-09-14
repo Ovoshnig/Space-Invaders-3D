@@ -16,10 +16,8 @@ MonoBehaviour:
     <FirstGameplayLevel>k__BackingField: 1
     <GameplayLevelsCount>k__BackingField: 1
     <LevelTransitionDuration>k__BackingField: 5
-  <AudioSettings>k__BackingField:
-    <MinVolume>k__BackingField: -80
-    <MaxVolume>k__BackingField: 0
-    <SnapshotTransitionDuration>k__BackingField: 0
+  <FieldSettings>k__BackingField:
+    <MeshRenderer>k__BackingField: {fileID: 4566743946723200125, guid: f674d9dba23a2da4f9a5066e3b5cc5be, type: 3}
   <PlayerSettings>k__BackingField:
     <MovementSpeed>k__BackingField: 10
     <ExplosionDuration>k__BackingField: 1
@@ -57,3 +55,7 @@ MonoBehaviour:
     <FirstShotCount>k__BackingField: 23
     <NextShotCount>k__BackingField: 15
     <Speed>k__BackingField: 8
+  <AudioSettings>k__BackingField:
+    <MinVolume>k__BackingField: -80
+    <MaxVolume>k__BackingField: 0
+    <SnapshotTransitionDuration>k__BackingField: 0

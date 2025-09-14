@@ -180,6 +180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Bullet::InvaderBulletMoverView
   _explosionViewPrefab: {fileID: -4185584578113438225, guid: e31361c2a67e48e439c329f189a292e5, type: 3}
+  _gameSettings: {fileID: 11400000, guid: 0988861611452554ba55170e30c85ebb, type: 2}
 --- !u!114 &-565271870427633462
 MonoBehaviour:
   m_ObjectHideFlags: 0
