@@ -149,9 +149,8 @@ public class GameplayLifetimeScope : LifetimeScope
     {
         builder.Register<InvaderRegistry>(Lifetime.Singleton);
 
-        builder.RegisterEntryPoint<InvaderFactory>(Lifetime.Singleton)
-            .WithParameter(_invaderPrefabs)
-            .AsSelf();
+        builder.Register<InvaderFactory>(Lifetime.Singleton)
+            .WithParameter(_invaderPrefabs);
         builder.RegisterEntryPoint<InvaderSpawner>(Lifetime.Singleton)
             .AsSelf();
     }
