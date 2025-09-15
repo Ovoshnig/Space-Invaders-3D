@@ -22,7 +22,7 @@ MonoBehaviour:
     <MovementSpeed>k__BackingField: 10
     <ExplosionDuration>k__BackingField: 1
     <InitialHealth>k__BackingField: 3
-    <BulletSpeed>k__BackingField: 25
+    <BulletSpeed>k__BackingField: 30
   <InvaderSettings>k__BackingField:
     <InvaderSpawnSettings>k__BackingField:
       <MeshRenderer>k__BackingField: {fileID: 1757354549830319017, guid: 89084bd4dabfccd4bb98578495bba0bc, type: 3}
@@ -37,14 +37,14 @@ MonoBehaviour:
     <InvaderMovementSettings>k__BackingField:
       <MeshRenderer>k__BackingField: {fileID: -7511558181221131132, guid: c4d590d729eb0b3439b0080c5f85745a, type: 3}
       <StepRatioX>k__BackingField: 0.2
-      <StepRatioZ>k__BackingField: 0.8
+      <StepRatioZ>k__BackingField: 1
       <StartDelay>k__BackingField: 1
       <EndDelay>k__BackingField: 0.01
     <InvaderShootingSettings>k__BackingField:
-      <MinDelay>k__BackingField: 0.3
-      <MaxDelay>k__BackingField: 1.8
+      <StartDelay>k__BackingField: 2
+      <EndDelay>k__BackingField: 0.5
       <MaxActive>k__BackingField: 3
-      <BulletSpeed>k__BackingField: 15
+      <BulletSpeed>k__BackingField: 20
     <InvaderPointsSettings>k__BackingField:
       <Invader1Points>k__BackingField: 10
       <Invader2Points>k__BackingField: 20

@@ -1,40 +1,45 @@
 using Cysharp.Threading.Tasks;
 using R3;
-using System;
 using System.Threading;
+using UnityEngine;
+using Random = System.Random;
 
 public record ShotEvent(int InvaderIndex, InvaderBulletMoverView Bullet);
 
 public class InvaderShooter
 {
     private readonly InvaderBulletPool _bulletPool;
-    private readonly InvaderShootingSettings _settings;
+    private readonly InvaderShootingSettings _shootingSettings;
+    private readonly InvaderSpawnSettings _spawnSettings;
     private readonly Random _random = new();
     private readonly Subject<ShotEvent> _shot = new();
 
     private int[] _invaderIndices;
+    private float _delay = 1f;
     private bool _isPause = false;
 
     public InvaderShooter(InvaderBulletPool bulletPool,
-        InvaderShootingSettings invaderShootingSettings)
+        InvaderShootingSettings shootingSettings,
+        InvaderSpawnSettings spawnSettings)
     {
         _bulletPool = bulletPool;
-        _settings = invaderShootingSettings;
+        _shootingSettings = shootingSettings;
+        _spawnSettings = spawnSettings;
     }
 
     public Observable<ShotEvent> Shot => _shot;
 
-    public void SetInvaderIndices(int[] indices) => _invaderIndices = indices;
+    public void SetInvaderIndices(int[] indices, int currentInvaderCount)
+    {
+        _invaderIndices = indices;
+        CalculateDelay(currentInvaderCount);
+    }
 
     public async UniTask StartShootingAsync(CancellationToken token)
     {
         while (true)
         {
-            float randomDelay = (float)_random.NextDouble()
-                * (_settings.MaxDelay - _settings.MinDelay)
-                + _settings.MinDelay;
-
-            await UniTask.WaitForSeconds(randomDelay, cancellationToken: token);
+            await UniTask.WaitForSeconds(_delay, cancellationToken: token);
 
             if (_isPause)
                 await UniTask.WaitWhile(() => _isPause, cancellationToken: token);
@@ -48,4 +53,13 @@ public class InvaderShooter
     }
 
     public void SetPause(bool value) => _isPause = value;
+
+    private void CalculateDelay(int currentInvaderCount)
+    {
+        float percentageLeft = (float)currentInvaderCount / _spawnSettings.InitialCount;
+
+        _delay = Mathf.Lerp(_shootingSettings.EndDelay,
+            _shootingSettings.StartDelay,
+            percentageLeft);
+    }
 }

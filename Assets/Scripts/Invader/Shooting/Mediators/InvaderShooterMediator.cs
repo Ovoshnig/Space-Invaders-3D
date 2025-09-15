@@ -67,7 +67,7 @@ public class InvaderShooterMediator : Mediator
             .Select(item => item.Index)
             .ToArray();
 
-        _invaderShooter.SetInvaderIndices(frontInvaderIndices);
+        _invaderShooter.SetInvaderIndices(frontInvaderIndices, _registry.Invaders.Count);
     }
 
     private void OnShot(ShotEvent shotEvent)
