@@ -37,11 +37,11 @@ MonoBehaviour:
     <InvaderMovementSettings>k__BackingField:
       <MeshRenderer>k__BackingField: {fileID: -7511558181221131132, guid: c4d590d729eb0b3439b0080c5f85745a, type: 3}
       <StepRatioX>k__BackingField: 0.2
-      <StepRatioZ>k__BackingField: 1
+      <StepRatioZ>k__BackingField: 0.8
       <StartDelay>k__BackingField: 1
-      <EndDelay>k__BackingField: 0.01
+      <EndDelay>k__BackingField: 0.005
     <InvaderShootingSettings>k__BackingField:
-      <StartDelay>k__BackingField: 2
+      <StartDelay>k__BackingField: 1.5
       <EndDelay>k__BackingField: 0.5
       <MaxActive>k__BackingField: 3
       <BulletSpeed>k__BackingField: 20

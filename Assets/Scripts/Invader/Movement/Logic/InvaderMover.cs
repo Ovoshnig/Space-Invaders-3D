@@ -35,11 +35,11 @@ public class InvaderMover
         if (!positions.Any())
             return;
 
-        CalculateDelay(positions);
-
         _currentMinPositionX = positions.Min(p => p.x);
         _currentMaxPositionX = positions.Max(p => p.x);
         _currentMinPositionZ = positions.Min(p => p.z);
+
+        CalculateDelay(positions.Length);
     }
 
     public async UniTask StartMovingAsync(CancellationToken token)
@@ -90,9 +90,9 @@ public class InvaderMover
 
     public void SetPause(bool value) => _isPause = value;
 
-    private void CalculateDelay(Vector3[] positions)
+    private void CalculateDelay(int currentInvaderCount)
     {
-        float percentageLeft = (float)positions.Length / _invaderSpawnSettings.InitialCount;
+        float percentageLeft = (float)currentInvaderCount / _invaderSpawnSettings.InitialCount;
 
         _delay = Mathf.Lerp(_invaderMovementSettings.EndDelay,
             _invaderMovementSettings.StartDelay,
