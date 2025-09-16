@@ -14,8 +14,16 @@ public class GamePauserGameOverMediator : Mediator
 
     public override void Initialize()
     {
-        _gameOver.Over
-            .Subscribe(_ => _gamePauser.Pause())
+        _gameOver.IsOver
+            .Subscribe(OnGameOver)
             .AddTo(CompositeDisposable);
+    }
+
+    private void OnGameOver(bool isOver)
+    {
+        if (isOver)
+            _gamePauser.Pause();
+        else
+            _gamePauser.UnPause();
     }
 }

@@ -6,31 +6,25 @@ public class ScoreLogic : IInitializable, IDisposable
 {
     private readonly InvaderDestroyer _invaderDestroyer;
     private readonly UFODestroyer _ufoDestroyer;
-    private readonly ScoreModel _scoreModel = new();
+    private readonly ScoreModel _scoreModel;
     private readonly ReactiveProperty<int> _lastPoints = new();
-    private readonly ReactiveProperty<int> _score = new();
     private readonly CompositeDisposable _compositeDisposable = new();
 
     public ScoreLogic(InvaderDestroyer invaderDestroyer,
-        UFODestroyer ufoDestroyer)
+        UFODestroyer ufoDestroyer,
+        ScoreModel scoreModel)
     {
         _invaderDestroyer = invaderDestroyer;
         _ufoDestroyer = ufoDestroyer;
+        _scoreModel = scoreModel;
     }
 
     public ReadOnlyReactiveProperty<int> LastPoints => _lastPoints;
-    public ReadOnlyReactiveProperty<int> Score => _score;
 
     public void Initialize()
     {
-        _score.Value = _scoreModel.Score;
-
         _lastPoints
-            .Subscribe(points =>
-            {
-                _scoreModel.Increase(points);
-                _score.Value = _scoreModel.Score;
-            })
+            .Subscribe(points => _scoreModel.Increase(points))
             .AddTo(_compositeDisposable);
 
         _invaderDestroyer.Destroyed

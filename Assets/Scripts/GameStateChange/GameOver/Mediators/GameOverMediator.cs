@@ -13,8 +13,8 @@ public class GameOverMediator : Mediator
 
     public override void Initialize()
     {
-        _gameOver.Over
-            .Subscribe(_ => _gameOverView.SetActive(true))
+        _gameOver.IsOver
+            .Subscribe(_gameOverView.SetActive)
             .AddTo(CompositeDisposable);
     }
 }

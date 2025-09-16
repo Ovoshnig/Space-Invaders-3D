@@ -4,12 +4,18 @@ using VContainer.Unity;
 public class PlayerShooter : ITickable
 {
     private readonly PlayerInputHandler _playerInputHandler;
+    private readonly PlayerShooterModel _playerShooterModel;
     private readonly Subject<Unit> _shot = new();
 
     private bool _isBulletEnabled = false;
     private bool _isPause = false;
 
-    public PlayerShooter(PlayerInputHandler playerInputHandler) => _playerInputHandler = playerInputHandler;
+    public PlayerShooter(PlayerInputHandler playerInputHandler, 
+        PlayerShooterModel playerShooterModel)
+    {
+        _playerInputHandler = playerInputHandler;
+        _playerShooterModel = playerShooterModel;
+    }
 
     public Observable<Unit> Shot => _shot;
 
@@ -17,8 +23,9 @@ public class PlayerShooter : ITickable
     {
         if (_playerInputHandler.ShootPressed.CurrentValue && !_isBulletEnabled && !_isPause)
         {
-            _shot.OnNext(Unit.Default);
             SetBulletEnabled(true);
+            _playerShooterModel.Increment();
+            _shot.OnNext(Unit.Default);
         }
     }
 

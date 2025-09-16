@@ -2,19 +2,19 @@
 
 public class PlayerHealthMediator : Mediator
 {
-    private readonly PlayerHealthLogic _playerHealthLogic;
+    private readonly PlayerHealthModel _playerHealthModel;
     private readonly PlayerHealthView _playerHealthView;
 
-    public PlayerHealthMediator(PlayerHealthLogic playerHealthLogic,
+    public PlayerHealthMediator(PlayerHealthModel playerHealthModel,
         PlayerHealthView playerHealthView)
     {
-        _playerHealthLogic = playerHealthLogic;
+        _playerHealthModel = playerHealthModel;
         _playerHealthView = playerHealthView;
     }
 
     public override void Initialize()
     {
-        _playerHealthLogic.Health
+        _playerHealthModel.Health
             .Subscribe(_playerHealthView.Set)
             .AddTo(CompositeDisposable);
     }

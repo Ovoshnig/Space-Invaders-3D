@@ -29,7 +29,7 @@ public class GameplayLifetimeScope : LifetimeScope
         builder.RegisterEntryPoint<PlayerInputHandler>(Lifetime.Singleton).AsSelf();
 
         ConfigureScore(builder);
-        ConfigureGameOver(builder);
+        ConfigureGameStateChange(builder);
 
         ConfigurePlayerSpawn(builder);
         ConfigurePlayerMovement(builder);
@@ -70,17 +70,30 @@ public class GameplayLifetimeScope : LifetimeScope
         builder.RegisterEntryPoint<InvaderShooterGamePauserMediator>();
         builder.RegisterEntryPoint<InvaderBulletPoolGamePauserMediator>();
         builder.RegisterEntryPoint<UFOMoverGamePauserMediator>();
+
+        builder.RegisterEntryPoint<ScoreModelGameStateChangerMediator>(Lifetime.Singleton);
+        builder.RegisterEntryPoint<PlayerSpawnerGameStateChangerMediator>(Lifetime.Singleton);
+        builder.RegisterEntryPoint<PlayerShooterModelGameStateChangerMediator>(Lifetime.Singleton);
+        builder.RegisterEntryPoint<PlayerHealthModelGameStateChangerMediator>(Lifetime.Singleton);
+        builder.RegisterEntryPoint<InvaderRegistryGameStateChangerMediator>(Lifetime.Singleton);
+        builder.RegisterEntryPoint<UFOMoverGameStateChangerMediator>(Lifetime.Singleton);
+        builder.RegisterEntryPoint<ShieldTileGameStateChangerMediator>(Lifetime.Singleton);
     }
 
     private void ConfigureScore(IContainerBuilder builder)
     {
         builder.RegisterComponent(_scoreView);
-        builder.RegisterEntryPoint<ScoreLogic>(Lifetime.Singleton).AsSelf();
+        builder.Register<ScoreModel>(Lifetime.Singleton);
+        builder.RegisterEntryPoint<ScoreLogic>(Lifetime.Singleton)
+            .AsSelf();
         builder.RegisterEntryPoint<ScoreMediator>(Lifetime.Singleton);
     }
 
-    private void ConfigureGameOver(IContainerBuilder builder)
+    private void ConfigureGameStateChange(IContainerBuilder builder)
     {
+        builder.RegisterEntryPoint<GameStateChanger>(Lifetime.Singleton)
+            .AsSelf();
+
         builder.RegisterComponent(_gameOverView);
         builder.RegisterEntryPoint<GameOver>(Lifetime.Singleton)
             .AsSelf();
@@ -91,8 +104,11 @@ public class GameplayLifetimeScope : LifetimeScope
         builder.RegisterEntryPoint<GameRestarterMediator>(Lifetime.Singleton);
     }
 
-    private void ConfigurePlayerSpawn(IContainerBuilder builder) =>
-        builder.RegisterEntryPoint<PlayerSpawner>(Lifetime.Singleton);
+    private void ConfigurePlayerSpawn(IContainerBuilder builder)
+    {
+        builder.RegisterEntryPoint<PlayerSpawner>(Lifetime.Singleton)
+            .AsSelf();
+    }
 
     private void ConfigurePlayerMovement(IContainerBuilder builder)
     {
@@ -225,8 +241,6 @@ public class GameplayLifetimeScope : LifetimeScope
     {
         ShieldTileView[] tiles = _shieldParent.GetComponentsInChildren<ShieldTileView>();
         builder.RegisterComponent(tiles);
-
-        builder.RegisterEntryPoint<ShieldTileMediator>(Lifetime.Singleton);
     }
 
     private void Start()

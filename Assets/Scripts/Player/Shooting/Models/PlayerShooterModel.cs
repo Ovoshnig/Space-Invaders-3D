@@ -7,4 +7,6 @@ public class PlayerShooterModel
     public ReadOnlyReactiveProperty<int> ShotCount => _shotCount;
 
     public void Increment() => _shotCount.Value++;
+
+    public void Reset() => _shotCount.Value = 0;
 }

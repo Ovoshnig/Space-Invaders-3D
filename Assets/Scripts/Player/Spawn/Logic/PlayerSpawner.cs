@@ -5,37 +5,30 @@ using VContainer.Unity;
 
 public class PlayerSpawner : IInitializable, IDisposable
 {
-    private readonly PlayerDestroyer _playerDestroyer;
     private readonly PlayerMoverView _playerMoverView;
-    private readonly InvaderRegistry _invaderRegistry;
+    private readonly PlayerHealthModel _playerHealthModel;
     private readonly CompositeDisposable _compositeDisposable = new();
 
     private Vector3 _startPosition;
 
-    public PlayerSpawner(PlayerDestroyer playerDestroyer,
-        PlayerMoverView playerMoverView,
-        InvaderRegistry invaderRegistry)
+    public PlayerSpawner(PlayerMoverView playerMoverView,
+        PlayerHealthModel playerHealthModel)
     {
-        _playerDestroyer = playerDestroyer;
         _playerMoverView = playerMoverView;
-        _invaderRegistry = invaderRegistry;
+        _playerHealthModel = playerHealthModel;
     }
 
     public void Initialize()
     {
         _startPosition = _playerMoverView.transform.position;
 
-        _playerDestroyer.Destroyed
-            .Subscribe(_ => ReturnToStartPosition())
-            .AddTo(_compositeDisposable);
-
-        _invaderRegistry.Any
-            .Where(any => !any)
+        _playerHealthModel.Health
+            .Where(health => health > 0)
             .Subscribe(_ => ReturnToStartPosition())
             .AddTo(_compositeDisposable);
     }
 
     public void Dispose() => _compositeDisposable.Dispose();
 
-    private void ReturnToStartPosition() => _playerMoverView.transform.position = _startPosition;
+    public void ReturnToStartPosition() => _playerMoverView.transform.position = _startPosition;
 }

@@ -9,7 +9,6 @@ public class UFOMover : IInitializable, IDisposable
 {
     private readonly PlayerShooterModel _playerShooterModel;
     private readonly UFODestroyer _ufoDestroyer;
-    private readonly InvaderRegistry _invaderRegistry;
     private readonly FieldSettings _fieldSettings;
     private readonly UFOMovementSettings _ufoMovementSettings;
     private readonly InvaderSpawnSettings _invaderSpawnSettings;
@@ -28,14 +27,12 @@ public class UFOMover : IInitializable, IDisposable
 
     public UFOMover(PlayerShooterModel playerShooterModel,
         UFODestroyer ufoDestroyer,
-        InvaderRegistry invaderRegistry,
         FieldSettings fieldSettings,
         UFOMovementSettings ufoMovementSettings,
         InvaderSpawnSettings invaderSpawnSettings)
     {
         _playerShooterModel = playerShooterModel;
         _ufoDestroyer = ufoDestroyer;
-        _invaderRegistry = invaderRegistry;
         _fieldSettings = fieldSettings;
         _ufoMovementSettings = ufoMovementSettings;
         _invaderSpawnSettings = invaderSpawnSettings;
@@ -59,6 +56,8 @@ public class UFOMover : IInitializable, IDisposable
     }
 
     public void SetPause(bool value) => _isPause = value;
+
+    public void OnGameStateChanged() => ResetCTS();
 
     private void CalculateStartPositions()
     {
@@ -88,11 +87,6 @@ public class UFOMover : IInitializable, IDisposable
         _ufoDestroyer.Destroyed
             .Subscribe(_ => OnDestroyed())
             .AddTo(_compositeDisposable);
-
-        _invaderRegistry.Any
-            .Where(any => !any)
-            .Subscribe(_ => OnInvadersEmpty())
-            .AddTo(_compositeDisposable);
     }
 
     private bool ShouldSpawnUFO(int currentShotCount)
@@ -116,7 +110,6 @@ public class UFOMover : IInitializable, IDisposable
 
     private void OnDestroyed() => ResetCTS();
 
-    private void OnInvadersEmpty() => ResetCTS();
 
     private async UniTask StartMoveAsync()
     {

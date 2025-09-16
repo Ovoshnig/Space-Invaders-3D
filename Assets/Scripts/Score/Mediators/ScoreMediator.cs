@@ -2,18 +2,18 @@ using R3;
 
 public class ScoreMediator : Mediator
 {
-    private readonly ScoreLogic _scoreLogic;
+    private readonly ScoreModel _scoreModel;
     private readonly ScoreView _scoreView;
 
-    public ScoreMediator(ScoreLogic scoreLogic, ScoreView scoreView)
+    public ScoreMediator(ScoreModel scoreModel, ScoreView scoreView)
     {
-        _scoreLogic = scoreLogic;
+        _scoreModel = scoreModel;
         _scoreView = scoreView;
     }
 
     public override void Initialize()
     {
-        _scoreLogic.Score
+        _scoreModel.Score
             .Subscribe(_scoreView.SetScore)
             .AddTo(CompositeDisposable);
     }
