@@ -4,6 +4,7 @@ using VContainer.Unity;
 
 public class GameplayLifetimeScope : LifetimeScope
 {
+    [SerializeField] private CameraNoiseView _cameraNoiseView;
     [SerializeField] private ScoreView _scoreView;
     [SerializeField] private GameOverView _gameOverView;
     [SerializeField] private GameRestarterView _gameRestarterView;
@@ -13,11 +14,13 @@ public class GameplayLifetimeScope : LifetimeScope
     [SerializeField] private PlayerSoundPlayerView _playerSoundPlayerView;
     [SerializeField] private PlayerHealthView _playerHealthView;
     [SerializeField] private InvaderEntityView[] _invaderPrefabs;
+    [SerializeField] private InvaderCenterView _invaderCenterView;
     [SerializeField] private InvaderBulletMoverView[] _invaderBulletPrefabs;
     [SerializeField] private InvaderSoundPlayerView _invaderSoundPlayerView;
     [SerializeField] private UFOMoverView _UFOMoverView;
     [SerializeField] private UFOSoundPlayerView _ufoSoundPlayerView;
     [SerializeField] private UFODestroyerView _ufoDestroyerView;
+    [SerializeField] private UFOExplosionView _ufoExplosionView;
     [SerializeField] private GameObject _shieldParent;
 
     protected override void Configure(IContainerBuilder builder)
@@ -28,6 +31,7 @@ public class GameplayLifetimeScope : LifetimeScope
 
         builder.RegisterEntryPoint<PlayerInputHandler>(Lifetime.Singleton).AsSelf();
 
+        ConfigureCamera(builder);
         ConfigureScore(builder);
         ConfigureGameStateChange(builder);
 
@@ -59,17 +63,19 @@ public class GameplayLifetimeScope : LifetimeScope
 
     private void ConfigureCompositionRoot(IContainerBuilder builder)
     {
-        builder.RegisterEntryPoint<GamePauserPlayerDestroyerMediator>();
-        builder.RegisterEntryPoint<GamePauserInvaderSpawnerMediator>();
-        builder.RegisterEntryPoint<GamePauserGameOverMediator>();
+        builder.RegisterEntryPoint<CameraNoiseViewPlayerDestroyerMediator>(Lifetime.Singleton);
 
-        builder.RegisterEntryPoint<PlayerMoverGamePauserMediator>();
-        builder.RegisterEntryPoint<PlayerShooterGamePauserMediator>();
-        builder.RegisterEntryPoint<PlayerBulletMoverGamePauserMediator>();
-        builder.RegisterEntryPoint<InvaderMoverGamePauserMediator>();
-        builder.RegisterEntryPoint<InvaderShooterGamePauserMediator>();
-        builder.RegisterEntryPoint<InvaderBulletPoolGamePauserMediator>();
-        builder.RegisterEntryPoint<UFOMoverGamePauserMediator>();
+        builder.RegisterEntryPoint<GamePauserPlayerDestroyerMediator>(Lifetime.Singleton);
+        builder.RegisterEntryPoint<GamePauserInvaderSpawnerMediator>(Lifetime.Singleton);
+        builder.RegisterEntryPoint<GamePauserGameOverMediator>(Lifetime.Singleton);
+
+        builder.RegisterEntryPoint<PlayerMoverGamePauserMediator>(Lifetime.Singleton);
+        builder.RegisterEntryPoint<PlayerShooterGamePauserMediator>(Lifetime.Singleton);
+        builder.RegisterEntryPoint<PlayerBulletMoverGamePauserMediator>(Lifetime.Singleton);
+        builder.RegisterEntryPoint<InvaderMoverGamePauserMediator>(Lifetime.Singleton);
+        builder.RegisterEntryPoint<InvaderShooterGamePauserMediator>(Lifetime.Singleton);
+        builder.RegisterEntryPoint<InvaderBulletPoolGamePauserMediator>(Lifetime.Singleton);
+        builder.RegisterEntryPoint<UFOMoverGamePauserMediator>(Lifetime.Singleton);
 
         builder.RegisterEntryPoint<ScoreModelGameStateChangerMediator>(Lifetime.Singleton);
         builder.RegisterEntryPoint<PlayerSpawnerGameStateChangerMediator>(Lifetime.Singleton);
@@ -79,6 +85,9 @@ public class GameplayLifetimeScope : LifetimeScope
         builder.RegisterEntryPoint<UFOMoverGameStateChangerMediator>(Lifetime.Singleton);
         builder.RegisterEntryPoint<ShieldTileGameStateChangerMediator>(Lifetime.Singleton);
     }
+
+    private void ConfigureCamera(IContainerBuilder builder) => 
+        builder.RegisterInstance(_cameraNoiseView);
 
     private void ConfigureScore(IContainerBuilder builder)
     {
@@ -169,6 +178,8 @@ public class GameplayLifetimeScope : LifetimeScope
             .WithParameter(_invaderPrefabs);
         builder.RegisterEntryPoint<InvaderSpawner>(Lifetime.Singleton)
             .AsSelf();
+
+        builder.RegisterComponent(_invaderCenterView);
     }
 
     private void ConfigureInvaderMovement(IContainerBuilder builder)
@@ -224,6 +235,7 @@ public class GameplayLifetimeScope : LifetimeScope
     private void ConfigureUFODestruction(IContainerBuilder builder)
     {
         builder.RegisterComponent(_ufoDestroyerView);
+        builder.RegisterComponent(_ufoExplosionView);
         builder.RegisterEntryPoint<UFODestroyer>(Lifetime.Singleton)
             .AsSelf();
         builder.RegisterEntryPoint<UFODestroyerMediator>(Lifetime.Singleton);

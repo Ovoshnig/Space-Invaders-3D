@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using R3;
 using System;
 using System.Threading;
 using TMPro;
@@ -13,9 +14,15 @@ public class UFOExplosionView : MonoBehaviour
     [SerializeField] private float _afterDilateValue = -1f;
     [SerializeField, Min(0f)] private float _dilateDurationSeconds = 1f;
 
+    private readonly Subject<Unit> _started = new();
+    private readonly Subject<Unit> _ended = new();
+
     private MeshRenderer _meshRenderer;
     private TMP_Text _pointsText;
     private CancellationTokenSource _cts = null;
+
+    public Observable<Unit> Started => _started;
+    public Observable<Unit> Ended => _ended;
 
     private void Awake()
     {
@@ -25,15 +32,19 @@ public class UFOExplosionView : MonoBehaviour
 
     private void Start()
     {
+        gameObject.SetActive(false);
         _meshRenderer.enabled = false;
         _pointsText.enabled = false;
     }
 
     public async UniTask ExplodeAsync(int points)
     {
-        CancelCurrent();
+        CancelToken();
         _cts = new CancellationTokenSource();
 
+        _started.OnNext(Unit.Default);
+
+        gameObject.SetActive(true);
         _meshRenderer.enabled = true;
 
         try
@@ -58,19 +69,22 @@ public class UFOExplosionView : MonoBehaviour
         finally
         {
             if (this != null)
+            {
                 _pointsText.enabled = false;
+                gameObject.SetActive(false);
+                _ended.OnNext(Unit.Default);
+            }
         }
     }
 
-    private void OnDestroy() => CancelCurrent();
+    private void OnDestroy() => CancelToken();
 
-    private void CancelCurrent()
+    private void CancelToken()
     {
         if (_cts != null)
         {
             _cts.Cancel();
             _cts.Dispose();
-            _cts = null;
         }
     }
 }

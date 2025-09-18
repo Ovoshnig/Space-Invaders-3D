@@ -5,15 +5,22 @@ using System.Threading;
 using UnityEngine;
 using VContainer.Unity;
 
+public enum UFOMovingEndStatus
+{
+    Succeeded,
+    Failed
+}
+
 public class UFOMover : IInitializable, IDisposable
 {
+
     private readonly PlayerShooterModel _playerShooterModel;
     private readonly UFODestroyer _ufoDestroyer;
     private readonly FieldSettings _fieldSettings;
     private readonly UFOMovementSettings _ufoMovementSettings;
     private readonly InvaderSpawnSettings _invaderSpawnSettings;
     private readonly Subject<Vector3> _started = new();
-    private readonly Subject<Unit> _ended = new();
+    private readonly Subject<UFOMovingEndStatus> _ended = new();
     private readonly Subject<Vector3> _moved = new();
     private readonly CompositeDisposable _compositeDisposable = new();
 
@@ -39,7 +46,7 @@ public class UFOMover : IInitializable, IDisposable
     }
 
     public Observable<Vector3> Started => _started;
-    public Observable<Unit> Ended => _ended;
+    public Observable<UFOMovingEndStatus> Ended => _ended;
     public Observable<Vector3> Moved => _moved;
 
     public void Initialize()
@@ -120,16 +127,18 @@ public class UFOMover : IInitializable, IDisposable
         try
         {
             await MoveAsync(startPosition, _cts.Token);
+
+            _ended.OnNext(UFOMovingEndStatus.Succeeded);
         }
         catch (OperationCanceledException)
         {
+            _ended.OnNext(UFOMovingEndStatus.Failed);
         }
         finally
         {
             _direction *= -1;
             _isMoving = false;
             _lastShotCount = _playerShooterModel.ShotCount.CurrentValue;
-            _ended.OnNext(Unit.Default);
         }
     }
 
