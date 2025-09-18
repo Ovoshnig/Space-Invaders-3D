@@ -44,7 +44,7 @@ public class InvaderShooter
             if (_isPause)
                 await UniTask.WaitWhile(() => _isPause, cancellationToken: token);
 
-            if (_bulletPool.TryGetBullet(out InvaderBulletMoverView bulletMoverView))
+            if (_bulletPool.TryGetRandomBullet(out InvaderBulletMoverView bulletMoverView))
             {
                 int randomInvaderIndex = _invaderIndices[_random.Next(_invaderIndices.Length)];
                 _shot.OnNext(new ShotEvent(randomInvaderIndex, bulletMoverView));

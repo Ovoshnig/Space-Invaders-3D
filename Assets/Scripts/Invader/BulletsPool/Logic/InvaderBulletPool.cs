@@ -1,18 +1,21 @@
 using R3;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 using UnityEngine.Pool;
 using Object = UnityEngine.Object;
-using Random = System.Random;
+using Random = UnityEngine.Random;
 
 public class InvaderBulletPool : IDisposable
 {
     private readonly InvaderBulletMoverView[] _bulletPrefabs;
     private readonly InvaderShootingSettings _invaderShootingSettings;
-    private readonly ObjectPool<InvaderBulletMoverView> _pool;
+    private readonly List<ObjectPool<InvaderBulletMoverView>> _pools = new();
+    private readonly GameObject _parentObject = new("InvaderBullets");
     private readonly List<InvaderBulletMoverView> _activeBullets = new();
-    private readonly Random _random = new();
     private readonly Dictionary<InvaderBulletMoverView, IDisposable> _subscriptions = new();
+
 
     public InvaderBulletPool(InvaderBulletMoverView[] bulletPrefabs,
         InvaderShootingSettings invaderShootingSettings)
@@ -20,14 +23,22 @@ public class InvaderBulletPool : IDisposable
         _bulletPrefabs = bulletPrefabs;
         _invaderShootingSettings = invaderShootingSettings;
 
-        _pool = new ObjectPool<InvaderBulletMoverView>(
-            createFunc: CreateBullet,
-            actionOnGet: OnGetBullet,
+        for (int i = 0; i < _bulletPrefabs.Length; i++)
+        {
+            int index = i;
+            InvaderBulletMoverView prefab = _bulletPrefabs[index];
+
+            ObjectPool<InvaderBulletMoverView> pool = new(
+            createFunc: () => Object.Instantiate(prefab, _parentObject.transform),
+            actionOnGet: bullet => OnGetBullet(bullet, index),
             actionOnRelease: OnReleaseBullet,
             actionOnDestroy: OnDestroyBullet,
             collectionCheck: true,
             defaultCapacity: _invaderShootingSettings.MaxActive,
             maxSize: _invaderShootingSettings.MaxActive);
+
+            _pools.Add(pool);
+        }
     }
 
     public void Dispose()
@@ -38,14 +49,15 @@ public class InvaderBulletPool : IDisposable
         _subscriptions.Clear();
     }
 
-    public bool TryGetBullet(out InvaderBulletMoverView bullet)
+    public bool TryGetRandomBullet(out InvaderBulletMoverView bullet)
     {
         bullet = null;
 
-        if (_pool.CountActive >= _invaderShootingSettings.MaxActive)
+        if (_activeBullets.Count >= _invaderShootingSettings.MaxActive)
             return false;
 
-        bullet = _pool.Get();
+        int randomIndex = Random.Range(0, _pools.Count);
+        bullet = _pools[randomIndex].Get();
         return true;
     }
 
@@ -54,27 +66,18 @@ public class InvaderBulletPool : IDisposable
         for (int i = _activeBullets.Count - 1; i >= 0; i--)
         {
             InvaderBulletMoverView bullet = _activeBullets[i];
-            _pool.Release(bullet);
+            bullet.gameObject.SetActive(false);
         }
     }
 
-    private InvaderBulletMoverView CreateBullet()
-    {
-        int randomIndex = _random.Next(0, _bulletPrefabs.Length);
-        InvaderBulletMoverView prefab = _bulletPrefabs[randomIndex];
-        InvaderBulletMoverView bullet = Object.Instantiate(prefab);
-
-        return bullet;
-    }
-
-    private void OnGetBullet(InvaderBulletMoverView bullet)
+    private void OnGetBullet(InvaderBulletMoverView bullet, int index)
     {
         bullet.gameObject.SetActive(true);
         _activeBullets.Add(bullet);
 
         IDisposable subscription = bullet.IsEnabled
             .Where(isEnabled => !isEnabled)
-            .Subscribe(_ => _pool.Release(bullet));
+            .Subscribe(_ => _pools[index].Release(bullet));
 
         _subscriptions[bullet] = subscription;
     }
