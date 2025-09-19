@@ -86,7 +86,7 @@ public class GameplayLifetimeScope : LifetimeScope
         builder.RegisterEntryPoint<ShieldTileGameStateChangerMediator>(Lifetime.Singleton);
     }
 
-    private void ConfigureCamera(IContainerBuilder builder) => 
+    private void ConfigureCamera(IContainerBuilder builder) =>
         builder.RegisterInstance(_cameraNoiseView);
 
     private void ConfigureScore(IContainerBuilder builder)
