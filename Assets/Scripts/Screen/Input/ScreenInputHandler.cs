@@ -6,14 +6,14 @@ public class ScreenInputHandler : InputHandler<InputActions.ScreenActions>
         : base(inputActions.Screen) { }
 
     public ReadOnlyReactiveProperty<bool> SwitchFullScreenPressed { get; private set; }
-    public ReadOnlyReactiveProperty<bool> PassSplashImagePressed { get; private set; }
+    public ReadOnlyReactiveProperty<bool> SkipSplashImagePressed { get; private set; }
 
     public override void Initialize()
     {
         base.Initialize();
 
         SwitchFullScreenPressed = BindButton(a => a.SwitchFullScreen);
-        PassSplashImagePressed = BindButton(a => a.PassSplashImage);
+        SkipSplashImagePressed = BindButton(a => a.SkipSplashImage);
     }
 
     protected override void EnableActions() => Actions.Enable();

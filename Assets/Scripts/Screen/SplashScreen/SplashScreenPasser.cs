@@ -8,15 +8,16 @@ public class SplashScreenPasser : IInitializable, IDisposable
     private readonly ScreenInputHandler _screenInputHandler;
     private readonly CompositeDisposable _compositeDisposable = new();
 
-    public SplashScreenPasser(ScreenInputHandler screenInputHandler) => _screenInputHandler = screenInputHandler;
+    public SplashScreenPasser(ScreenInputHandler screenInputHandler) => 
+        _screenInputHandler = screenInputHandler;
 
     public void Initialize()
     {
         Play();
 
-        _screenInputHandler.PassSplashImagePressed
+        _screenInputHandler.SkipSplashImagePressed
             .Where(isPressed => isPressed)
-            .Subscribe(_ => OnPassPressed())
+            .Subscribe(_ => OnSkipPressed())
             .AddTo(_compositeDisposable);
     }
 
@@ -28,7 +29,7 @@ public class SplashScreenPasser : IInitializable, IDisposable
         SplashScreen.Draw();
     }
 
-    private void OnPassPressed()
+    private void OnSkipPressed()
     {
         if (!SplashScreen.isFinished)
             SplashScreen.Stop(SplashScreen.StopBehavior.FadeOut);

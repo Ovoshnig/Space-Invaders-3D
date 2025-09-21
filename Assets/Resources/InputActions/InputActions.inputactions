@@ -343,7 +343,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "PassSplashImage",
+                    "name": "SkipSplashImage",
                     "type": "Button",
                     "id": "40e8bbde-6c70-4583-a3b5-fc4f7bf85ae0",
                     "expectedControlType": "",
@@ -371,7 +371,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard and Mouse",
-                    "action": "PassSplashImage",
+                    "action": "SkipSplashImage",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
