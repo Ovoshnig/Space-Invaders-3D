@@ -9,6 +9,9 @@ public class ProjectLifetimeScope : LifetimeScope
     protected override void Configure(IContainerBuilder builder)
     {
         builder.Register<InputActions>(Lifetime.Singleton);
+        builder.RegisterEntryPoint<ScreenInputHandler>(Lifetime.Singleton)
+            .AsSelf();
+
         builder.Register<AddressableLoader>(Lifetime.Singleton);
 
         builder.RegisterEntryPoint<SceneSwitch>(Lifetime.Singleton)
