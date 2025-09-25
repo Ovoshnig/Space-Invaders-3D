@@ -22,8 +22,8 @@ public class PlayButtonPrinterView : TextPrinterView
 
     protected override void OnDestroy()
     {
-        base.OnDestroy();
-
         _compositeDisposable.Dispose();
+
+        base.OnDestroy();
     }
 }

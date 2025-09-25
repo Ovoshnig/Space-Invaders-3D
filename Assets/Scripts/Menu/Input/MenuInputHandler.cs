@@ -6,12 +6,14 @@ public class MenuInputHandler : InputHandler<InputActions.MenuActions>
         : base(inputActions.Menu) { }
 
     public ReadOnlyReactiveProperty<bool> CloseCurrentPressed { get; private set; }
+    public ReadOnlyReactiveProperty<bool> SkipTextPrintingPressed { get; private set; }
 
     public override void Initialize()
     {
         base.Initialize();
 
         CloseCurrentPressed = BindButton(a => a.CloseCurrent);
+        SkipTextPrintingPressed = BindButton(a => a.SkipTextPrinting);
     }
 
     protected override void EnableActions() => Actions.Enable();

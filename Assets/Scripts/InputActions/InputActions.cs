@@ -331,6 +331,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SkipTextPrinting"",
+                    ""type"": ""Button"",
+                    ""id"": ""5752907f-38b4-4a64-a48e-8e6660bb629e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -342,6 +351,17 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Keyboard and Mouse"",
                     ""action"": ""CloseCurrent"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0b3f71fe-be8c-43ec-9aa6-fe32c6b0df1f"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SkipTextPrinting"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -509,6 +529,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         // Menu
         m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
         m_Menu_CloseCurrent = m_Menu.FindAction("CloseCurrent", throwIfNotFound: true);
+        m_Menu_SkipTextPrinting = m_Menu.FindAction("SkipTextPrinting", throwIfNotFound: true);
         // Window
         m_Window = asset.FindActionMap("Window", throwIfNotFound: true);
         m_Window_CloseCurrent = m_Window.FindAction("CloseCurrent", throwIfNotFound: true);
@@ -861,6 +882,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Menu;
     private List<IMenuActions> m_MenuActionsCallbackInterfaces = new List<IMenuActions>();
     private readonly InputAction m_Menu_CloseCurrent;
+    private readonly InputAction m_Menu_SkipTextPrinting;
     /// <summary>
     /// Provides access to input actions defined in input action map "Menu".
     /// </summary>
@@ -876,6 +898,10 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Menu/CloseCurrent".
         /// </summary>
         public InputAction @CloseCurrent => m_Wrapper.m_Menu_CloseCurrent;
+        /// <summary>
+        /// Provides access to the underlying input action "Menu/SkipTextPrinting".
+        /// </summary>
+        public InputAction @SkipTextPrinting => m_Wrapper.m_Menu_SkipTextPrinting;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -905,6 +931,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @CloseCurrent.started += instance.OnCloseCurrent;
             @CloseCurrent.performed += instance.OnCloseCurrent;
             @CloseCurrent.canceled += instance.OnCloseCurrent;
+            @SkipTextPrinting.started += instance.OnSkipTextPrinting;
+            @SkipTextPrinting.performed += instance.OnSkipTextPrinting;
+            @SkipTextPrinting.canceled += instance.OnSkipTextPrinting;
         }
 
         /// <summary>
@@ -919,6 +948,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @CloseCurrent.started -= instance.OnCloseCurrent;
             @CloseCurrent.performed -= instance.OnCloseCurrent;
             @CloseCurrent.canceled -= instance.OnCloseCurrent;
+            @SkipTextPrinting.started -= instance.OnSkipTextPrinting;
+            @SkipTextPrinting.performed -= instance.OnSkipTextPrinting;
+            @SkipTextPrinting.canceled -= instance.OnSkipTextPrinting;
         }
 
         /// <summary>
@@ -1289,6 +1321,13 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnCloseCurrent(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "SkipTextPrinting" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSkipTextPrinting(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Window" which allows adding and removing callbacks.

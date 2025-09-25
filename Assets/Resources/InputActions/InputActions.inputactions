@@ -245,6 +245,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "SkipTextPrinting",
+                    "type": "Button",
+                    "id": "5752907f-38b4-4a64-a48e-8e6660bb629e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -256,6 +265,17 @@
                     "processors": "",
                     "groups": ";Keyboard and Mouse",
                     "action": "CloseCurrent",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0b3f71fe-be8c-43ec-9aa6-fe32c6b0df1f",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SkipTextPrinting",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

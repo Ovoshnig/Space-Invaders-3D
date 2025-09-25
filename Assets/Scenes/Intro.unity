@@ -288,6 +288,7 @@ MonoBehaviour:
     TypeName: 
   autoRun: 1
   autoInjectGameObjects: []
+  _introCanvas: {fileID: 2062200049}
   _firstLevelButtonView: {fileID: 369368619}
 --- !u!4 &596036116
 Transform:
@@ -806,7 +807,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a16fa79421c535d409db0f90f299bfa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Menu::TextPrinterView
-  _speed: 7
+  _speed: 8
   _playOnAwake: 1
 --- !u!1 &1162968199
 GameObject:
@@ -1304,7 +1305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d71dfed1904161147aacc35944a6189a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Menu::PlayButtonPrinterView
-  _speed: 7
+  _speed: 8
   _playOnAwake: 0
   _scoreTablePrinterView: {fileID: 1104733352}
 --- !u!1 &2047139596
