@@ -18,6 +18,12 @@ public class InvaderMoverView : MonoBehaviour
         }
     }
 
+    public void ResetMesh()
+    {
+        _meshIndex = 0;
+        MeshFilter.mesh = _meshes[_meshIndex];
+    }
+
     public void Move(Vector3 movement)
     {
         transform.Translate(movement);
