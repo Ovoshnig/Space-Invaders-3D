@@ -21,7 +21,9 @@ public class InvaderRegistryGameStateChangerMediator : Mediator
 
     private void OnGameRestarted()
     {
-        for (int i = _invaderRegistry.Invaders.Count - 1; i >= 0; i--)
+        int invadersCount = _invaderRegistry.Invaders.Count;
+
+        for (int i = 0; i < invadersCount; i++)
         {
             InvaderEntityView invader = _invaderRegistry.Invaders[0];
             invader.gameObject.SetActive(false);
