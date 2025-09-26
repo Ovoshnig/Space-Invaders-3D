@@ -7,8 +7,8 @@ public class UFODestroyer : CollidedDestroyer<UFOMoverView, PlayerBulletMoverVie
     private readonly Random _random = new();
     private readonly ReactiveProperty<int> _lastPoints = new();
 
-    public UFODestroyer(CollisionReporter<UFOMoverView> collider,
-        InvaderPointsSettings invaderPointsSettings) : base(collider) =>
+    public UFODestroyer(UFOCollisionReporter ufoCollisionReporter,
+        InvaderPointsSettings invaderPointsSettings) : base(ufoCollisionReporter) =>
         _invaderPointsSettings = invaderPointsSettings;
 
     public ReadOnlyReactiveProperty<int> LastPoints => _lastPoints;

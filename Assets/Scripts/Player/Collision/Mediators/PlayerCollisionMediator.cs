@@ -2,9 +2,9 @@
 {
     private readonly PlayerMoverView _playerMoverView;
 
-    public PlayerCollisionMediator(CollisionReporter<PlayerMoverView> collisionReporter, 
-        PlayerMoverView playerMoverView) 
-        : base(collisionReporter) => _playerMoverView = playerMoverView;
+    public PlayerCollisionMediator(PlayerCollisionReporter playerCollisionReporter,
+        PlayerMoverView playerMoverView)
+        : base(playerCollisionReporter) => _playerMoverView = playerMoverView;
 
     public override void Initialize()
     {

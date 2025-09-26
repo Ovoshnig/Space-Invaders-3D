@@ -6,8 +6,8 @@ public class PlayerDestroyer : CollidedDestroyer<PlayerMoverView, InvaderBulletM
     private readonly PlayerSettings _playerSettings;
     private readonly Subject<CollidedDestructionEvent<PlayerMoverView, InvaderBulletMoverView>> _startDestroying = new();
 
-    public PlayerDestroyer(CollisionReporter<PlayerMoverView> collider, PlayerSettings playerSettings)
-        : base(collider) => _playerSettings = playerSettings;
+    public PlayerDestroyer(PlayerCollisionReporter playerCollisionReporter, PlayerSettings playerSettings)
+        : base(playerCollisionReporter) => _playerSettings = playerSettings;
 
     public Observable<CollidedDestructionEvent<PlayerMoverView, InvaderBulletMoverView>> StartDestroying => _startDestroying;
 

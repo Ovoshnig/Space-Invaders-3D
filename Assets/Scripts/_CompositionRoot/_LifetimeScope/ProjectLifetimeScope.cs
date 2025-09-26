@@ -4,31 +4,17 @@ using VContainer.Unity;
 
 public class ProjectLifetimeScope : LifetimeScope
 {
-    [SerializeField] private GameSettings _gameSettings;
+    [SerializeField] private GameSettingsInstaller _gameSettingsInstaller;
 
     protected override void Configure(IContainerBuilder builder)
     {
-        builder.Register<InputActions>(Lifetime.Singleton);
         builder.RegisterEntryPoint<ScreenInputHandler>(Lifetime.Singleton)
             .AsSelf();
 
-        builder.Register<AddressableLoader>(Lifetime.Singleton);
+        new InputActionsInstaller().Install(builder);
+        new AddressableLoadingInstaller().Install(builder);
+        new SceneInstaller().Install(builder);
 
-        builder.RegisterEntryPoint<SceneSwitch>(Lifetime.Singleton)
-            .AsSelf();
-
-        builder.RegisterInstance(_gameSettings.SceneSettings);
-        builder.RegisterInstance(_gameSettings.FieldSettings);
-
-        builder.RegisterInstance(_gameSettings.PlayerSettings);
-
-        builder.RegisterInstance(_gameSettings.InvaderSettings.InvaderSpawnSettings);
-        builder.RegisterInstance(_gameSettings.InvaderSettings.InvaderMovementSettings);
-        builder.RegisterInstance(_gameSettings.InvaderSettings.InvaderShootingSettings);
-        builder.RegisterInstance(_gameSettings.InvaderSettings.InvaderPointsSettings);
-
-        builder.RegisterInstance(_gameSettings.UFOMovementSettings);
-
-        builder.RegisterInstance(_gameSettings.AudioSettings);
+        _gameSettingsInstaller.Install(builder);
     }
 }

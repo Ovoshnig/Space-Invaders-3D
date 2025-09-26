@@ -7158,30 +7158,48 @@ MonoBehaviour:
     TypeName: 
   autoRun: 1
   autoInjectGameObjects: []
-  _cameraNoiseView: {fileID: 8867440405274427430}
-  _scoreView: {fileID: 1488295553}
-  _gameOverView: {fileID: 922423757}
-  _gameRestarterView: {fileID: 1689650803}
-  _playerMoverView: {fileID: 2955268501308012543}
-  _playerShooterView: {fileID: 2955268501308012544}
-  _playerBulletMoverView: {fileID: 1588058309}
-  _playerSoundPlayerView: {fileID: 2955268501308012542}
-  _playerHealthView: {fileID: 203543734}
-  _invaderPrefabs:
-  - {fileID: 3016948755910145002, guid: bcce0ffe98286d74e8785752f80a7b16, type: 3}
-  - {fileID: 3139115334511344796, guid: 1d30202986a5d0344b28c500cd827a2e, type: 3}
-  - {fileID: 3359560491919458816, guid: 7fbfa19f11962c24b82f52d1ddbf07a5, type: 3}
-  _invaderCenterView: {fileID: 1078252573}
-  _invaderBulletPrefabs:
-  - {fileID: -3898541994759505542, guid: 45a76ea7350445f42ad6494b9ee49b88, type: 3}
-  - {fileID: -3088587566987001662, guid: 1b3019b69c76d084493e9a69b8da47e2, type: 3}
-  - {fileID: 1766495517313941118, guid: 7394284fc2bae35448a33a7652b83943, type: 3}
-  _invaderSoundPlayerView: {fileID: 1950452117}
-  _UFOMoverView: {fileID: 1444990754}
-  _ufoSoundPlayerView: {fileID: 637418184}
-  _ufoDestroyerView: {fileID: 1844203572}
-  _ufoExplosionView: {fileID: 3105855972805354902}
-  _shieldParent: {fileID: 733997206}
+  _cameraInstaller:
+    _cameraNoiseView: {fileID: 8867440405274427430}
+  _gameStateChangeInstaller:
+    _gameOverView: {fileID: 922423757}
+    _gameRestarterView: {fileID: 1689650803}
+  _scoreInstaller:
+    _scoreView: {fileID: 1488295553}
+  _playerInstaller:
+    _playerMovementInstaller:
+      _playerMoverView: {fileID: 2955268501308012543}
+    _playerShootingInstaller:
+      _playerShooterView: {fileID: 2955268501308012544}
+    _playerHealthInstaller:
+      _playerHealthView: {fileID: 203543734}
+    _playerSoundInstaller:
+      _playerSoundPlayerView: {fileID: 2955268501308012542}
+  _bulletInstaller:
+    _playerBulletMoverView: {fileID: 1588058309}
+  _invaderInstaller:
+    _invaderSpawnInstaller:
+      _invaderPrefabs:
+      - {fileID: 3016948755910145002, guid: bcce0ffe98286d74e8785752f80a7b16, type: 3}
+      - {fileID: 3139115334511344796, guid: 1d30202986a5d0344b28c500cd827a2e, type: 3}
+      - {fileID: 3359560491919458816, guid: 7fbfa19f11962c24b82f52d1ddbf07a5, type: 3}
+      _invaderCenterView: {fileID: 1078252573}
+    _invaderShootingInstaller:
+      _invaderBulletPrefabs:
+      - {fileID: -3898541994759505542, guid: 45a76ea7350445f42ad6494b9ee49b88, type: 3}
+      - {fileID: -3088587566987001662, guid: 1b3019b69c76d084493e9a69b8da47e2, type: 3}
+      - {fileID: 1766495517313941118, guid: 7394284fc2bae35448a33a7652b83943, type: 3}
+    _invaderSoundInstaller:
+      _invaderSoundPlayerView: {fileID: 1950452117}
+  _ufoInstaller:
+    _ufoMovementInstaller:
+      _UFOMoverView: {fileID: 1444990754}
+    _ufoDestructionInstaller:
+      _ufoDestroyerView: {fileID: 1844203572}
+      _ufoExplosionView: {fileID: 3105855972805354902}
+    _ufoSoundInstaller:
+      _ufoSoundPlayerView: {fileID: 637418184}
+  _shieldInstaller:
+    _shieldParent: {fileID: 733997206}
 --- !u!1001 &1881429246
 PrefabInstance:
   m_ObjectHideFlags: 0
