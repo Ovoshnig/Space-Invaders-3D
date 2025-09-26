@@ -31,7 +31,8 @@ public class SplashScreenLogic : IInitializable, IDisposable
     {
         Stop();
 
-        _compositeDisposable.Dispose();
+        if (!_compositeDisposable.IsDisposed)
+            _compositeDisposable.Dispose();
 
         _cts.Cancel();
         _cts.Dispose();
@@ -56,6 +57,9 @@ public class SplashScreenLogic : IInitializable, IDisposable
     private void Stop()
     {
         if (!SplashScreen.isFinished)
+        {
             SplashScreen.Stop(SplashScreen.StopBehavior.FadeOut);
+            _compositeDisposable.Dispose();
+        }
     }
 }
